@@ -1,5 +1,6 @@
 export const BACKEND_ENDPOINTS = {
-  JOB_TRACKER_BACKEND: "https://job-tracker-backend-x.vercel.app/api",
+    JOB_TRACKER_BACKEND: process.env.NEXT_PUBLIC_BACKEND_URL!,
+
 };
 
 type ApiRouts = {
