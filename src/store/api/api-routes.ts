@@ -1,5 +1,5 @@
 export const BACKEND_ENDPOINTS = {
-    JOB_TRACKER_BACKEND: process.env.NEXT_PUBLIC_BACKEND_URL!,
+    JOB_TRACKER_BACKEND: 'https://apply-tracker-backend.vercel.app/api',
 
 };
 
