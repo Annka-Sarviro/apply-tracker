@@ -29,7 +29,7 @@ export default {
         blackColor: "#333333",
         redColor: "var(--errorColor)", // error red
         // redColor: "rgba(252, 137, 114, 1)",
-        greyLightcolor: "#dbdcdd",
+        greyLightColor: "#dbdcdd",
         // textBlack: "#333333", // перевела на дві теми в index.css
         textBlack: "var(--textBlack)",
         // textBlackLight: "rgba(51, 51, 51, 0.5)", // це колір #333333 з opacity // перевела на дві теми в index.css

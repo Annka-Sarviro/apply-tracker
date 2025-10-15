@@ -8,10 +8,10 @@ import { Color, ContentMapProps } from "./ModalMain.types";
 import AddEventModal from "../Soon/addEventModal/AddEventModal";
 import EditEventModal from "../Soon/editEvent/EditEventModal";
 import ModalRemoveAccount from "./components/profileModals/ModalRemoveAccount";
-import ModalMuttionProfileData from "./components/profileModals/ModalMuttionProfileData";
 import ModalRemoveProperties from "./components/profileModals/ModalRemoveProperties";
 import ConfirmToRemoveModal from "./components/confirmToRemove/ConfirmToRemoveModal";
 import ModalAddProperties from "./components/profileModals/ModalAddProperties";
+import ModalMutationProfileData from "./components/profileModals/ModalMutationProfileData";
 
 // const colorDefault: Color = {
 //   text: "text-textWhite",
@@ -114,8 +114,8 @@ export const contentMap: ContentMapProps = {
     bgColor: colorButton.bg,
     borderColor: colorButton.border,
   },
-  arhiveVacancy: {
-    content: <InfoModal type="arhiveVacancy" textColor={colorButton.text} />,
+  archiveVacancy: {
+    content: <InfoModal type="archiveVacancy" textColor={colorButton.text} />,
     bgColor: colorButton.bg,
     borderColor: colorButton.border,
   },
@@ -137,49 +137,49 @@ export const contentMap: ContentMapProps = {
     borderColor: colorButton.border,
   },
   addPersonalProperties: {
-    content: <ModalMuttionProfileData cardsType="addPersonalProperties" />,
+    content: <ModalMutationProfileData cardsType="addPersonalProperties" />,
     nameModal: "addPersonalProperties.modalAddTitle",
     bgColor: colorButton.bg,
     borderColor: colorButton.border,
   },
   addResumes: {
-    content: <ModalMuttionProfileData cardsType="addResumes" />,
+    content: <ModalMutationProfileData cardsType="addResumes" />,
     nameModal: "addResumes.modalAddTitle",
     bgColor: colorButton.bg,
     borderColor: colorButton.border,
   },
   addProjects: {
-    content: <ModalMuttionProfileData cardsType="addProjects" />,
+    content: <ModalMutationProfileData cardsType="addProjects" />,
     nameModal: "addProjects.modalAddTitle",
     bgColor: colorButton.bg,
     borderColor: colorButton.border,
   },
   addCoverLetters: {
-    content: <ModalMuttionProfileData cardsType="addCoverLetters" />,
+    content: <ModalMutationProfileData cardsType="addCoverLetters" />,
     nameModal: "addCoverLetters.modalAddTitle",
     bgColor: colorButton.bg,
     borderColor: colorButton.border,
   },
   editPersonalProperties: {
-    content: <ModalMuttionProfileData cardsType="addPersonalProperties" />,
+    content: <ModalMutationProfileData cardsType="addPersonalProperties" />,
     nameModal: "addPersonalProperties.modalEditTitle",
     bgColor: colorButton.bg,
     borderColor: colorButton.border,
   },
   editResumes: {
-    content: <ModalMuttionProfileData cardsType="addResumes" />,
+    content: <ModalMutationProfileData cardsType="addResumes" />,
     nameModal: "addResumes.modalEditTitle",
     bgColor: colorButton.bg,
     borderColor: colorButton.border,
   },
   editProjects: {
-    content: <ModalMuttionProfileData cardsType="addProjects" />,
+    content: <ModalMutationProfileData cardsType="addProjects" />,
     nameModal: "addProjects.modalEditTitle",
     bgColor: colorButton.bg,
     borderColor: colorButton.border,
   },
   editCoverLetters: {
-    content: <ModalMuttionProfileData cardsType="addCoverLetters" />,
+    content: <ModalMutationProfileData cardsType="addCoverLetters" />,
     nameModal: "addCoverLetters.modalEditTitle",
     bgColor: colorButton.bg,
     borderColor: colorButton.border,
@@ -216,7 +216,7 @@ export const contentMap: ContentMapProps = {
   },
   confirmToRemove: {
     content: <ConfirmToRemoveModal />,
-    nameModal: "Confrm to remove",
+    nameModal: "Confirm to remove",
     bgColor: colorButton.bg,
     borderColor: colorButton.border,
   },
@@ -275,38 +275,40 @@ export const contentMap: ContentMapProps = {
     bgColor: colorButton.bg,
     borderColor: colorButton.border,
   },
-  closeModaldeleteNote: {
-    content: <InfoModal type="closeModaldeleteNote" textColor={colorButton.text} />,
-    bgColor: colorButton.bg,
-    borderColor: colorButton.border,
-  },
-  closeModalsaveNote: {
+  closeModalDeleteNote: {
     content: (
-      <InfoModal type="closeModalsaveNote" textColor={colorButton.text} />
+      <InfoModal type="closeModalDeleteNote" textColor={colorButton.text} />
     ),
     bgColor: colorButton.bg,
     borderColor: colorButton.border,
   },
-  closeModalsaveEditVacancies: {
+  closeModalSaveNote: {
+    content: (
+      <InfoModal type="closeModalSaveNote" textColor={colorButton.text} />
+    ),
+    bgColor: colorButton.bg,
+    borderColor: colorButton.border,
+  },
+  closeModalSaveEditVacancies: {
     content: (
       <InfoModal
-        type="closeModalsaveEditVacancies"
+        type="closeModalSaveEditVacancies"
         textColor={colorButton.text}
       />
     ),
     bgColor: colorButton.bg,
     borderColor: colorButton.border,
   },
-  closeModalsaveEditEvent: {
+  closeModalSaveEditEvent: {
     content: (
-      <InfoModal type="closeModalsaveEditEvent" textColor={colorButton.text} />
+      <InfoModal type="closeModalSaveEditEvent" textColor={colorButton.text} />
     ),
     bgColor: colorButton.bg,
     borderColor: colorButton.border,
   },
-  closeModalsaveAddEvent: {
+  closeModalSaveAddEvent: {
     content: (
-      <InfoModal type="closeModalsaveAddEvent" textColor={colorButton.text} />
+      <InfoModal type="closeModalSaveAddEvent" textColor={colorButton.text} />
     ),
     bgColor: colorButton.bg,
     borderColor: colorButton.border,

@@ -22,7 +22,7 @@ const NoteCard: FC<Note> = (note) => {
   }).format(new Date(updatedAt));
 
   const dispatch = useAppDispatch();
-  const handleNoteCard = (typeModal: "updateNote" | "closeModaldeleteNote") => {
+  const handleNoteCard = (typeModal: "updateNote" | "closeModalDeleteNote") => {
     dispatch(
       openModal({
         typeModal,
@@ -33,10 +33,10 @@ const NoteCard: FC<Note> = (note) => {
 
   return (
     <div className="w-full font-nunito text-base leading-[135%]" id={id}>
-      <div className="w-[118px] truncate rounded-t-xl bg-backgroundSecondary px-3 py-[6px] font-medium text-blackColor dark:bg-greyLightcolor md:w-[141px] md:text-xl xl:w-[149px] xl:px-4">
+      <div className="dark:bg-greyLightColor w-[118px] truncate rounded-t-xl bg-backgroundSecondary px-3 py-[6px] font-medium text-blackColor md:w-[141px] md:text-xl xl:w-[149px] xl:px-4">
         {name}
       </div>
-      <div className="flex h-auto flex-col justify-between rounded-xl rounded-tl-none border-4 border-backgroundSecondary p-3 dark:border-greyLightcolor">
+      <div className="dark:border-greyLightColor flex h-auto flex-col justify-between rounded-xl rounded-tl-none border-4 border-backgroundSecondary p-3">
         <p
           className="mb-6 line-clamp-[7] cursor-pointer break-words text-textBlack smOnly:break-all"
           onClick={() => handleNoteCard("updateNote")}
@@ -52,7 +52,7 @@ const NoteCard: FC<Note> = (note) => {
             <IconButton
               label="Delete_note_button"
               variant="default"
-              onClick={() => handleNoteCard("closeModaldeleteNote")}
+              onClick={() => handleNoteCard("closeModalDeleteNote")}
               className="custom-hover p-0 hover:fill-iconHover active:fill-iconHover"
             >
               <Icon id={ICON.DELETE} className="size-10 md:size-6" />

@@ -57,7 +57,11 @@ function ModalRemoveAccount() {
         variant="accent"
         disabled={isLoading}
         onClick={() => {
-          !isConfirmModal ? setIsConfirmModal(true) : removeUserById();
+          if (!isConfirmModal) {
+            setIsConfirmModal(true);
+          } else {
+            removeUserById();
+          }
         }}
       >
         {!isConfirmModal

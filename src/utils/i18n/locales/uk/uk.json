@@ -8,7 +8,7 @@
     "linkName": "Назва",
     "placeHolderSocials": "Вкажіть назву посилання",
     "linkSocial": "Лінк на соціальну мережу",
-    "placeholderlinkSocial": "Вставте лінк на соціальну мережу",
+    "placeholderLinkSocial": "Вставте лінк на соціальну мережу",
     "placeholderNameResume": "Вкажіть назву резюме",
     "linkResume": "Лінк на резюме",
     "placeholderLinkResume": "Вставте лінк на резюме",
@@ -19,7 +19,7 @@
     "technology": "Технології",
     "placeholderTechnology": "Вкажіть технології які використовували",
     "linkProject": "Лінк на проєкт",
-    "placeholderlinkProject": "Вставте лінк на проєкт",
+    "placeholderLinkProject": "Вставте лінк на проєкт",
     "textProject": "Опис проєкту",
     "placeholderTextProject": "Можете описати проєкт",
     "modalRemoveLink": "Видалити посилання",
@@ -173,7 +173,7 @@
     "firstMessage": "Збережіть хоча б одну вакансію для того, щоб бачити статистику!",
     "predictions": "Передбачення на сьогодні"
   },
-  "statisticsDoughnatDiagram": "Статистика активних статусів",
+  "statisticsDoughnutDiagram": "Статистика активних статусів",
   "statisticsRejectDiagram": {
     "title": "Причини відмов",
     "OTHER": "Інше",

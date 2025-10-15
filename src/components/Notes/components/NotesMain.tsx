@@ -3,12 +3,12 @@ import { useMediaQuery } from "react-responsive";
 
 import { useGetAllUserDataQuery } from "@/store/querySlices/profileQuerySlice";
 import { useAppDispatch, useAppSelector, useFilteredNotes } from "@/store/hook";
-import { selectfilteredNotes } from "@/store/slices/filteredNotesSlice/filteredNotesSelector";
+import { selectFilteredNotes } from "@/store/slices/filteredNotesSlice/filteredNotesSelector";
 import { setFilteredNotes } from "@/store/slices/filteredNotesSlice/filteredNotesSlice";
 
-import NoteCardSceleton from "./NoteCardSceleton";
+import NoteCardSkeleton from "./NoteCardSkeleton";
 import NoteCard from "./NoteCard";
-import NoVacancyCard from "@/components/Statistics/componets/statisticsPanel/NoVacancyCard";
+import NoVacancyCard from "@/components/Statistics/components/statisticsPanel/NoVacancyCard";
 import { Note } from "@/types/notes.types";
 
 const NotesMain = () => {
@@ -16,7 +16,7 @@ const NotesMain = () => {
   const { data, isLoading, isError } = useGetAllUserDataQuery();
 
   const { sortNotesType, searchNotesQuery } =
-    useAppSelector(selectfilteredNotes);
+    useAppSelector(selectFilteredNotes);
 
   const notes = data?.notes || [];
 
@@ -52,7 +52,7 @@ const NotesMain = () => {
     <div className="flex w-full flex-col justify-center gap-6 md:flex-row">
       {isLoading &&
         Array.from({ length: skeletonCount }).map((_, index) => (
-          <NoteCardSceleton key={index} />
+          <NoteCardSkeleton key={index} />
         ))}
       {isError && <h2 className="text-textBlack">Error...</h2>}
       {!isLoading && !isError && notes.length === 0 && <NoVacancyCard />}

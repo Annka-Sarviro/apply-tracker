@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import { addProfileData } from "@/schemas/profile/addProfileDataSchema";
@@ -21,7 +21,7 @@ import {
 } from "@/store/slices/modalSlice/modalSlice";
 import { TypesModal } from "../../ModalMain.types";
 
-function ModalMuttionProfileData({ cardsType }: PropsModalAddProperties) {
+function ModalMutationProfileData({ cardsType }: PropsModalAddProperties) {
   const {
     register,
     handleSubmit,
@@ -47,7 +47,7 @@ function ModalMuttionProfileData({ cardsType }: PropsModalAddProperties) {
     setValue("link", updateItem.link || "");
     setValue("technologies", updateItem.technologies || "");
     setValue("text", updateItem.description || updateItem.text);
-  }, [updateItem]);
+  }, [setValue, updateItem]);
 
   // alex
   const name = watch("name");
@@ -82,24 +82,27 @@ function ModalMuttionProfileData({ cardsType }: PropsModalAddProperties) {
 
   const dispatch = useAppDispatch();
 
-  const handleConfirmation = (
-    typeConfirmation: TypesModal,
-    // якщо add - дані форми, якщо ні = id резюме, листа або проекта
-    add: boolean = false
-  ) => {
-    if (error) {
-      dispatch(openConfirmation({ typeConfirmation: "closeDiscardModal" }));
-    }
-    handleSubmit((data) => {
-      console.log("data", data);
-      dispatch(
-        openConfirmation({
-          typeConfirmation,
-          dataConfirmation: add ? data : updateItem.id,
-        })
-      );
-    })();
-  };
+  const handleConfirmation = useCallback(
+    (
+      typeConfirmation: TypesModal,
+      add: boolean = false // якщо add — дані форми, якщо ні — id
+    ) => {
+      if (error) {
+        dispatch(openConfirmation({ typeConfirmation: "closeDiscardModal" }));
+      }
+
+      handleSubmit((data) => {
+        console.log("data", data);
+        dispatch(
+          openConfirmation({
+            typeConfirmation,
+            dataConfirmation: add ? data : updateItem.id,
+          })
+        );
+      })();
+    },
+    [dispatch, error, handleSubmit, updateItem?.id]
+  );
   // add
   const handleAddButton = () => {
     const typeConfirmationAdd: string = "update" + cardsType.slice(3);
@@ -122,7 +125,7 @@ function ModalMuttionProfileData({ cardsType }: PropsModalAddProperties) {
           handleConfirmation(typeConfirmationForModal as TypesModal, true),
       })
     );
-  }, [isFormChanged, errors]);
+  }, [isFormChanged, errors, cardsType, dispatch, handleConfirmation]);
 
   return (
     <form className="flex h-full w-full flex-col gap-5">
@@ -215,4 +218,4 @@ function ModalMuttionProfileData({ cardsType }: PropsModalAddProperties) {
   );
 }
 
-export default ModalMuttionProfileData;
+export default ModalMutationProfileData;

@@ -13,7 +13,7 @@ import { Profile } from "@/types/profile.types";
 import SocialLinksFields from "./fields/SocialLinksFields";
 import { useTranslation } from "react-i18next";
 import ProfileLinksField from "./fields/ProfileLinksField";
-import SceletonProfile from "./SceletonProfile";
+import SkeletonProfile from "./SkeletonProfile";
 
 function FormProfileCard({ cardsType }: PropsProfileCard) {
   const { data: profile, isLoading } = useGetAllUserDataQuery();
@@ -80,9 +80,9 @@ function FormProfileCard({ cardsType }: PropsProfileCard) {
   };
 
   return (
-    <div className="dark:border-greyLightcolor flex flex-col gap-2 rounded-[0_12px_12px_12px] border-[4px] border-solid border-backgroundSecondary bg-backgroundTertiary px-2 py-4 md:px-6 md:py-6">
+    <div className="dark:border-greyLightColor flex flex-col gap-2 rounded-[0_12px_12px_12px] border-[4px] border-solid border-backgroundSecondary bg-backgroundTertiary px-2 py-4 md:px-6 md:py-6">
       {isLoading ? (
-        <SceletonProfile />
+        <SkeletonProfile />
       ) : (
         <>
           {cardsType === "addPersonalProperties" && (

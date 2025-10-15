@@ -25,7 +25,7 @@ export const useData = () => {
       name: t("modalAddProperties.linkName"),
       placeholderName: t("modalAddProperties.placeHolderSocials"),
       link: t("modalAddProperties.linkSocial"),
-      placeholderLink: t("modalAddProperties.placeholderlinkSocial"),
+      placeholderLink: t("modalAddProperties.placeholderLinkSocial"),
     },
     addProjects: {
       name: t("modalAddProperties.linkName"),
@@ -33,7 +33,7 @@ export const useData = () => {
       technologies: t("modalAddProperties.technology"),
       placeholderTechnology: t("modalAddProperties.placeholderTechnology"),
       link: t("modalAddProperties.linkProject"),
-      placeholderLink: t("modalAddProperties.placeholderlinkProject"),
+      placeholderLink: t("modalAddProperties.placeholderLinkProject"),
       text: t("modalAddProperties.textProject"),
       placeholderText: t("modalAddProperties.placeholderTextProject"),
     },

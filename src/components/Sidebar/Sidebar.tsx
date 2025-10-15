@@ -33,7 +33,7 @@ function Sidebar() {
     if (!isDesktop && isOpenSidebar) {
       dispatch(closeSidebar());
     }
-  }, [isMobile, dispatch]);
+  }, [isMobile, dispatch, isDesktop, isOpenSidebar]);
 
   const handleLogOut = (): void => {
     dispatch(
@@ -63,7 +63,7 @@ function Sidebar() {
   const isArchiveBtnRender =
     isMobile && location.pathname.includes("vacancies");
 
-  let navListForRender = isArchiveBtnRender
+  const navListForRender = isArchiveBtnRender
     ? NavList()
     : NavList().slice(0, -1);
 

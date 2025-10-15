@@ -8,7 +8,7 @@ import PanelListInfo from "./PanelListInfo.tsx";
 
 import {
   CardNameKeys,
-  Panellist,
+  PanelList,
   StatisticsPanelProps,
 } from "./statPanel.types.ts";
 
@@ -32,7 +32,7 @@ const StatisticsPanel: FC<StatisticsPanelProps> = ({
     };
   }, [t]);
 
-  const panelList: Panellist[] = useMemo(
+  const panelList: PanelList[] = useMemo(
     () => PanelListInfo(vacancies),
     [vacancies]
   );

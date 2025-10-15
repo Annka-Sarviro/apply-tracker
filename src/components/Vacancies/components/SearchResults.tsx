@@ -24,29 +24,28 @@ export const SearchResults: FC<{ onClear?: () => void }> = ({ onClear }) => {
 
   const variant = location.pathname.replace(/^\/+/, "");
 
-  let query;
+  // Always call hooks in the same order
+  const vacanciesSearchQuery = useSelector(selectSearchQuery);
+  const vacanciesQuantityValue = useSelector(selectVacanciesQuantity);
+  const notesSearchQuery = useSelector(selectNotesSearchQuery);
+  const notesQuantityValue = useSelector(selectNotesQuantity);
+
+  let query: string = "";
   let vacanciesQuantity = 0;
-  let clearQuery: () => void;
+  let clearQuery: () => void = () => {};
 
   switch (variant) {
     case "vacancies":
-      query = useSelector(selectSearchQuery);
-      vacanciesQuantity = useSelector(selectVacanciesQuantity);
-      clearQuery = () => dispatch(setSearchQuery(""));
-
-      break;
     case "archive":
-      query = useSelector(selectSearchQuery);
-      vacanciesQuantity = useSelector(selectVacanciesQuantity);
+      query = vacanciesSearchQuery;
+      vacanciesQuantity = vacanciesQuantityValue;
       clearQuery = () => dispatch(setSearchQuery(""));
-
       break;
     case "notes":
-      query = useSelector(selectNotesSearchQuery);
-      vacanciesQuantity = useSelector(selectNotesQuantity);
+      query = notesSearchQuery;
+      vacanciesQuantity = notesQuantityValue;
       clearQuery = () => dispatch(setNotesSearchQuery(""));
       break;
-
     default:
       console.log("default");
   }

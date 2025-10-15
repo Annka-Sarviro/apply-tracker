@@ -1,17 +1,14 @@
 import { z } from "zod";
-import { useTranslation } from "react-i18next";
 
 export const getEventSchema = () => {
-  const { t } = useTranslation();
-
   return z.object({
     soonEventName: z
       .string()
-      .min(1, t("soonSection.soonModalNameLength"))
-      .max(50, t("soonSection.soonModalNameLength")),
+      .min(1, "soonSection.soonModalNameLength")
+      .max(50, "soonSection.soonModalNameLength"),
     soonEventNotes: z
       .string()
-      .max(1000, t("soonSection.soonModalNotes"))
+      .max(1000, "soonSection.soonModalNotes")
       .optional(),
     date: z
       .string()
@@ -23,7 +20,7 @@ export const getEventSchema = () => {
           return selectedDate >= today;
         },
         {
-          message: t("soonSection.invalidPastDate"),
+          message: "soonSection.invalidPastDate",
         }
       )
       .optional(),
@@ -42,14 +39,14 @@ export const getEventSchema = () => {
           val >= 0 &&
           val <= 23,
         {
-          message: t("soonSection.invalidHours"),
+          message: "soonSection.invalidHours",
         }
       ),
     minutes: z
       .union([z.string(), z.number()])
       .transform((val) => Number(val))
       .refine((val) => val >= 0 && val <= 59, {
-        message: t("soonSection.invalidMinutes"),
+        message: "soonSection.invalidMinutes",
       })
       .optional()
       .default(0),

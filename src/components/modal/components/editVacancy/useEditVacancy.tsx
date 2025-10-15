@@ -177,11 +177,11 @@ const useEditVacancy = () => {
 
       // 3 - архівуємо
       if (vacancyData?.isArchived !== isArchived) {
-        const responseArhive = await archiveVacancyById({
+        const responseArchive = await archiveVacancyById({
           id: idVacancy,
         }).unwrap();
         navigate(isArchived ? "/archive" : "/vacancies");
-        console.log("Архів", responseArhive);
+        console.log("Архів", responseArchive);
       }
 
       // 4 - зберігаємо статуси

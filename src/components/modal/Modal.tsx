@@ -55,7 +55,7 @@ const Modal: FC = () => {
 
   // alex Авто скрол до вікна підтвердження
   const modalRef = useRef<HTMLDivElement>(null);
-  const modalHeigthRef = useRef<HTMLDivElement>(null);
+  const modalHeightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (modalRef.current) {
@@ -68,7 +68,7 @@ const Modal: FC = () => {
 
   return (
     <div
-      ref={modalHeigthRef}
+      ref={modalHeightRef}
       className={classNames(
         "fixed right-0 top-0 z-50 flex h-full w-full items-center justify-center overflow-auto bg-black bg-opacity-50 font-nunito backdrop-blur-sm"
       )}
@@ -91,7 +91,7 @@ const Modal: FC = () => {
           className={classNames(
             "fixed right-0 top-0 z-50 flex w-full items-center justify-center bg-[#C2C2C2] bg-opacity-50"
           )}
-          style={{ height: modalHeigthRef.current?.scrollHeight }}
+          style={{ height: modalHeightRef.current?.scrollHeight }}
         >
           <ModalMain
             ref={modalRef}

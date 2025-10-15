@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Event as EventData } from "@/types/event.types.ts";
 import { useForm } from "react-hook-form";
@@ -74,15 +74,18 @@ const useEditEventModal = () => {
     setInputChanged(false);
   }, [eventData, reset, trigger]);
 
-  const handleConfirmation = (typeConfirmation: TypesModal) => {
-    const currentFormData = watch(); // Отримуємо поточні значення форми
-    dispatch(
-      openConfirmation({
-        typeConfirmation,
-        dataConfirmation: { ...currentFormData, id: eventData?.id },
-      })
-    );
-  };
+  const handleConfirmation = useCallback(
+    (typeConfirmation: TypesModal) => {
+      const currentFormData = watch(); // Отримуємо поточні значення форми
+      dispatch(
+        openConfirmation({
+          typeConfirmation,
+          dataConfirmation: { ...currentFormData, id: eventData?.id },
+        })
+      );
+    },
+    [dispatch, eventData, watch]
+  );
 
   useEffect(() => {
     dispatch(
@@ -91,7 +94,7 @@ const useEditEventModal = () => {
         resetForm: () => {
           trigger().then((isValidOnClose) => {
             if (isValidOnClose && inputChanged) {
-              handleConfirmation("closeModalsaveEditEvent");
+              handleConfirmation("closeModalSaveEditEvent");
             } else if (inputChanged) {
               dispatch(
                 openConfirmation({

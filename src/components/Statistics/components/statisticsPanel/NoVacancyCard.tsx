@@ -1,6 +1,6 @@
 import AddButton from "@/components/buttons/AddButton/AddButton";
 import Icon from "../../../Icon/Icon";
-import FirstVacancyMessage from "../../../Sceleton/FirstVacancyMessage";
+import FirstVacancyMessage from "../../../Skeleton/FirstVacancyMessage";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { IconId } from "@/components/Icon/icons";

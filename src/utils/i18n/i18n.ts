@@ -4,7 +4,7 @@ import { initReactI18next } from "react-i18next";
 import enLang from "./locales/en/en.json";
 import ukLang from "./locales/uk/uk.json";
 import LanguageDetector from "i18next-browser-languagedetector";
-import { LOCALS } from "./constns";
+import { LOCALS } from "./constants";
 // import { z } from "zod";
 const resources = {
   [LOCALS.EN]: {

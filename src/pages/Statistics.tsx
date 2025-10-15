@@ -11,7 +11,7 @@ import {
   setSelectedYear,
 } from "@/store/slices/calendarSlice/calendarSlice.ts";
 
-import StatisticsPanel from "../components/Statistics/componets/statisticsPanel/StatisticsPanel";
+import StatisticsPanel from "../components/Statistics/components/statisticsPanel/StatisticsPanel";
 import StatisticsCalendarTab from "../components/Calendar/StatisticsCalendarTab.tsx";
 import StatisticsCalendarDay from "../components/Calendar/StatisticsCalendarDay.tsx";
 import StatisticsCalendarMonth from "../components/Calendar/StatisticsCalendarMonth.tsx";
@@ -20,10 +20,10 @@ import ChartBarDay from "../components/charts/ChartBarDay.tsx";
 import ChartBarMonth from "../components/charts/ChartBarMonth.tsx";
 import ChartBarYear from "../components/charts/ChartBarYear.tsx";
 import DoughnutChart from "../components/charts/DoughnutChart.tsx";
-import StatisticsPanelSkeleton from "../components/Statistics/componets/statisticsPanel/StatisticsPanelSkeleton.tsx";
-import NoVacancyCard from "../components/Statistics/componets/statisticsPanel/NoVacancyCard.tsx";
+import StatisticsPanelSkeleton from "../components/Statistics/components/statisticsPanel/StatisticsPanelSkeleton.tsx";
+import NoVacancyCard from "../components/Statistics/components/statisticsPanel/NoVacancyCard.tsx";
 import Soon from "../components/Soon/Soon.tsx";
-import RejectDiagram from "../components/Statistics/componets/statisticsDiagram/RejectDiagram.tsx";
+import RejectDiagram from "../components/Statistics/components/statisticsDiagram/RejectDiagram.tsx";
 
 function Statistics() {
   const dispatch = useAppDispatch();

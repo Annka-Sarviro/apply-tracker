@@ -28,7 +28,7 @@ const AddVacancyStage = forwardRef<HTMLButtonElement, AddVacancyStageProps>(
       return { mainOptions: stagesOptions, buttonOption: buttonStagesOption };
     };
 
-    const setValueDropDowm = (nameDropdown: string, stageId: string) => {
+    const setValueDropDown = (nameDropdown: string, stageId: string) => {
       const statusKey = stagesOptions.find((elem) => elem.id === stageId);
       if (statusKey) {
         dispatch(
@@ -71,7 +71,7 @@ const AddVacancyStage = forwardRef<HTMLButtonElement, AddVacancyStageProps>(
         >
           <Dropdown
             options={optionsDropDown()}
-            setValue={setValueDropDowm}
+            setValue={setValueDropDown}
             isInModal={true}
             name={"addStageDropdown"}
             register={register}

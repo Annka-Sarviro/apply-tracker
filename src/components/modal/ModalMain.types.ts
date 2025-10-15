@@ -13,7 +13,7 @@ export type TypesModal =
   | "logOut"
   | "saveAddVacancies"
   | "deleteVacancy"
-  | "arhiveVacancy"
+  | "archiveVacancy"
   | "restoreVacancy"
   | "saveEditVacancies"
   | "close"
@@ -40,16 +40,16 @@ export type TypesModal =
   | "deleteNote"
   | "updateNote"
   | "confirmToRemove"
-  | "closeModalsaveEditVacancies"
-  | "closeModalsaveEditEvent"
-  | "closeModalsaveAddEvent"
+  | "closeModalSaveEditVacancies"
+  | "closeModalSaveEditEvent"
+  | "closeModalSaveAddEvent"
   | "closeDiscardModal"
   | "updateResumes"
   | "updateProjects"
   | "updateCoverLetters"
   | "updatePersonalProperties"
-  | "closeModalsaveNote"
-  | "closeModaldeleteNote";
+  | "closeModalSaveNote"
+  | "closeModalDeleteNote";
 
 export type Color = {
   text: "text-textWhite" | "text-button" | "text-redColor" | "text-color8";

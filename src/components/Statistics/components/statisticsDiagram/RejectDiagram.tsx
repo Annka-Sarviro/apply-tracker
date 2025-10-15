@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 // import { useAppSelector } from "../../../../store/slices/themeSlice/themeSelector.ts";
 import { useTranslation } from "react-i18next";
 import { RejectReason, Vacancy } from "../../../../types/vacancies.types";
@@ -21,18 +21,18 @@ const RejectDiagram = ({ vacancies }: { vacancies: Vacancy[] }) => {
     );
   }, [vacancies]);
 
-  if (rejects.length === 0) {
-    return null;
-  }
-
   const totalRejects = useMemo(() => rejects.length, [rejects]);
 
-  const countRejectPercent = (reason: RejectReason) => {
-    return Math.round(
-      (rejects.filter((r) => r.rejectReason === reason).length / totalRejects) *
-        100
-    );
-  };
+  const countRejectPercent = useCallback(
+    (reason: RejectReason) => {
+      return Math.round(
+        (rejects.filter((r) => r.rejectReason === reason).length /
+          totalRejects) *
+          100
+      );
+    },
+    [rejects, totalRejects]
+  );
 
   const rejectList = useMemo(() => {
     return [
@@ -72,7 +72,7 @@ const RejectDiagram = ({ vacancies }: { vacancies: Vacancy[] }) => {
         width: `${countRejectPercent(RejectReason.EXPERIENCE)}%`,
       },
     ];
-  }, [rejects, countRejectPercent]);
+  }, [countRejectPercent]);
 
   const chartData = useMemo(
     () => ({
@@ -135,6 +135,10 @@ const RejectDiagram = ({ vacancies }: { vacancies: Vacancy[] }) => {
     title: "",
     percent: "",
   });
+
+  if (rejects.length === 0) {
+    return null;
+  }
 
   const handleMouseEnter = (
     event: React.MouseEvent<HTMLLIElement, MouseEvent>,

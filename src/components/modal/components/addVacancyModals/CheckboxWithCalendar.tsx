@@ -109,7 +109,7 @@ export const CheckboxWithCalendar = forwardRef<HTMLInputElement, CheckboxProps>(
       }
     };
 
-    const setValueDropDowm = (nameDropdown: string, resumeId: string) => {
+    const setValueDropDown = (nameDropdown: string, resumeId: string) => {
       dispatch(
         changeStatus({
           id: id || "",
@@ -156,7 +156,7 @@ export const CheckboxWithCalendar = forwardRef<HTMLInputElement, CheckboxProps>(
               <span
                 id={`inputError-${name}`}
                 className={classNames(
-                  "text-redColor inline-block pl-[9.5px] pt-1 font-nunito text-base font-medium"
+                  "inline-block pl-[9.5px] pt-1 font-nunito text-base font-medium text-redColor"
                 )}
               >
                 {t(String(error?.message))}
@@ -176,7 +176,7 @@ export const CheckboxWithCalendar = forwardRef<HTMLInputElement, CheckboxProps>(
             >
               <Dropdown
                 options={optionsDropDown()}
-                setValue={setValueDropDowm}
+                setValue={setValueDropDown}
                 isInModal={true}
                 name={`${name}Dropdown`}
                 register={register}

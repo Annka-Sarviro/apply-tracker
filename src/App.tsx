@@ -28,7 +28,7 @@ function App() {
     } else {
       document.documentElement.classList.remove("dark");
     }
-  }, [darkMode]);
+  }, [darkMode, refetch]);
 
   return (
     <Routes>

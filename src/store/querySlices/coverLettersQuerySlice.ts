@@ -10,7 +10,7 @@ export const coverLetterQuerySlice = createApi({
   tagTypes: ["coverLetter"],
 
   endpoints: (build) => ({
-    createCoverLeter: build.mutation<
+    createCoverLetter: build.mutation<
       CoverLetter,
       Pick<CoverLetter, "name" | "text">
     >({
@@ -35,10 +35,10 @@ export const coverLetterQuerySlice = createApi({
       CoverLetter,
       Pick<CoverLetter, "id"> & Partial<Pick<CoverLetter, "name" | "text">>
     >({
-      query: ({ id, ...updtedCovetLetter }) => ({
+      query: ({ id, ...updatedCovetLetter }) => ({
         url: `/cover-letter/${id}`,
         method: "PATCH",
-        body: updtedCovetLetter,
+        body: updatedCovetLetter,
       }),
       invalidatesTags: ["coverLetter"],
     }),
@@ -54,7 +54,7 @@ export const coverLetterQuerySlice = createApi({
 });
 
 export const {
-  useCreateCoverLeterMutation,
+  useCreateCoverLetterMutation,
   useDeleteCoverLetterByIdMutation,
   useGetAllCoverLettersQuery,
   useGetCoverLetterByIdQuery,

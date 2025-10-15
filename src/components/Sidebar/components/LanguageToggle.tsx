@@ -1,4 +1,4 @@
-import { LOCALS } from "../../../utils/i18n/constns";
+import { LOCALS } from "@/utils/i18n/constants";
 import { useTranslation } from "react-i18next";
 import { ToggleProps } from "./Sidebar.props";
 import cn from "clsx";

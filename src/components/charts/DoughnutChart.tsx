@@ -12,7 +12,7 @@ import { Doughnut } from "react-chartjs-2";
 import { useTranslation } from "react-i18next";
 
 import { Vacancy } from "../../types/vacancies.types";
-import DiagramTitle from "../Statistics/componets/statisticsDiagram/DiagramTitle";
+import DiagramTitle from "../Statistics/components/statisticsDiagram/DiagramTitle";
 import CustomLegend from "./CustomLegend";
 import { selectTheme } from "../../store/slices/themeSlice/themeSelector.ts";
 
@@ -150,7 +150,7 @@ export default function DoughnutChart({ vacancies }: { vacancies: Vacancy[] }) {
 
   return (
     <div className="flex h-fit w-full flex-col gap-2 text-textBlack md:gap-4 xl:mt-8 xl:w-[390px] xl:gap-6 2xl:mt-[50px] 2xl:w-fit 3xl:mt-10 3xl:w-[633px] 3xl:gap-8">
-      <DiagramTitle title={t(`statisticsDoughnatDiagram`)} />
+      <DiagramTitle title={t(`statisticsDoughnutDiagram`)} />
       <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between md:px-8 xl:flex-col xl:justify-center xl:gap-6 xl:px-5 2xl:px-0">
         <div className="mx-auto aspect-square h-[calc(100%-60px)] w-[calc(100%-60px)] md:mx-0 md:w-[370px] xl:mx-auto xl:w-[350px] 2xl:w-[400px] 3xl:w-[556px]">
           <Doughnut data={chartData} options={options} />

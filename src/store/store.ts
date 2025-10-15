@@ -4,8 +4,8 @@ import { profileQuerySlice } from "./querySlices/profileQuerySlice.ts";
 import { vacanciesQuerySlice } from "./querySlices/vacanciesQuerySlice.ts";
 import filteredVacanciesReducer from "./slices/filteredVacanciesSlice/filteredVacanciesSlice.ts";
 import filteredNotesReducer from "./slices/filteredNotesSlice/filteredNotesSlice.ts";
-import modalReduser from "./slices/modalSlice/modalSlice.ts";
-import authReduser from "./slices/authSlice/authSlice.ts";
+import modalReducer from "./slices/modalSlice/modalSlice.ts";
+import authReducer from "./slices/authSlice/authSlice.ts";
 import themeReducer from "./slices/themeSlice/themeSlice.ts";
 import sidebarReducer from "./slices/sidebarSlice/sidebarSlice.ts";
 import statusVacancyReducer from "./slices/statusVacancy/vacancyStatusSlice.ts";
@@ -40,7 +40,7 @@ const sidebarPersistConfig = {
   storage,
 };
 
-const authPersistedReducer = persistReducer(authPersistConfig, authReduser);
+const authPersistedReducer = persistReducer(authPersistConfig, authReducer);
 const themePersistedReducer = persistReducer(themePersistConfig, themeReducer);
 const sidebarPersistedReducer = persistReducer(
   sidebarPersistConfig,
@@ -61,7 +61,7 @@ export const store = configureStore({
     [authPublicQuerySlice.reducerPath]: authPublicQuerySlice.reducer,
     filteredVacancies: filteredVacanciesReducer,
     filteredNotes: filteredNotesReducer,
-    modal: modalReduser,
+    modal: modalReducer,
     auth: authPersistedReducer,
     theme: themePersistedReducer,
     sidebar: sidebarPersistedReducer,

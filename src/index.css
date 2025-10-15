@@ -154,29 +154,29 @@ body {
   background-color: rgba(234, 238, 242, 0.3);
 }
 
-.scrollbar-y-sectionbox::-webkit-scrollbar {
+.scrollbar-y-sectionBox::-webkit-scrollbar {
   width: 6px;
 }
 @media screen and (min-width: 768px) {
-  .scrollbar-y-sectionbox::-webkit-scrollbar {
+  .scrollbar-y-sectionBox::-webkit-scrollbar {
     width: 8px;
   }
 }
-.scrollbar-y-sectionbox::-webkit-scrollbar-thumb {
+.scrollbar-y-sectionBox::-webkit-scrollbar-thumb {
   background-color: #c2c2c2;
   border-radius: 4px;
 }
-.dark .scrollbar-y-sectionbox::-webkit-scrollbar-thumb {
+.dark .scrollbar-y-sectionBox::-webkit-scrollbar-thumb {
   background-color: var(--color9);
 }
-.scrollbar-y-sectionbox::-webkit-scrollbar-track {
+.scrollbar-y-sectionBox::-webkit-scrollbar-track {
   background-color: #eaeef2;
   border-radius: 4px;
 }
-.dark .scrollbar-y-sectionbox::-webkit-scrollbar-track {
+.dark .scrollbar-y-sectionBox::-webkit-scrollbar-track {
   background-color: rgba(234, 238, 242, 0.3);
 }
-.scrollbar-y-sectionbox::-webkit-scrollbar-button {
+.scrollbar-y-sectionBox::-webkit-scrollbar-button {
   display: none;
 }
 

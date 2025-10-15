@@ -1,6 +1,6 @@
 import { FC } from "react";
 import PageHeader from "../components/commonComponents/PageHeader.tsx";
-import VacancyMain from "../components/Vacancies/components/VacanсyMain.tsx";
+import VacancyMain from "../components/Vacancies/components/VacancyMain.tsx";
 
 const Vacancies: FC = () => {
   return (

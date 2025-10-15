@@ -39,10 +39,10 @@ export const predictionsQuerySlice = createApi({
       Prediction,
       Pick<Prediction, "id"> & Partial<Pick<Prediction, "textEn" | "textUk">>
     >({
-      query: ({ id, ...updatetPrediction }) => ({
+      query: ({ id, ...updatedPrediction }) => ({
         url: `/predictions/${id}`,
         method: "PATCH",
-        body: updatetPrediction,
+        body: updatedPrediction,
       }),
       invalidatesTags: ["predictions"],
     }),

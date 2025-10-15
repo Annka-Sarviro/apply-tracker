@@ -59,7 +59,7 @@ const AddEventModal = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [setMenuOpenHours, setMenuOpenMinutes]);
 
   return (
     <form

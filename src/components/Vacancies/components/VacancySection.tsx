@@ -1,4 +1,12 @@
-import { FC, ReactNode, useRef, useState, useEffect } from "react";
+import {
+  FC,
+  ReactNode,
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
 // import { useAppSelector } from "../../../store/hook.ts";
 import clsx from "clsx";
 import Icon from "../../Icon/Icon.tsx";
@@ -26,16 +34,22 @@ const VacancySection: FC<VacancySectionProps> = ({
   const [row2, setRow2] = useState<ReactNode[]>([]);
   // const darkTheme = useAppSelector(selectTheme);
 
-  const validChildren = Array.isArray(children) ? children : [children];
+  const validChildren = useMemo(
+    () => (Array.isArray(children) ? children : [children]),
+    [children]
+  );
 
-  const layoutConfig = [
-    { min: 1920, max: Infinity, maxLength: 10, rowSize: 5 },
-    { min: 1280, max: 1920, maxLength: 8, rowSize: 4 },
-    { min: 768, max: 1280, maxLength: 6, rowSize: 3 },
-    { min: 600, max: 768, maxLength: 4, rowSize: 2 },
-  ];
+  const layoutConfig = useMemo(
+    () => [
+      { min: 1920, max: Infinity, maxLength: 10, rowSize: 5 },
+      { min: 1280, max: 1920, maxLength: 8, rowSize: 4 },
+      { min: 768, max: 1280, maxLength: 6, rowSize: 3 },
+      { min: 600, max: 768, maxLength: 4, rowSize: 2 },
+    ],
+    []
+  );
 
-  function updateLayout() {
+  const updateLayout = useCallback(() => {
     const width = window.innerWidth;
     const length = validChildren.length;
 
@@ -58,7 +72,7 @@ const VacancySection: FC<VacancySectionProps> = ({
       setRow1(validChildren.filter((_, index) => index % 2 === 0));
       setRow2(validChildren.filter((_, index) => index % 2 !== 0));
     }
-  }
+  }, [validChildren, layoutConfig]);
 
   // Функція для відслідковування активності/задізейбленності стрілочок
   const checkScrollPosition = () => {
@@ -86,7 +100,7 @@ const VacancySection: FC<VacancySectionProps> = ({
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [children]);
+  }, [updateLayout]);
 
   // useEffect(() => {
   //   const container = containerRef.current;

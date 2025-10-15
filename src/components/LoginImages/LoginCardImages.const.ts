@@ -13,7 +13,7 @@ export const loginCardsImages = [
   {
     margin: true,
     color: "blue",
-    position: "rigth",
+    position: "right",
     border: `rounded-bl-[12px] rounded-br-[12px] rounded-tl-[12px] rounded-tr-[0]`,
     text: "infoCards.pathToSuccess",
     icon: "girl-and-dashboard" as IconId,
@@ -29,7 +29,7 @@ export const loginCardsImages = [
   {
     margin: true,
     color: "green",
-    position: "rigth",
+    position: "right",
     border: `rounded-bl-[12px] rounded-br-[12px] rounded-tl-[12px] rounded-tr-[0]`,
     text: "infoCards.careerInYourHands",
     icon: "girl-with-phone" as IconId,

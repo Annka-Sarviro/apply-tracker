@@ -1,8 +1,8 @@
 import { FC } from "react";
 
-import Skeleton from "@/components/Sceleton/Sceleton";
+import Skeleton from "@/components/Skeleton/Skeleton";
 
-const NoteCardSceleton: FC = () => {
+const NoteCardSkeleton: FC = () => {
   return (
     <div className="w-full font-nunito text-base leading-[135%]">
       <div className="h-10 w-[118px] truncate rounded-t-xl bg-backgroundSecondary px-3 py-[6px] font-medium md:w-[141px] md:text-xl xl:w-[149px] xl:px-4"></div>
@@ -29,4 +29,4 @@ const NoteCardSceleton: FC = () => {
   );
 };
 
-export default NoteCardSceleton;
+export default NoteCardSkeleton;

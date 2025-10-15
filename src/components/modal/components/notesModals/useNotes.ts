@@ -106,7 +106,7 @@ function useNotes(type: "addNote" | "updateNote") {
           name: noteName,
           text: noteText,
         }).unwrap();
-        console.log("resposnse", response);
+        console.log("response", response);
       }
       // 2 - запит на редагування нотатки
       if (noteType === "updateNote") {
@@ -115,7 +115,7 @@ function useNotes(type: "addNote" | "updateNote") {
           name: noteName,
           text: noteText,
         }).unwrap();
-        console.log("resposnse", response);
+        console.log("response", response);
       }
       refetchNote();
       notifySuccess(t("notification.vacancyAdded"));

@@ -15,7 +15,7 @@ import { IconButton } from "../buttons/IconButton/IconButton";
 import Logo from "../Logo/JobTrackerLogo";
 import { SearchForm } from "../Vacancies/components/SearchForm.tsx";
 import { useLocation } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { selectSearchQuery } from "@/store/slices/filteredVacanciesSlice/filteredVacanciesSelector.ts";
 
 function MobHeader() {
@@ -25,15 +25,18 @@ function MobHeader() {
   const searchRef = useRef<HTMLDivElement>(null);
   const emptySearch = useSelector(selectSearchQuery) === "";
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      searchRef.current &&
-      !searchRef.current.contains(event.target as Node) &&
-      emptySearch
-    ) {
-      dispatch(closeSearch());
-    }
-  };
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target as Node) &&
+        emptySearch
+      ) {
+        dispatch(closeSearch());
+      }
+    },
+    [emptySearch, dispatch]
+  );
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -41,7 +44,7 @@ function MobHeader() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [emptySearch, isSearchOpen]);
+  }, [emptySearch, handleClickOutside, isSearchOpen]);
 
   const isSearchShown =
     location.pathname.replace(/^\/+/, "") === "vacancies" ||

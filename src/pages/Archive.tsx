@@ -1,5 +1,5 @@
 import PageHeader from "../components/commonComponents/PageHeader";
-import VacancyMain from "../components/Vacancies/components/VacanсyMain";
+import VacancyMain from "@/components/Vacancies/components/VacancyMain";
 
 function Archive() {
   return (

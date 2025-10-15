@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import type { SingleValue } from "react-select";
@@ -59,29 +59,26 @@ const useAddEventModal = () => {
     setValue("minutes", undefined);
   }, [setValue]);
 
-  const handleConfirmation = (
-    typeConfirmation: TypesModal,
-    data?: FormValues
-  ) => {
-    // console.log("useAddEventModal: handleConfirmation викликано з типом:", typeConfirmation, "та даними:",data),
-    dispatch(
-      openConfirmation({
-        typeConfirmation,
-        dataConfirmation: data
-          ? {
-              ...data,
-              time: `${String(data.hours !== undefined ? data.hours : "00").padStart(2, "0")}:${String(
-                data.minutes !== undefined ? data.minutes : "00"
-                // data.minutes ? data.minutes : "00"
-                // time: `${String(data.hours || "00").padStart(2, "0")}:${String(
-                //   data.minutes || "00"
-              ).padStart(2, "0")}`,
-            }
-          : undefined,
-        resetForm: reset,
-      })
-    );
-  };
+  const handleConfirmation = useCallback(
+    (typeConfirmation: TypesModal, data?: FormValues) => {
+      // console.log("useAddEventModal: handleConfirmation викликано з типом:", typeConfirmation, "та даними:",data),
+      dispatch(
+        openConfirmation({
+          typeConfirmation,
+          dataConfirmation: data
+            ? {
+                ...data,
+                time: `${String(data.hours !== undefined ? data.hours : "00").padStart(2, "0")}:${String(
+                  data.minutes !== undefined ? data.minutes : "00"
+                ).padStart(2, "0")}`,
+              }
+            : undefined,
+          resetForm: reset,
+        })
+      );
+    },
+    [dispatch, reset]
+  );
 
   const confirmSave = handleSubmit(async (data) => {
     // console.log("useAddEventModal: confirmSave викликано з даними:", data);
@@ -108,7 +105,7 @@ const useAddEventModal = () => {
             // console.log("formDataWithDefaultMinutes", formDataWithDefaultMinutes);
             if (isValidOnClose && inputChanged) {
               handleConfirmation(
-                "closeModalsaveAddEvent",
+                "closeModalSaveAddEvent",
                 formDataWithDefaultMinutes
               );
             } else if (inputChanged) {

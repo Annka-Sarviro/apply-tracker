@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 
@@ -31,11 +31,10 @@ const Dropdown: FC<SortDropdownProps> = ({
   const mainOptions = options.mainOptions;
   const buttonOptions = options.buttonOption;
 
-  const selectedSortType = getValues
-    ? getValues(name)
-    : selector && useSelector(selector);
+  const selectorValue = useSelector(selector ?? (() => undefined));
+  const selectedSortType = getValues ? getValues(name) : selectorValue;
 
-  const toggleDropdown = () => {
+  const toggleDropdown = useCallback(() => {
     setDropdownOpen((prev) => {
       if (!prev) {
         if (selectedSortType) {
@@ -57,104 +56,132 @@ const Dropdown: FC<SortDropdownProps> = ({
       }
       return !prev;
     });
-  };
+  }, [selectedSortType, mainOptions]);
 
   useEffect(() => {
     if (isDropdownShown && !isInModal) {
       toggleDropdown();
     }
-  }, [isDropdownShown]);
+  }, [isDropdownShown, isInModal, toggleDropdown]);
 
-  const handleOptionSelect = (option: string) => {
-    if (!isInModal && isMobile) {
-      if (setValue) {
-        option === selectedSortType ? setValue("") : setValue(option);
+  const handleOptionSelect = useCallback(
+    (option: string) => {
+      if (!isInModal && isMobile) {
+        if (setValue) {
+          if (option === selectedSortType) {
+            setValue("");
+          } else {
+            setValue(option);
+          }
+        }
+      } else {
+        if (setValue) {
+          if (name !== "") {
+            setValue(name, option);
+          } else {
+            setValue(option);
+          }
+        }
       }
-    } else {
-      if (setValue) {
-        name !== "" ? setValue(name, option) : setValue(option);
-      }
-    }
-    setDropdownOpen(false);
-    setFocusedOption(null);
-    dispatch(hideDropdown());
-  };
-
-  const handleSubMenuToggle = (menuId: string) => {
-    setOpenSubMenu((prev) => (prev === menuId ? null : menuId));
-  };
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
       setDropdownOpen(false);
-      setOpenSubMenu(null);
-      dispatch(hideDropdown());
-    }
-  };
-
-  const moveFocus = (direction: 1 | -1) => {
-    const allOptions = [
-      { id: "sortButton", label: "Button" },
-      ...mainOptions.flatMap((opt) =>
-        opt.subOptions && openSubMenu === opt.id
-          ? [opt, ...opt.subOptions]
-          : [opt]
-      ),
-    ];
-
-    const currentIndex = allOptions.findIndex(
-      (opt) => opt.id === focusedOption
-    );
-
-    const nextIndex =
-      (currentIndex + direction + allOptions.length) % allOptions.length;
-
-    setFocusedOption(allOptions[nextIndex].id);
-  };
-
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === "Escape") {
-      setDropdownOpen(false);
-      setOpenSubMenu(null);
       setFocusedOption(null);
-    }
+      dispatch(hideDropdown());
+    },
+    [isInModal, isMobile, setValue, selectedSortType, name, dispatch]
+  );
 
-    if (event.key === "ArrowDown") {
-      event.preventDefault();
-      moveFocus(1);
-    }
+  const handleSubMenuToggle = useCallback((menuId: string) => {
+    setOpenSubMenu((prev) => (prev === menuId ? null : menuId));
+  }, []);
 
-    if (event.key === "ArrowUp") {
-      event.preventDefault();
-      moveFocus(-1);
-    }
-
-    if (event.key === "Enter" && focusedOption) {
-      event.preventDefault();
-
-      if (focusedOption === "sortButton") {
-        handleOptionSelect("");
-        return;
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setDropdownOpen(false);
+        setOpenSubMenu(null);
+        dispatch(hideDropdown());
       }
+    },
+    [dispatch]
+  );
 
-      const allOptions = mainOptions.flatMap((opt) =>
-        opt.subOptions ? [opt, ...opt.subOptions] : [opt]
+  const moveFocus = useCallback(
+    (direction: 1 | -1) => {
+      const allOptions = [
+        { id: "sortButton", label: "Button" },
+        ...mainOptions.flatMap((opt) =>
+          opt.subOptions && openSubMenu === opt.id
+            ? [opt, ...opt.subOptions]
+            : [opt]
+        ),
+      ];
+
+      const currentIndex = allOptions.findIndex(
+        (opt) => opt.id === focusedOption
       );
 
-      const selectedOption = allOptions.find((opt) => opt.id === focusedOption);
+      const nextIndex =
+        (currentIndex + direction + allOptions.length) % allOptions.length;
 
-      if (!selectedOption) return;
+      setFocusedOption(allOptions[nextIndex].id);
+    },
+    [mainOptions, openSubMenu, focusedOption]
+  );
 
-      if (selectedOption.subOptions) {
-        handleSubMenuToggle(selectedOption.id);
-      } else {
-        handleOptionSelect(selectedOption.id);
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setDropdownOpen(false);
+        setOpenSubMenu(null);
+        setFocusedOption(null);
       }
-    }
-  };
+
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        moveFocus(1);
+      }
+
+      if (event.key === "ArrowUp") {
+        event.preventDefault();
+        moveFocus(-1);
+      }
+
+      if (event.key === "Enter" && focusedOption) {
+        event.preventDefault();
+
+        if (focusedOption === "sortButton") {
+          handleOptionSelect("");
+          return;
+        }
+
+        const allOptions = mainOptions.flatMap((opt) =>
+          opt.subOptions ? [opt, ...opt.subOptions] : [opt]
+        );
+
+        const selectedOption = allOptions.find(
+          (opt) => opt.id === focusedOption
+        );
+
+        if (!selectedOption) return;
+
+        if (selectedOption.subOptions) {
+          handleSubMenuToggle(selectedOption.id);
+        } else {
+          handleOptionSelect(selectedOption.id);
+        }
+      }
+    },
+    [
+      focusedOption,
+      mainOptions,
+      moveFocus,
+      handleOptionSelect,
+      handleSubMenuToggle,
+    ]
+  );
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -164,7 +191,13 @@ const Dropdown: FC<SortDropdownProps> = ({
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [focusedOption, openSubMenu, isDropdownOpen]);
+  }, [
+    focusedOption,
+    openSubMenu,
+    isDropdownOpen,
+    handleClickOutside,
+    handleKeyDown,
+  ]);
 
   const getButtonLabel = () => {
     if (!selectedSortType || isDropdownOpen) return options.buttonOption.label;

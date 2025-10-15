@@ -16,26 +16,26 @@ import {
   closeConfirmation,
   closeButton,
 } from "@/store/slices/modalSlice/modalSlice";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 type Props = {
   cardsType: PropsModalAddProperties["cardsType"];
   idRemoveItem: string;
-  shoudCloseModal?: boolean;
+  shouldCloseModal?: boolean;
 };
 
 function useRemoveProfileData({
   cardsType,
   idRemoveItem,
-  shoudCloseModal = true,
+  shouldCloseModal = true,
 }: Props) {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { refetch: refetchProfile } = useGetAllUserDataQuery();
 
   const [
-    removeSociallLink,
+    removeSocialLink,
     {
       isError: isErrorRemoveSocialLink,
       isSuccess: isSuccessRemoveSocialLink,
@@ -84,13 +84,19 @@ function useRemoveProfileData({
     isErrorRemoveProject,
     isErrorRemoveSocialLink,
     isErrorRemoveResume,
+    t,
   ]);
-  const messageMap: Record<PropsModalAddProperties["cardsType"], string> = {
-    addPersonalProperties: t("notification.fieldDeleted"),
-    addCoverLetters: t("notification.letterDeleted"),
-    addProjects: t("notification.projectDeleted"),
-    addResumes: t("notification.resumeDeleted"),
-  };
+  const messageMap = useMemo<
+    Record<PropsModalAddProperties["cardsType"], string>
+  >(
+    () => ({
+      addPersonalProperties: t("notification.fieldDeleted"),
+      addCoverLetters: t("notification.letterDeleted"),
+      addProjects: t("notification.projectDeleted"),
+      addResumes: t("notification.resumeDeleted"),
+    }),
+    [t]
+  );
   useEffect(() => {
     if (
       isSuccessRemoveCoverLetter ||
@@ -100,17 +106,22 @@ function useRemoveProfileData({
     ) {
       notifySuccess(messageMap[cardsType] || "");
       refetchProfile();
-      if (shoudCloseModal) {
+      if (shouldCloseModal) {
         dispatch(closeConfirmation());
         dispatch(closeModal());
         dispatch(closeButton({ isButtonOpen: false, resetForm: undefined }));
       }
     }
   }, [
+    cardsType,
+    dispatch,
     isSuccessRemoveCoverLetter,
     isSuccessRemoveProject,
     isSuccessRemoveResume,
     isSuccessRemoveSocialLink,
+    messageMap,
+    refetchProfile,
+    shouldCloseModal,
   ]);
 
   const handleRemove = async () => {
@@ -120,7 +131,7 @@ function useRemoveProfileData({
         break;
 
       case "addPersonalProperties":
-        await removeSociallLink({ idSocialLink: idRemoveItem });
+        await removeSocialLink({ idSocialLink: idRemoveItem });
         break;
 
       case "addProjects":

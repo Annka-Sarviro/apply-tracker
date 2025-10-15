@@ -1,6 +1,6 @@
-import Skeleton from "../Sceleton/Sceleton";
+import Skeleton from "../Skeleton/Skeleton";
 
-function SceletonProfile() {
+function SkeletonProfile() {
   return (
     <div className="flex flex-col gap-2">
       <Skeleton width="100%" height="44px" className="rounded-xl" />
@@ -12,4 +12,4 @@ function SceletonProfile() {
   );
 }
 
-export default SceletonProfile;
+export default SkeletonProfile;

@@ -3,7 +3,7 @@ import type { RootState, AppDispatch } from "./store";
 import { useMemo } from "react";
 import { Vacancy } from "../types/vacancies.types";
 import { Note } from "@/types/notes.types";
-import { cleanStatuses } from "@/components/Vacancies/components/VacanсyMainConfig";
+import { cleanStatuses } from "@/components/Vacancies/components/VacancyMainConfig";
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 

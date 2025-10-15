@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Skeleton from "../../Sceleton/Sceleton.tsx";
+import Skeleton from "../../Skeleton/Skeleton.tsx";
 import clsx from "clsx";
 
 const VacancyCardSkeleton: FC = () => {

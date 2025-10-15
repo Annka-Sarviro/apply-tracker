@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   useAppDispatch,
@@ -6,7 +6,7 @@ import {
   useFilteredVacancies,
 } from "../../../store/hook.ts";
 import { setFilteredVacancies } from "../../../store/slices/filteredVacanciesSlice/filteredVacanciesSlice.ts";
-import { selectfilteredVacancies } from "../../../store/slices/filteredVacanciesSlice/filteredVacanciesSelector.ts";
+import { selectFilteredVacancies } from "../../../store/slices/filteredVacanciesSlice/filteredVacanciesSelector.ts";
 import { useGetAllUserDataQuery } from "../../../store/querySlices/profileQuerySlice.ts";
 import { selectTheme } from "../../../store/slices/themeSlice/themeSelector.ts";
 
@@ -14,20 +14,20 @@ import VacancySection from "./VacancySection.tsx";
 import VacancySectionBox from "./VacancySectionBox.tsx";
 import VacancyCard from "./VacancyCard.tsx";
 import VacancyCardFirst from "./VacancyCardFirst.tsx";
-import VacancySectionSkeleton from "./VacancySectionSceleton";
+import VacancySectionSkeleton from "./VacancySectionSkeleton.tsx";
 
 import {
   getLocalizedSectionConfig,
   getVacanciesByStatus,
   SectionConfig,
-} from "./VacanсyMainConfig.ts";
+} from "./VacancyMainConfig.ts";
 import { openModal } from "../../../store/slices/modalSlice/modalSlice.ts";
 import { fetchUpdatedStatuses } from "@/store/slices/statusVacancy/vacancyStatusOperation.ts";
 import { Vacancy } from "@/types/vacancies.types.ts";
 import { useLocation } from "react-router-dom";
 
 const VacancyMain: FC = () => {
-  const { sortType, searchQuery } = useAppSelector(selectfilteredVacancies);
+  const { sortType, searchQuery } = useAppSelector(selectFilteredVacancies);
   const dispatch = useAppDispatch();
   const darkTheme = useAppSelector(selectTheme);
   const { t } = useTranslation();
@@ -56,14 +56,20 @@ const VacancyMain: FC = () => {
   const isArchive = location.pathname.replace(/^\/+/, "") === "archive";
 
   const isSorting = isStatus || isArchive;
+  const renderedVacancies = useMemo(() => {
+    const base = isArchive
+      ? filteredVacancies.filter((v) => v.isArchived)
+      : filteredVacancies.filter((v) => !v.isArchived);
+    return base;
+  }, [filteredVacancies, isArchive]);
 
-  const renderedVacancies = isArchive
-    ? filteredVacancies.filter((v) => v.isArchived === true)
-    : filteredVacancies.filter((v) => v.isArchived === false);
-
+  const prevVacanciesRef = useRef<Vacancy[]>([]);
   useEffect(() => {
-    dispatch(setFilteredVacancies(renderedVacancies));
-  }, [searchQuery, sortType, dispatch]);
+    if (!isEqual(prevVacanciesRef.current, renderedVacancies)) {
+      dispatch(setFilteredVacancies(renderedVacancies));
+      prevVacanciesRef.current = renderedVacancies;
+    }
+  }, [dispatch, renderedVacancies]);
 
   const [isMobile, setIsMobile] = useState(
     window.matchMedia("(max-width: 575.9px)").matches
@@ -225,3 +231,12 @@ const VacancyMain: FC = () => {
 };
 
 export default VacancyMain;
+function isEqual(current: Vacancy[], renderedVacancies: Vacancy[]) {
+  if (current.length !== renderedVacancies.length) return false;
+  for (let i = 0; i < current.length; i++) {
+    if (current[i].id !== renderedVacancies[i].id) return false;
+    // Optionally, compare more fields if needed:
+    // if (JSON.stringify(current[i]) !== JSON.stringify(renderedVacancies[i])) return false;
+  }
+  return true;
+}

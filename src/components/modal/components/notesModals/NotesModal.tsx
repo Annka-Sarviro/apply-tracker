@@ -65,7 +65,7 @@ const NotesModal = ({ type }: NoteType) => {
     dispatch(
       closeButton({
         isButtonOpen,
-        resetForm: () => handleConfirmation("closeModalsaveNote"),
+        resetForm: () => handleConfirmation("closeModalSaveNote"),
       })
     );
   }, [

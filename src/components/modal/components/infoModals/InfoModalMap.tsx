@@ -37,7 +37,7 @@ const InfoModalMap = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [logOut, { isLoading: isLoadinglogOut }] = useLogOutUserMutation();
+  const [logOut, { isLoading: isLoadingLogOut }] = useLogOutUserMutation();
   const dataModalForConfirm = useAppSelector(
     (state) => state.modal.dataConfirmation
   );
@@ -113,16 +113,16 @@ const InfoModalMap = () => {
   }, [editVacanciesSubmit, dataModalForConfirm, dispatch]);
 
   // Архівувати вакансію
-  const handleArhiveVacancy = useCallback((): void => {
+  const handleArchiveVacancy = useCallback((): void => {
     dispatch(
       openConfirmation({
-        typeConfirmation: "arhiveVacancy",
+        typeConfirmation: "archiveVacancy",
         dataConfirmation: dataModalForConfirm,
       })
     );
   }, [dispatch, dataModalForConfirm]);
 
-  const handleButonArhiveVacancy = useCallback((): void => {
+  const handleButtonArchiveVacancy = useCallback((): void => {
     editVacanciesSubmit({
       ...dataModalForConfirm,
       isArchived: !dataModalForConfirm.isArchived,
@@ -154,7 +154,7 @@ const InfoModalMap = () => {
       notifyError(t("infoModal.saveAddEvent.notifyAddEventError"));
       console.error("handleAddEvent: помилка при збереженні -", error);
     }
-  }, [dataModalForConfirm, addCreateEvent, dispatch, refetch]);
+  }, [dataModalForConfirm, addCreateEvent, dispatch, refetch, t]);
 
   // Видалення події
   const handleDeleteEvent = useCallback(async () => {
@@ -198,11 +198,10 @@ const InfoModalMap = () => {
       console.error("handleEditEvent: помилка при збереженні -", error);
       notifyError(t("infoModal.saveEditEvent.notifyEditEventError"));
     }
-  }, [dataModalForConfirm, updateEventById, dispatch, refetch]);
+  }, [dataModalForConfirm, t, updateEventById, dispatch, refetch]);
 
   // Збереження нотатки
   const handleAddNotes = useCallback((): void => {
-    console.log("handleaddNotes", dataModalForConfirm);
     notesSubmit(dataModalForConfirm);
   }, [notesSubmit, dataModalForConfirm]);
 
@@ -365,7 +364,7 @@ const InfoModalMap = () => {
           "text-[20px]",
           "small",
           "ghost",
-          isLoadinglogOut
+          isLoadingLogOut
         ),
         createButton(
           t("infoModal.button.logOut"),
@@ -373,7 +372,7 @@ const InfoModalMap = () => {
           "text-[20px] w-full bg-button md:mx-auto xl:mx-0 xl:w-auto",
           "small",
           "ghost",
-          isLoadinglogOut
+          isLoadingLogOut
         ),
       ],
     },
@@ -413,7 +412,7 @@ const InfoModalMap = () => {
             : t("infoModal.button.archive"),
           dataModalForConfirm?.isArchived
             ? handleCloseConfirmation
-            : handleArhiveVacancy,
+            : handleArchiveVacancy,
           "",
           "small",
           "ghost",
@@ -429,10 +428,10 @@ const InfoModalMap = () => {
         ),
       ],
     },
-    arhiveVacancy: {
-      title: t("infoModal.arhiveVacancy.title"),
+    archiveVacancy: {
+      title: t("infoModal.archiveVacancy.title"),
       titleSize: "small",
-      text: [t("infoModal.arhiveVacancy.text_1")],
+      text: [t("infoModal.archiveVacancy.text_1")],
       button: [
         createButton(
           t("infoModal.button.cancel"),
@@ -444,7 +443,7 @@ const InfoModalMap = () => {
         ),
         createButton(
           t("infoModal.button.toArchive"),
-          handleButonArhiveVacancy,
+          handleButtonArchiveVacancy,
           "text-[20px]",
           "big",
           "accent",
@@ -467,7 +466,7 @@ const InfoModalMap = () => {
         ),
         createButton(
           t("addVacancy.form.restore"),
-          handleButonArhiveVacancy,
+          handleButtonArchiveVacancy,
           "text-[20px]",
           "big",
           "accent",
@@ -607,7 +606,7 @@ const InfoModalMap = () => {
         ),
       ],
     },
-    closeModalsaveEditVacancies: {
+    closeModalSaveEditVacancies: {
       title: t("infoModal.saveAddVacancies.title"),
       titleSize: "small",
       text: [t("infoModal.saveAddVacancies.text_1")],
@@ -630,7 +629,7 @@ const InfoModalMap = () => {
         ),
       ],
     },
-    closeModalsaveEditEvent: {
+    closeModalSaveEditEvent: {
       title: t("infoModal.saveEditEvent.title"),
       titleSize: "small",
       text: [t("infoModal.saveEditEvent.text_1")],
@@ -651,7 +650,7 @@ const InfoModalMap = () => {
         ),
       ],
     },
-    closeModalsaveAddEvent: {
+    closeModalSaveAddEvent: {
       title: t("infoModal.saveAddEvent.title"),
       titleSize: "small",
       text: [t("infoModal.saveAddEvent.text_1")],
@@ -693,7 +692,7 @@ const InfoModalMap = () => {
         ),
       ],
     },
-    closeModalsaveNote: {
+    closeModalSaveNote: {
       title: t("infoModal.saveAddVacancies.title"),
       titleSize: "small",
       text: [t("infoModal.saveAddVacancies.text_1")],
@@ -716,7 +715,7 @@ const InfoModalMap = () => {
         ),
       ],
     },
-    closeModaldeleteNote: {
+    closeModalDeleteNote: {
       title: t("notesHeader.deleteNote.title"),
       titleSize: "small",
       text: [t("notesHeader.deleteNote.text_1")],

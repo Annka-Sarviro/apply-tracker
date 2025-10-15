@@ -1,6 +1,6 @@
 import { FC } from "react";
-import Skeleton from "../../Sceleton/Sceleton.tsx";
-import VacancyCardSkeleton from "./VacancyCardSceleton";
+import Skeleton from "../../Skeleton/Skeleton.tsx";
+import VacancyCardSkeleton from "./VacancyCardSkeleton.tsx";
 
 const VacancySectionSkeleton: FC = () => {
   return (

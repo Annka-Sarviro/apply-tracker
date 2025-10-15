@@ -101,7 +101,7 @@ const VacancySectionBox: FC<VacancySectionBoxProps> = ({
           <div
             ref={contentRef}
             className={clsx(
-              "scrollbar-y-sectionbox h-auto overflow-y-auto",
+              "scrollbar-y-sectionBox h-auto overflow-y-auto",
               { "pr-[12px] md:pr-4": hasScroll },
               { "pr-[12px] md:pr-4": isIOS || isFirefox },
               isIOS && "soon-scroll-ios",

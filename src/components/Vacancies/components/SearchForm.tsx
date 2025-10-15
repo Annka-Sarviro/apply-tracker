@@ -26,7 +26,7 @@ type SearchFormData = z.infer<typeof SearchSchema>;
 export const SearchForm: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const isDesctop = useMediaQuery({ minWidth: 1280 });
+  const isDesktop = useMediaQuery({ minWidth: 1280 });
 
   const [isSearching, setIsSearching] = useState(false);
 
@@ -97,7 +97,7 @@ export const SearchForm: React.FC = () => {
       handleSearch("");
     }
     resetField("query");
-    if (!isDesctop) {
+    if (!isDesktop) {
       dispatch(closeSearch());
     }
   };
@@ -134,7 +134,7 @@ export const SearchForm: React.FC = () => {
               >
                 <Icon
                   id="cancel-in-round"
-                  className="fill-redColor h-6 w-6 cursor-pointer"
+                  className="h-6 w-6 cursor-pointer fill-redColor"
                 />
               </button>
             )}
@@ -156,7 +156,7 @@ export const SearchForm: React.FC = () => {
           <Icon id={"search"} className="size-6 fill-textBlack" />
         </button>
       </form>
-      {isDesctop && <SearchResults onClear={() => resetField("query")} />}
+      {isDesktop && <SearchResults onClear={() => resetField("query")} />}
     </div>
   );
 };

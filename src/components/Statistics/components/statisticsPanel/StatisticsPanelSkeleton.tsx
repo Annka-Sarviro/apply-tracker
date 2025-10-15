@@ -1,4 +1,4 @@
-import Skeleton from "../../../Sceleton/Sceleton";
+import Skeleton from "../../../Skeleton/Skeleton";
 
 const StatisticsCardSkeleton = () => {
   return (

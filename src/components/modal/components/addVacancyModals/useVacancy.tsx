@@ -112,10 +112,10 @@ const useVacancy = () => {
 
       // 3 - архівуємо
       if (isArchived) {
-        const responseArhive = await archiveVacancyById({
+        const responseArchive = await archiveVacancyById({
           id: idVacancy,
         }).unwrap();
-        console.log("responseArhive", responseArhive);
+        console.log("responseArhive", responseArchive);
       }
 
       // 4 - зберігаємо статуси

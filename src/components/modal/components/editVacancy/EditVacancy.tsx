@@ -19,7 +19,7 @@ import { TypesModal } from "../../ModalMain.types";
 // hook
 import useEditVacancy from "./useEditVacancy";
 import { useKeyBoardNavigation } from "../addVacancyModals/useKeyBoardNavigation";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 const EditVacancy = () => {
   const dispatch = useAppDispatch();
@@ -41,31 +41,33 @@ const EditVacancy = () => {
   } = useEditVacancy();
 
   const isArchived = vacancyData?.isArchived || "";
-
-  const handleConfirmation = (typeConfirmation: TypesModal) => {
-    handleSubmit((data) => {
-      dispatch(
-        openConfirmation({
-          typeConfirmation,
-          dataConfirmation: data,
-        })
-      );
-    })();
-  };
+  const handleConfirmation = useCallback(
+    (typeConfirmation: TypesModal) => {
+      handleSubmit((data: any) => {
+        dispatch(
+          openConfirmation({
+            typeConfirmation,
+            dataConfirmation: data,
+          })
+        );
+      })();
+    },
+    [dispatch, handleSubmit]
+  );
 
   const deleteVacancy = () => handleConfirmation("deleteVacancy");
   const saveVacancy = () => handleConfirmation("saveEditVacancies");
   const handleSubmitArchive = () =>
-    handleConfirmation(isArchived ? "restoreVacancy" : "arhiveVacancy");
+    handleConfirmation(isArchived ? "restoreVacancy" : "archiveVacancy");
 
   useEffect(() => {
     dispatch(
       closeButton({
         isButtonOpen: isFormChanged,
-        resetForm: () => handleConfirmation("closeModalsaveEditVacancies"),
+        resetForm: () => handleConfirmation("closeModalSaveEditVacancies"),
       })
     );
-  }, [isFormChanged]);
+  }, [dispatch, handleConfirmation, isFormChanged]);
 
   // keyBoardNavigation
   const focusFields: string[] = [

@@ -8,7 +8,7 @@ import {
 } from "@/components/Notifications/NotificationService";
 import { useAppDispatch } from "@/store/hook";
 import {
-  useCreateCoverLeterMutation,
+  useCreateCoverLetterMutation,
   useUpdateCoverLetterByIdMutation,
 } from "@/store/querySlices/coverLettersQuerySlice";
 import {
@@ -29,7 +29,7 @@ import {
   closeConfirmation,
   closeButton,
 } from "@/store/slices/modalSlice/modalSlice";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { FieldErrors, SubmitHandler } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
@@ -50,44 +50,138 @@ function useMutationProfileData({
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const [
-    mutationSocialLink,
+    updateSocialLinkMutation,
     {
-      isLoading: isLoadingSocialLink,
-      isSuccess: isSuccessSocialLink,
-      isError: isErrorSocialLink,
+      isLoading: isLoadingUpdateSocialLink,
+      isSuccess: isSuccessUpdateSocialLink,
+      isError: isErrorUpdateSocialLink,
     },
-  ] = isUpdating
-    ? useUpdateSocialLinkMutation()
-    : useCreateSocialLinkMutation();
+  ] = useUpdateSocialLinkMutation();
 
   const [
-    mutationCoverLetter,
+    createSocialLinkMutation,
     {
-      isLoading: isLoadingCoverLetter,
-      isSuccess: isSuccessCoverLetter,
-      isError: isErrorCoverLetter,
+      isLoading: isLoadingCreateSocialLink,
+      isSuccess: isSuccessCreateSocialLink,
+      isError: isErrorCreateSocialLink,
     },
-  ] = isUpdating
-    ? useUpdateCoverLetterByIdMutation()
-    : useCreateCoverLeterMutation();
+  ] = useCreateSocialLinkMutation();
+
+  const mutationSocialLink = isUpdating
+    ? updateSocialLinkMutation
+    : createSocialLinkMutation;
+
+  const isLoadingSocialLink = isUpdating
+    ? isLoadingUpdateSocialLink
+    : isLoadingCreateSocialLink;
+
+  const isSuccessSocialLink = isUpdating
+    ? isSuccessUpdateSocialLink
+    : isSuccessCreateSocialLink;
+
+  const isErrorSocialLink = isUpdating
+    ? isErrorUpdateSocialLink
+    : isErrorCreateSocialLink;
 
   const [
-    mutationProject,
+    updateCoverLetterMutation,
     {
-      isLoading: isLoadingProject,
-      isSuccess: isSuccessProject,
-      isError: isErrorProject,
+      isLoading: isLoadingUpdateCoverLetter,
+      isSuccess: isSuccessUpdateCoverLetter,
+      isError: isErrorUpdateCoverLetter,
     },
-  ] = isUpdating ? useUpdateProjectByIdMutation() : useCreateProjectMutation();
+  ] = useUpdateCoverLetterByIdMutation();
 
   const [
-    mutationResume,
+    createCoverLetterMutation,
     {
-      isLoading: isLoadingResume,
-      isSuccess: isSuccessResume,
-      isError: isErrorResume,
+      isLoading: isLoadingCreateCoverLetter,
+      isSuccess: isSuccessCreateCoverLetter,
+      isError: isErrorCreateCoverLetter,
     },
-  ] = isUpdating ? useUpdateResumeByIdMutation() : useCreateResumeMutation();
+  ] = useCreateCoverLetterMutation();
+
+  const mutationCoverLetter = isUpdating
+    ? updateCoverLetterMutation
+    : createCoverLetterMutation;
+
+  const isLoadingCoverLetter = isUpdating
+    ? isLoadingUpdateCoverLetter
+    : isLoadingCreateCoverLetter;
+
+  const isSuccessCoverLetter = isUpdating
+    ? isSuccessUpdateCoverLetter
+    : isSuccessCreateCoverLetter;
+
+  const isErrorCoverLetter = isUpdating
+    ? isErrorUpdateCoverLetter
+    : isErrorCreateCoverLetter;
+
+  const [
+    updateProjectMutation,
+    {
+      isLoading: isLoadingUpdateProject,
+      isSuccess: isSuccessUpdateProject,
+      isError: isErrorUpdateProject,
+    },
+  ] = useUpdateProjectByIdMutation();
+
+  const [
+    createProjectMutation,
+    {
+      isLoading: isLoadingCreateProject,
+      isSuccess: isSuccessCreateProject,
+      isError: isErrorCreateProject,
+    },
+  ] = useCreateProjectMutation();
+
+  const mutationProject = isUpdating
+    ? updateProjectMutation
+    : createProjectMutation;
+
+  const isLoadingProject = isUpdating
+    ? isLoadingUpdateProject
+    : isLoadingCreateProject;
+
+  const isSuccessProject = isUpdating
+    ? isSuccessUpdateProject
+    : isSuccessCreateProject;
+
+  const isErrorProject = isUpdating
+    ? isErrorUpdateProject
+    : isErrorCreateProject;
+
+  const [
+    updateResumeMutation,
+    {
+      isLoading: isLoadingUpdateResume,
+      isSuccess: isSuccessUpdateResume,
+      isError: isErrorUpdateResume,
+    },
+  ] = useUpdateResumeByIdMutation();
+
+  const [
+    createResumeMutation,
+    {
+      isLoading: isLoadingCreateResume,
+      isSuccess: isSuccessCreateResume,
+      isError: isErrorCreateResume,
+    },
+  ] = useCreateResumeMutation();
+
+  const mutationResume = isUpdating
+    ? updateResumeMutation
+    : createResumeMutation;
+
+  const isLoadingResume = isUpdating
+    ? isLoadingUpdateResume
+    : isLoadingCreateResume;
+
+  const isSuccessResume = isUpdating
+    ? isSuccessUpdateResume
+    : isSuccessCreateResume;
+
+  const isErrorResume = isUpdating ? isErrorUpdateResume : isErrorCreateResume;
 
   const onSubmit: SubmitHandler<
     Pick<DataItem, "text" | "link" | "name" | "technologies">
@@ -139,12 +233,17 @@ function useMutationProfileData({
     isLoadingSocialLink ||
     Object.keys(errors).length > 0;
 
-  const messageCreate: Record<PropsModalAddProperties["cardsType"], string> = {
-    addPersonalProperties: t("notification.fieldAdded"),
-    addCoverLetters: t("notification.letterAdded"),
-    addProjects: t("notification.projectAdded"),
-    addResumes: t("notification.resumeAdded"),
-  };
+  const messageCreate = useMemo<
+    Record<PropsModalAddProperties["cardsType"], string>
+  >(
+    () => ({
+      addPersonalProperties: t("notification.fieldAdded"),
+      addCoverLetters: t("notification.letterAdded"),
+      addProjects: t("notification.projectAdded"),
+      addResumes: t("notification.resumeAdded"),
+    }),
+    [t]
+  );
   useEffect(() => {
     if (
       isSuccessCoverLetter ||
@@ -163,10 +262,16 @@ function useMutationProfileData({
       dispatch(closeButton({ isButtonOpen: false, resetForm: undefined }));
     }
   }, [
+    cardsType,
+    dispatch,
     isSuccessCoverLetter,
     isSuccessProject,
     isSuccessResume,
     isSuccessSocialLink,
+    isUpdating,
+    messageCreate,
+    refetchProfile,
+    t,
   ]);
 
   useEffect(() => {
@@ -182,7 +287,14 @@ function useMutationProfileData({
           : t("notification.addedError")
       );
     }
-  }, [isErrorCoverLetter, isErrorProject, isErrorResume, isErrorSocialLink]);
+  }, [
+    isErrorCoverLetter,
+    isErrorProject,
+    isErrorResume,
+    isErrorSocialLink,
+    isUpdating,
+    t,
+  ]);
 
   return { onSubmit, isSubmitDisabled };
 }

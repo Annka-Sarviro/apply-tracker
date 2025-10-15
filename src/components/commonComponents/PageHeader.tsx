@@ -28,7 +28,7 @@ import { Options } from "../Vacancies/components/dropdown/Dropdown.props";
 const PageHeader: FC = () => {
   const { t } = useTranslation();
   const isMobile = useMediaQuery({ maxWidth: 767 });
-  const isDesctop = useMediaQuery({ minWidth: 1280 });
+  const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isDropdownShown = useSelector(selectDropdownShown);
 
   const location = useLocation();
@@ -74,7 +74,7 @@ const PageHeader: FC = () => {
 
   return (
     <div className="w-full items-start pb-6 xl:flex xl:justify-between">
-      {isDesctop && <SearchForm />}
+      {isDesktop && <SearchForm />}
       <div
         className={cn(
           "relative flex xl:gap-6 smOnly:justify-between mdOnly:justify-end mdOnly:gap-5",
@@ -127,7 +127,7 @@ const PageHeader: FC = () => {
 
         <AddButton variant={variant} />
       </div>
-      {!isDesctop && <SearchResults />}
+      {!isDesktop && <SearchResults />}
     </div>
   );
 };

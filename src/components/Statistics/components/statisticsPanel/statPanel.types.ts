@@ -6,7 +6,7 @@ export interface StatisticsPanelProps {
   prediction: Prediction | null;
 }
 
-export interface Panellist {
+export interface PanelList {
   cardName: CardNameKeys;
   cardQuantity: number;
 }
