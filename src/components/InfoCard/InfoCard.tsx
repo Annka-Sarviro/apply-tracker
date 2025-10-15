@@ -42,6 +42,7 @@ const InfoCard = ({
           "xl:gap-1 xl:px-6 xl:py-[9px]",
           "2xl:gap-2 2xl:p-[14px]",
           "3xl:gap-4 3xl:px-[63px] 3xl:py-[14px]",
+          "fill-iconFill dark:fill-iconFill",
           color === "blue"
             ? "border-color1 dark:border-color1-transparent"
             : "border-color5 dark:border-color5-transparent",

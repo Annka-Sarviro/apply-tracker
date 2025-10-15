@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import useNotes from "./useNotes";
 
@@ -21,29 +21,39 @@ const NotesModal = ({ type }: NoteType) => {
   const { t } = useTranslation();
   const isAddNote = type === "addNote";
 
-  const { register, resetField, handleSubmit, errors, isNoteChanged, watch } =
-    useNotes(type);
+  const {
+    register,
+    resetField,
+    handleSubmit,
+    errors,
+    isNoteChanged,
+    watch,
+    isLoading,
+  } = useNotes(type);
 
   const hasNoteName = Boolean(watch("noteName"));
   const hasNoteText = Boolean(watch("noteText"));
   const hasErrors = Object.keys(errors).length > 0;
   const isDisabledButton =
-    !isNoteChanged || hasErrors || !hasNoteName || !hasNoteText;
+    !isNoteChanged || hasErrors || !hasNoteName || !hasNoteText || isLoading;
 
-  const handleConfirmation = (typeConfirmation: TypesModal) => {
-    if (hasErrors || !hasNoteName || !hasNoteText) {
-      dispatch(openConfirmation({ typeConfirmation: "closeDiscardModal" }));
-    } else {
-      handleSubmit((data) => {
-        dispatch(
-          openConfirmation({
-            typeConfirmation,
-            dataConfirmation: data,
-          })
-        );
-      })();
-    }
-  };
+  const handleConfirmation = useCallback(
+    (typeConfirmation: TypesModal) => {
+      if (hasErrors || !hasNoteName || !hasNoteText) {
+        dispatch(openConfirmation({ typeConfirmation: "closeDiscardModal" }));
+      } else {
+        handleSubmit((data) => {
+          dispatch(
+            openConfirmation({
+              typeConfirmation,
+              dataConfirmation: data,
+            })
+          );
+        })();
+      }
+    },
+    [dispatch, hasErrors, hasNoteName, hasNoteText, handleSubmit]
+  );
 
   const saveNote = () => handleConfirmation("saveNote");
   const deleteNote = () => handleConfirmation("deleteNote");
@@ -58,7 +68,16 @@ const NotesModal = ({ type }: NoteType) => {
         resetForm: () => handleConfirmation("closeModalsaveNote"),
       })
     );
-  }, [isNoteChanged, type, dispatch, hasNoteName, hasNoteText, hasErrors]);
+  }, [
+    isNoteChanged,
+    hasNoteName,
+    hasNoteText,
+    hasErrors,
+    type,
+    dispatch,
+    isDisabledButton,
+    handleConfirmation,
+  ]);
 
   return (
     <div className="mb-4 mt-10 w-full text-left xl:my-12 xl:mb-4 xl:mt-10">
@@ -108,6 +127,7 @@ const NotesModal = ({ type }: NoteType) => {
                   variant="ghost"
                   size="small"
                   onClick={deleteNote}
+                  disabled={isDisabledButton}
                 >
                   {t("addVacancy.form.delete")}
                   <Icon id={"delete"} className="ml-3 h-6 w-6" />

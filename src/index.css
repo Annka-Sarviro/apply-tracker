@@ -27,6 +27,8 @@ html {
   /* --backgroundSecondary: #eceff6; */
   --backgroundTertiary: #f7f8fb;
   --iconHover: #436b88;
+  --iconFill: #000;
+  --errorColor: #fc8972;
   --color1: #c6e7ff;
   --color1-transparent: rgba(198, 231, 255, 0.4);
   --color2: #fc8972;
@@ -56,11 +58,13 @@ html {
   --textMediumWhite: #333333;
   --textOther: #b3c6d3;
   --button: #134e79;
+  --errorColor: rgba(252, 137, 114, 0.7);
   --backgroundMain: #252a34;
   /* --backgroundSecondary: #eceff6; */
   /* --backgroundSecondary: #5f687c */
   --backgroundTertiary: #292d36;
   --iconHover: #436b88;
+  --iconFill: #ecf0f6;
   --color1: #3b454d;
   --color1-transparent: rgba(59, 69, 77, 0.4);
   --color2: #4c2922;

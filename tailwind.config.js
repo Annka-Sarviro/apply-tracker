@@ -27,7 +27,7 @@ export default {
       colors: {
         whiteColor: "#ffffff",
         blackColor: "#333333",
-        redColor: "#fc8972", // error red
+        redColor: "var(--errorColor)", // error red
         // redColor: "rgba(252, 137, 114, 1)",
         greyLightcolor: "#dbdcdd",
         // textBlack: "#333333", // перевела на дві теми в index.css
@@ -50,6 +50,7 @@ export default {
         backgroundTertiary: "var(--backgroundTertiary)",
         // iconHover: "#436B88", // перевела на дві теми в index.css
         iconHover: "var(--iconHover)",
+        iconFill: "var(--iconFill)",
         // color1: {
         //   DEFAULT: "#C6E7FF", // blue
         //   transparent: "rgba(198, 231, 255, 0.40)",

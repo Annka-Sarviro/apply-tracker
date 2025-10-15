@@ -132,7 +132,7 @@ export const Input = forwardRef<
               id={`input-${name}`}
               className={cn(
                 "peer w-full font-nunito text-base font-medium transition placeholder:font-nunito",
-                "rounded-lg border border-textBlack focus:border-textOther focus:outline-none active:border-textOther",
+                "rounded-xl border border-textBlack focus:border-textOther focus:outline-none active:border-textOther",
                 "bg-transparent text-textBlack placeholder:text-textBlackLight active:bg-transparent",
                 "overflow-hidden text-ellipsis whitespace-nowrap", // alex три крапка для великого тексту 20/05
                 // "placeholder-shown:border-textBlack",

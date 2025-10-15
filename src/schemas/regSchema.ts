@@ -4,10 +4,10 @@ export const emailRegex =
 export const emailRuByRegex = /(?<!\.ru|\.by)$/;
 
 export const passwordRegex =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])(?=\S)[A-Za-z\d!@#$%^&*]{8,}$/;
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s])\S{8,}$/;
 
 export const textContactUsRegex =
-  /^(?!.*[ЁёЫыЭэЪъ])(?!(?:.*?[<>"'`\/\\|]){5,})[\wа-яА-ЯіІїЇєЄґҐ\s,.!?;:()\[\]{}@#$%^&*+=~\-]+$/;
+  /^(?!.*[ЁёЫыЭэЪъ])[\p{L}\p{N}\p{P}\p{S}\s\n\r\t]+$/u;
 
 // export const nameRegex =
 //   /^(?!.*[ЁёЫыЭэЪъ`])([A-Za-zА-Яа-яІі’']+(-[A-Za-zА-Яа-яІі’']+)*\s?)*[A-Za-zА-Яа-яІі’']+(-[A-Za-zА-Яа-яІі’']+)*$/;

@@ -91,14 +91,14 @@ const InfoModalMap = () => {
   const handleCloseConfirmation = useCallback((): void => {
     notifyInfo(t("notification.notSaveInfo")); // test
     dispatch(closeConfirmation());
-  }, [dispatch]);
+  }, [dispatch, t]);
 
   const handleCloseBtnModal = useCallback((): void => {
     notifyInfo(t("notification.notSaveInfo")); // test
     dispatch(closeConfirmation());
     dispatch(closeModal());
     dispatch(closeButton({ isButtonOpen: false, resetForm: undefined }));
-  }, [dispatch]);
+  }, [dispatch, t]);
 
   // Видалити вакансію
   const handleDeleteVacancy = useCallback((): void => {
@@ -110,7 +110,7 @@ const InfoModalMap = () => {
   const handleEditVacancy = useCallback((): void => {
     editVacanciesSubmit(dataModalForConfirm);
     dispatch(closeButton({ isButtonOpen: false, resetForm: undefined }));
-  }, [editVacanciesSubmit, dataModalForConfirm]);
+  }, [editVacanciesSubmit, dataModalForConfirm, dispatch]);
 
   // Архівувати вакансію
   const handleArhiveVacancy = useCallback((): void => {
@@ -168,7 +168,7 @@ const InfoModalMap = () => {
     } catch (error) {
       notifyError(t("infoModal.deleteEvent.notifyDeleteEventError"));
     }
-  }, [dataModalForConfirm, deleteEventById, dispatch, refetch]);
+  }, [dataModalForConfirm, deleteEventById, dispatch, refetch, t]);
 
   // Збереження редагування події
   const handleEditEvent = useCallback(async () => {

@@ -9,14 +9,17 @@ const EyeClosed_icon = () => {
   return (
     <Icon
       id="eye-off-outline"
-      className="h-6 w-6 cursor-pointer fill-textBlack"
+      className="fill-iconFill h-6 w-6 cursor-pointer hover:fill-textBlackLight focus:fill-textBlackLight hover:dark:fill-textBlackLight focus:dark:fill-textBlackLight"
     />
   );
 };
 
 const EyeOpen_icon = () => {
   return (
-    <Icon id="eye-outline" className="h-6 w-6 cursor-pointer fill-textBlack" />
+    <Icon
+      id="eye-outline"
+      className="fill-iconFill h-6 w-6 cursor-pointer hover:fill-textBlackLight focus:fill-textBlackLight hover:dark:fill-textBlackLight focus:dark:fill-textBlackLight"
+    />
   );
 };
 
@@ -70,7 +73,7 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
               "2xl:text-[16px]",
               {
                 ["border-color7"]: !error,
-                ["border-redColor active:border-redColor placeholder-shown:border-redColor focus:border-redColor"]:
+                ["border-redColor placeholder-shown:border-redColor focus:border-redColor active:border-redColor"]:
                   error,
               }
             )}
@@ -96,7 +99,7 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
           <span
             id={`inputError-${name}`}
             className={cn(
-              "inline-block font-nunito font-medium text-[redColor]",
+              "inline-block font-nunito font-medium text-redColor dark:text-redColor",
               "sm text-[12px]",
               "md:text-[14px]",
               "2xl:text-[16px]"
