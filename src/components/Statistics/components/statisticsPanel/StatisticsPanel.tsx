@@ -11,10 +11,12 @@ import {
   PanelList,
   StatisticsPanelProps,
 } from "./statPanel.types.ts";
+import { PredictionCardSkeleton } from "./StatisticsPanelSkeleton.tsx";
 
 const StatisticsPanel: FC<StatisticsPanelProps> = ({
   vacancies,
   prediction,
+  isPredictionError,
 }) => {
   const { i18n, t } = useTranslation();
 
@@ -54,10 +56,14 @@ const StatisticsPanel: FC<StatisticsPanelProps> = ({
           );
         })}
       </ul>
-      <PredictionCard
-        header={localizedHeaders.predictions}
-        text={predictionText || ""}
-      />
+      {isPredictionError ? (
+        <PredictionCardSkeleton />
+      ) : (
+        <PredictionCard
+          header={localizedHeaders.predictions}
+          text={predictionText || ""}
+        />
+      )}
     </div>
   );
 };

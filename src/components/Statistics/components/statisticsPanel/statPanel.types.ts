@@ -4,6 +4,7 @@ import { Vacancy } from "@/types/vacancies.types";
 export interface StatisticsPanelProps {
   vacancies: Vacancy[];
   prediction: Prediction | null;
+  isPredictionError: boolean;
 }
 
 export interface PanelList {

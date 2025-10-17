@@ -25,6 +25,8 @@ import { openModal } from "../../../store/slices/modalSlice/modalSlice.ts";
 import { fetchUpdatedStatuses } from "@/store/slices/statusVacancy/vacancyStatusOperation.ts";
 import { Vacancy } from "@/types/vacancies.types.ts";
 import { useLocation } from "react-router-dom";
+import Icon from "@/components/Icon/Icon.tsx";
+import { cn } from "@/utils/utils.ts";
 
 const VacancyMain: FC = () => {
   const { sortType, searchQuery } = useAppSelector(selectFilteredVacancies);
@@ -113,6 +115,7 @@ const VacancyMain: FC = () => {
       {!isLoading &&
         // vacancies.length === 0 &&
         renderedVacancies.length === 0 &&
+        !isArchive &&
         (!isMobile ? (
           <VacancySection
             titleSection={t("sortDropdown.saved")}
@@ -140,6 +143,20 @@ const VacancyMain: FC = () => {
         ))}
 
       {/* Архівні вакансії */}
+      {isArchive && renderedVacancies.length === 0 && (
+        <div className="mt-4 flex flex-col items-center gap-3 md:mt-8 md:gap-4 xl:mt-[60px] xl:gap-6 2xl:mt-10 2xl:gap-4 3xl:mt-[60px] 3xl:gap-8">
+          <Icon
+            id="girl-and-dashboard"
+            className={cn(
+              "mt-2 size-[209px] fill-iconFill dark:fill-iconFill md:mt-2 xl:mt-9 2xl:mt-0 3xl:mt-0 3xl:size-[256px]"
+            )}
+          />
+          <p className="mt-4 font-nunito text-xl text-textBlack">
+            {t("vacanciesHeader.emptySection")}
+          </p>
+        </div>
+      )}
+
       {isArchive && renderedVacancies.length > 0 && (
         <VacancySectionBox
           titleSection={t("vacanciesHeader.archive")}
@@ -164,7 +181,7 @@ const VacancyMain: FC = () => {
       )}
 
       {/* В цій секції не має вакансій... - під час сортування*/}
-      {!isLoading && renderedVacancies.length === 0 && (
+      {!isLoading && renderedVacancies.length === 0 && !isArchive && (
         <p className="mt-4 font-nunito text-xl text-textBlack">
           {t("vacanciesHeader.emptySection")}
         </p>

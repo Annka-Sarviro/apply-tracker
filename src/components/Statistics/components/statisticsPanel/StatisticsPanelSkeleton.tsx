@@ -10,7 +10,7 @@ const StatisticsCardSkeleton = () => {
   );
 };
 
-const PredictionCardSkeleton = () => {
+export const PredictionCardSkeleton = () => {
   return (
     <div className="flex h-[97px] w-full flex-col gap-2 rounded-2xl bg-color9-transparent p-2 md:h-[142px] md:w-[348px] md:gap-1 md:p-4 xl:h-[128px] xl:w-[395px] xl:gap-2 2xl:h-[139px] 2xl:w-[447px] 2xl:gap-2 2xl:p-4 3xl:h-[193px] 3xl:w-[608px] 3xl:gap-3 3xl:px-8 3xl:py-6">
       <Skeleton width="55%" height="15%" />

@@ -109,6 +109,7 @@ function Statistics() {
           <StatisticsPanel
             vacancies={vacanciesForStat}
             prediction={predictionForRender}
+            isPredictionError={isPredictionError}
           />
         )}
       {!isLoading && vacanciesForStat.length === 0 && <NoVacancyCard />}
