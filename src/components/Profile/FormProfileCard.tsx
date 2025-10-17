@@ -14,8 +14,14 @@ import SocialLinksFields from "./fields/SocialLinksFields";
 import { useTranslation } from "react-i18next";
 import ProfileLinksField from "./fields/ProfileLinksField";
 import SkeletonProfile from "./SkeletonProfile";
-import Separator from "../separator/Separator";
 import Divider from "../separator/Divider";
+import { CoverLetter } from "@/types/coverLetters.types";
+import { Project } from "@/types/projects.types";
+import { Resume } from "@/types/resumes.types";
+
+type CoverLetterWithModal = CoverLetter & { typeModal: string };
+type ResumeWithModal = Resume & { typeModal: string };
+type ProjectWithModal = Project & { typeModal: string };
 
 function FormProfileCard({ cardsType }: PropsProfileCard) {
   const { data: profile, isLoading } = useGetAllUserDataQuery();
@@ -72,7 +78,9 @@ function FormProfileCard({ cardsType }: PropsProfileCard) {
     );
   };
 
-  const handleUpdateInput = (data: any) => {
+  const handleUpdateInput = (
+    data: CoverLetterWithModal | ResumeWithModal | ProjectWithModal
+  ) => {
     dispatch(
       openModal({
         profileData: data,

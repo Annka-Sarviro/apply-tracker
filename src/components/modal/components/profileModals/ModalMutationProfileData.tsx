@@ -62,11 +62,11 @@ function ModalMutationProfileData({ cardsType }: PropsModalAddProperties) {
     (!technologies || technologies === "") &&
     (!text || text === "");
 
-  const isFormComplete: boolean =
+  const isFormComplete =
     (name !== undefined ? name !== "" : true) &&
-    (link !== undefined ? link !== "" : true) &&
-    (technologies !== undefined ? technologies !== "" : true) &&
-    (text !== undefined ? text !== "" : true);
+    (data[cardsType].link ? link !== "" : true) &&
+    (data[cardsType].technologies ? technologies !== "" : true) &&
+    (data[cardsType].text ? text !== "" : true);
 
   const isFormChanged: boolean = updateItem
     ? (updateItem.name ? updateItem.name === name : true) &&
@@ -79,7 +79,8 @@ function ModalMutationProfileData({ cardsType }: PropsModalAddProperties) {
     : isFormEmpty;
 
   const isButtonDisabled = isFormChanged || error || !isFormComplete;
-
+  console.log(isFormChanged, error, !isFormComplete);
+  console.log(isButtonDisabled);
   const dispatch = useAppDispatch();
 
   const handleConfirmation = useCallback(
