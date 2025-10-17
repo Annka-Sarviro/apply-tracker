@@ -9,7 +9,7 @@ const EyeClosed_icon = () => {
   return (
     <Icon
       id="eye-off-outline"
-      className="fill-iconFill h-6 w-6 cursor-pointer hover:fill-textBlackLight focus:fill-textBlackLight hover:dark:fill-textBlackLight focus:dark:fill-textBlackLight"
+      className="h-6 w-6 cursor-pointer fill-iconFill hover:fill-textBlackLight focus:fill-textBlackLight hover:dark:fill-textBlackLight focus:dark:fill-textBlackLight"
     />
   );
 };
@@ -18,7 +18,7 @@ const EyeOpen_icon = () => {
   return (
     <Icon
       id="eye-outline"
-      className="fill-iconFill h-6 w-6 cursor-pointer hover:fill-textBlackLight focus:fill-textBlackLight hover:dark:fill-textBlackLight focus:dark:fill-textBlackLight"
+      className="h-6 w-6 cursor-pointer fill-iconFill hover:fill-textBlackLight focus:fill-textBlackLight hover:dark:fill-textBlackLight focus:dark:fill-textBlackLight"
     />
   );
 };
@@ -66,7 +66,7 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
           <input
             id={`input-${name}`}
             className={cn(
-              "w-full rounded-xl border bg-transparent font-nunito font-medium text-textBlack transition placeholder:font-nunito placeholder:text-textBlackLight placeholder-shown:border-textBlack focus:border-textOther focus:outline-none active:border-textOther",
+              "w-full rounded-xl border bg-transparent font-nunito font-medium text-textBlack caret-textBlack transition placeholder:font-nunito placeholder:text-textBlackLight placeholder-shown:border-textBlack focus:border-textOther focus:outline-none active:border-textOther",
               "sm h-[34px] px-4 py-2 pr-9 text-[12px]",
               "md:h-11 md:px-6 md:py-3 md:pr-9 md:text-[14px]",
               "xl:text-[14px]",

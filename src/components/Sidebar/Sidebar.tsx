@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import cn from "clsx";
 import { useMediaQuery } from "react-responsive";
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../store/hook.ts";
 import { selectSidebar } from "../../store/slices/sidebarSlice/sidebarSelector.ts";
@@ -26,14 +26,14 @@ function Sidebar() {
   const location = useLocation();
   const isOpenSidebar = useAppSelector(selectSidebar);
 
-  const isDesktop = useMediaQuery({ minWidth: 1280 });
   const isMobile = useMediaQuery({ maxWidth: 767 });
-
+  const prevIsMobile = useRef(isMobile);
   useEffect(() => {
-    if (!isDesktop && isOpenSidebar) {
+    if (!prevIsMobile.current && isMobile && isOpenSidebar) {
       dispatch(closeSidebar());
     }
-  }, [isMobile, dispatch, isDesktop, isOpenSidebar]);
+    prevIsMobile.current = isMobile;
+  }, [isMobile, dispatch, isOpenSidebar]);
 
   const handleLogOut = (): void => {
     dispatch(
