@@ -723,7 +723,7 @@ input[type="password"]::-ms-clear {
 }
 
 .select__event-modal .react-select__menu {
-  @apply text-xl md:text-2xl xl:text-[28px];
+  @apply z-10 text-xl md:text-2xl xl:text-[28px];
 }
 .select__event-modal .react-select__menu-list {
   overflow-y: auto;

@@ -1,8 +1,8 @@
 import { PropsModalAddProperties } from "@/components/modal/components/profileModals/modalAddProperties.types";
-import { z } from "zod";
+import { z, ZodTypeAny } from "zod";
 
 type Schema = {
-  [K in PropsModalAddProperties["cardsType"]]: any;
+  [K in PropsModalAddProperties["cardsType"]]: ZodTypeAny;
 };
 
 export const addProfileData: Schema = {
@@ -46,10 +46,7 @@ export const addProfileData: Schema = {
       .min(2, { message: "validation.min2Characters" })
       .max(50, { message: "validation.max50Characters" })
       .trim(),
-    text: z
-      .string()
-      .trim()
-      .regex(/^.{2,}$/, { message: "validation.min2Characters" }),
+    text: z.string().trim().min(2, { message: "validation.min2Characters" }),
   }),
   addPersonalProperties: z.object({
     name: z

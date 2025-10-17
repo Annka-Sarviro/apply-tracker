@@ -477,7 +477,8 @@
     "invalidMinutes": "Хвилини мають бути від 0 до 59",
     "invalidPastDate": "Оберіть актуальну дату",
     "showEventArchive": "Показати архів подій",
-    "hideEventArchive": "Сховати архів подій"
+    "hideEventArchive": "Сховати архів подій",
+    "hoursRequired": "Це поле є обов'язковим"
   },
   "calendarTabs": {
     "day": "День",

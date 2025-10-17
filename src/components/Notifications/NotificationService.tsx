@@ -22,6 +22,6 @@ export const notifyInfo = (message: string, title?: string): void => {
   toast.info(<NotificationCustom title={title} message={message} />, {
     className:
       "bg-backgroundTertiary w-fit border-t-transparent border-[1px] border-solid border-button rounded-tl-[0] rounded-br-[12px] rounded-tr-[0] rounded-bl-[12px] min-h-9 h-9",
-    icon: <Icon id="GitHub" className="h-6 w-6 fill-textBlack" />,
+    icon: <Icon id="chat-error-outline" className="h-6 w-6 fill-textBlack" />,
   });
 };

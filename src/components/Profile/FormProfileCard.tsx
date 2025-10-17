@@ -14,6 +14,8 @@ import SocialLinksFields from "./fields/SocialLinksFields";
 import { useTranslation } from "react-i18next";
 import ProfileLinksField from "./fields/ProfileLinksField";
 import SkeletonProfile from "./SkeletonProfile";
+import Separator from "../separator/Separator";
+import Divider from "../separator/Divider";
 
 function FormProfileCard({ cardsType }: PropsProfileCard) {
   const { data: profile, isLoading } = useGetAllUserDataQuery();
@@ -80,7 +82,7 @@ function FormProfileCard({ cardsType }: PropsProfileCard) {
   };
 
   return (
-    <div className="dark:border-greyLightColor flex flex-col gap-2 rounded-[0_12px_12px_12px] border-[4px] border-solid border-backgroundSecondary bg-backgroundTertiary px-2 py-4 md:px-6 md:py-6">
+    <div className="flex flex-col gap-2 rounded-[0_12px_12px_12px] border-[4px] border-solid border-backgroundSecondary bg-backgroundTertiary px-2 py-4 dark:border-greyLightColor md:px-6 md:py-6">
       {isLoading ? (
         <SkeletonProfile />
       ) : (
@@ -88,6 +90,7 @@ function FormProfileCard({ cardsType }: PropsProfileCard) {
           {cardsType === "addPersonalProperties" && (
             <>
               <ProfileLinksField />
+              <Divider />
               <SocialLinksFields />
             </>
           )}

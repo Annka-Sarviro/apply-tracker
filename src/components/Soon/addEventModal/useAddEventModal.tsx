@@ -134,8 +134,8 @@ const useAddEventModal = () => {
   }));
 
   useEffect(() => {
-    register("hours", { required: true });
-    register("minutes", { required: true });
+    register("hours", { required: false });
+    register("minutes", { required: false });
   }, [register]);
 
   const handleInputClick = (type: "hours" | "minutes") => {
@@ -197,7 +197,7 @@ const useAddEventModal = () => {
   return {
     t,
     register,
-    handleSubmit: confirmSave, // Повертаємо обгорнуту функцію
+    handleSubmit: confirmSave,
     setValue,
     resetField,
     reset,

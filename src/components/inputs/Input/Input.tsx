@@ -126,6 +126,7 @@ export const Input = forwardRef<
             ) : ( */}
             <input
               {...registerProps}
+              required={isRequired}
               disabled={disabled}
               {...(autoFocus && { autoFocus })}
               onFocus={onFocus}
@@ -134,7 +135,7 @@ export const Input = forwardRef<
                 "peer w-full font-nunito text-base font-medium transition placeholder:font-nunito",
                 "rounded-xl border border-textBlack focus:border-textOther focus:outline-none active:border-textOther",
                 "bg-transparent text-textBlack placeholder:text-textBlackLight active:bg-transparent",
-                "overflow-hidden text-ellipsis whitespace-nowrap", // alex три крапка для великого тексту 20/05
+                "overflow-hidden text-ellipsis whitespace-nowrap",
                 // "placeholder-shown:border-textBlack",
                 "h-[34px] px-4 py-2 pr-8 text-[12px]",
                 "md:h-11 md:px-6 md:py-3 md:pr-8 md:text-[14px]",
@@ -151,7 +152,7 @@ export const Input = forwardRef<
               placeholder={placeholder}
               type={type}
               {...(value && { value })}
-              {...(defaultValue && { defaultValue })}
+              {...(defaultValue ? { defaultValue } : undefined)}
               // {...register(name)}
               aria-describedby={`inputError-${name}`}
               title={promptMessage}
@@ -265,8 +266,10 @@ export const Input = forwardRef<
                 "2xl:text-[16px]",
                 (name === "hours" || name === "minutes") &&
                   "absolute top-[130%] z-10 w-[66vw] rounded-md bg-whiteColor pb-2 pl-4 pt-1 text-start text-xs text-redColor md:top-[120%] md:w-[250px] md:text-sm xl:top-[110%] xl:w-[280px] 2xl:text-base",
-                name === "hours" && "left-[-90%] md:left-[-80%]",
-                name === "minutes" && "left-[-286%] md:left-[-80%]"
+                name === "hours" &&
+                  "!top-[175%] left-[-90%] dark:bg-transparent md:left-[-80%] xl:!top-[140%]",
+                name === "minutes" &&
+                  "!top-[175%] left-[-286%] dark:bg-transparent md:left-[-80%] xl:!top-[140%]"
               )} //md:text-center text-end
             >
               {t(String(error?.message))}

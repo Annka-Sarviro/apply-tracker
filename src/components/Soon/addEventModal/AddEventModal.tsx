@@ -39,7 +39,9 @@ const AddEventModal = () => {
     isLoading,
   } = useAddEventModal();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const selectHoursRef = useRef<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const selectMinutesRef = useRef<any>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const selectWrapperRef = useRef<HTMLDivElement | null>(null);
@@ -63,6 +65,7 @@ const AddEventModal = () => {
 
   return (
     <form
+      noValidate
       onSubmit={handleSubmit} // Використовуємо handleSubmit, який повертає useForm
       className="mt-4 flex w-full flex-col gap-3 align-middle md:gap-4 xl:mt-10 3xl:mt-14 3xl:gap-6"
     >
@@ -70,7 +73,9 @@ const AddEventModal = () => {
         <div>
           <SoonCalendarModal onSelectDate={handleDateChange} />
           {errors.date?.message && (
-            <p className="text-redColor">{String(errors.date.message)}</p>
+            <p className="px-2 text-redColor">
+              {t(String(errors.date.message))}
+            </p>
           )}
         </div>
 
@@ -143,12 +148,12 @@ const AddEventModal = () => {
                   errors={errors}
                   resetField={resetField}
                   setValue={setValue}
-                  isRequired={true}
+                  isRequired={false}
                   isCheckButtons={false}
                   autoComplete="off"
                   maxLength={2}
                   className={clsx(
-                    "pointer-events-auto z-10 bg-textMediumWhite text-textBlack",
+                    "pointer-events-auto z-[8] bg-textMediumWhite text-textBlack",
                     "h-full w-full rounded-lg border-2 border-transparent px-4 py-2 text-center xl:py-[9px]",
                     "focus-within:border-color1 hover:border-color1 focus:border-color1 active:border-color1"
                   )}
