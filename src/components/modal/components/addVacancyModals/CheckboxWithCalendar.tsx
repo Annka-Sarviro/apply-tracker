@@ -18,7 +18,18 @@ import { Options } from "../../../Vacancies/components/dropdown/Dropdown.props";
 
 export const CheckboxWithCalendar = forwardRef<HTMLInputElement, CheckboxProps>(
   (
-    { id, name, label, register, errors, date, getValues, setValue, onFocus },
+    {
+      id,
+      name,
+      label,
+      register,
+      errors,
+      date,
+      getValues,
+      setValue,
+      onFocus,
+      clearErrors,
+    },
     ref
   ) => {
     const [isChecked, setIsChecked] = useState<boolean>(
@@ -49,6 +60,11 @@ export const CheckboxWithCalendar = forwardRef<HTMLInputElement, CheckboxProps>(
       );
 
       setIsOpenCalendar(false);
+
+      if (isChecked) {
+        clearErrors?.(`${name}Dropdown`);
+        setValue?.(`${name}Dropdown`, "");
+      }
       // відстеження помилок
       if (name === "resume" || name === "reject") {
         setValue?.(`${name}`, !getValues?.(`${name}`));
@@ -142,6 +158,7 @@ export const CheckboxWithCalendar = forwardRef<HTMLInputElement, CheckboxProps>(
                 onClick={handleCheckbox}
                 ref={ref}
                 onFocus={onFocus}
+                clearErrors={clearErrors}
               />
               <span
                 className="cursor-pointer text-[14px] underline 2xl:text-[16px]"

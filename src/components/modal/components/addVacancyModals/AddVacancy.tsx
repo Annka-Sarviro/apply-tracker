@@ -32,6 +32,7 @@ const AddVacancy = () => {
     setValue,
     isButtonDisabled,
     watch,
+    clearErrors,
   } = useVacancy();
 
   const saveVacancy = () => {
@@ -123,6 +124,7 @@ const AddVacancy = () => {
                     setValue={setValue}
                     ref={(el) => assignInputRef(checkboxCalendar.id, el)}
                     onFocus={() => setFocusedId(checkboxCalendar.id)}
+                    clearErrors={clearErrors}
                   />
                 ))}
               </div>

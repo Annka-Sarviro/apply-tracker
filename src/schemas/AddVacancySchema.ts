@@ -49,11 +49,11 @@ export const AddVacancySchema = z
   })
   .refine((data) => !(data.resume && !data.resumeDropdown), {
     path: ["resumeDropdown"],
-    message: "Оберіть резюме",
+    message: "addVacancySchema.resume.required",
   })
   .refine((data) => !(data.reject && !data.rejectDropdown), {
     path: ["rejectDropdown"],
-    message: "Оберіть причину відмови",
+    message: "addVacancySchema.reject.required",
   });
 
 export const changeStatusVacancy = z.object({

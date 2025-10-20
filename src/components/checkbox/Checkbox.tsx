@@ -14,7 +14,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       register,
       checked,
       disabled = false,
-      required = false,
+      // required = false,
       onFocus,
       ...props
     },
@@ -34,7 +34,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         >
           <div className="relative flex items-center justify-center">
             <input
-              required={required}
+              // required={required}
               type="checkbox"
               id={id}
               disabled={disabled}
@@ -85,7 +85,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           <span
             id={`inputError-${name}`}
             className={classNames(
-              "text-redColor inline-block font-nunito font-medium",
+              "inline-block font-nunito font-medium text-redColor",
               "sm:text-[12px]",
               "md:text-[14px]",
               "2xl:text-[16px]"

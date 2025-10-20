@@ -307,6 +307,12 @@
     },
     "notes": {
       "max": "Maximum length is 1000 characters"
+    },
+    "resume": {
+      "required": "Choose a resume"
+    },
+    "reject": {
+      "required": "Choose a reason for rejection"
     }
   },
   "editVacancy": {
