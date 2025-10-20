@@ -90,6 +90,7 @@ const ContactUs = () => {
             className=""
             label={t("contactUs.text")}
             errors={errors}
+            watch={watch}
           />
 
           <div className="flex flex-col justify-center gap-2 md:flex-row xl:mt-4">
