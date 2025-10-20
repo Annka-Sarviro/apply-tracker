@@ -18,5 +18,5 @@ export interface CheckboxProps {
   getValues?: UseFormGetValues<any>;
   setValue?: UseFormSetValue<any>;
   ref: any;
-  clearErrors: any;
+  clearErrors?: any;
 }
