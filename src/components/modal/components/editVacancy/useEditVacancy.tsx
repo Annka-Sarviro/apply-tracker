@@ -53,6 +53,7 @@ const useEditVacancy = () => {
     getValues,
     setValue,
     watch,
+    trigger,
     formState: { errors },
   } = useForm<z.infer<typeof AddVacancySchema>>({
     defaultValues: {
@@ -98,8 +99,6 @@ const useEditVacancy = () => {
     }
   }, [vacancyData, reset, dispatch]);
 
-  // якщо зміна у вакансії відбулася, активна кнопка збереження
-  // та кнопка закриття модального вікна пропонує зберегти, якщо ні ...
   const watchedValues = watch();
   const isFormChanged = useMemo(() => {
     if (!vacancyData) return false;
@@ -275,6 +274,7 @@ const useEditVacancy = () => {
     deleteVacancy,
     isFormChanged,
     watch,
+    trigger,
   };
 };
 

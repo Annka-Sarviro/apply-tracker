@@ -38,6 +38,7 @@ const EditVacancy = () => {
     vacancyData,
     isFormChanged,
     watch,
+    trigger,
   } = useEditVacancy();
 
   const isArchived = vacancyData?.isArchived || "";
@@ -55,6 +56,22 @@ const EditVacancy = () => {
     [dispatch, handleSubmit]
   );
 
+  const handleCloseModalClick = useCallback(async () => {
+    // тригеримо валідацію всієї форми
+    const isValid = await trigger(); // trigger з useForm, повертає true, якщо немає помилок
+
+    const data = getValues();
+
+    dispatch(
+      openConfirmation({
+        typeConfirmation: isValid
+          ? "closeModalSaveEditVacancies" // помилок немає
+          : "closeModalSaveAddVacancies", // є помилки
+        dataConfirmation: data,
+      })
+    );
+  }, [dispatch, getValues, trigger]);
+
   const deleteVacancy = () => handleConfirmation("deleteVacancy");
   const saveVacancy = () => handleConfirmation("saveEditVacancies");
   const handleSubmitArchive = () =>
@@ -64,11 +81,10 @@ const EditVacancy = () => {
     dispatch(
       closeButton({
         isButtonOpen: isFormChanged,
-        resetForm: () => handleConfirmation("closeModalSaveEditVacancies"),
+        resetForm: handleCloseModalClick,
       })
     );
-  }, [dispatch, handleConfirmation, isFormChanged]);
-
+  }, [dispatch, isFormChanged, handleCloseModalClick]);
   // keyBoardNavigation
   const focusFields: string[] = [
     ...vacancyFields.map((f) => f.id),
