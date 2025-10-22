@@ -18,4 +18,5 @@ export interface ModalProps {
   backgroundColorModal?: string | null;
   resetForm?: () => void;
   isButtonOpen?: boolean;
+  isLoading?: boolean;
 }

@@ -58,9 +58,12 @@ const InfoModalMap = () => {
     deleteNote,
   } = useNotes(dataModalForConfirm?.noteType);
 
-  const [addCreateEvent] = useCreateEventMutation();
-  const [deleteEventById] = useDeleteEventByIdMutation();
-  const [updateEventById] = useUpdateEventByIdMutation();
+  const [addCreateEvent, { isLoading: isLoadingCreateEvent }] =
+    useCreateEventMutation();
+  const [deleteEventById, { isLoading: isLoadingDeleteEvent }] =
+    useDeleteEventByIdMutation();
+  const [updateEventById, { isLoading: isLoadingUpdateEvent }] =
+    useUpdateEventByIdMutation();
   const { refetch } = useGetAllEventsQuery();
 
   const handleCancel = useCallback((): void => {
@@ -81,6 +84,15 @@ const InfoModalMap = () => {
     dispatch(setSortType(""));
     logOut();
   }, [dispatch, logOut]);
+
+  const isGlobalLoading =
+    isLoadingDeleteEvent ||
+    addVacanciesLoading ||
+    editVacanciesLoading ||
+    isLoadingUpdateEvent ||
+    notesLoading ||
+    isLoadingLogOut ||
+    isLoadingCreateEvent;
 
   // Збереження вакансії
   const handleAddVacancy = useCallback((): void => {
@@ -226,7 +238,7 @@ const InfoModalMap = () => {
     variant,
     size,
     funcButton,
-    disabled,
+    disabled: isGlobalLoading || disabled,
   });
 
   // Закриваємо інфо-модалку і повертаємося до редагування основної модалки при закритті х
@@ -263,7 +275,8 @@ const InfoModalMap = () => {
           handleCancel,
           "",
           "big",
-          "accent"
+          "accent",
+          isGlobalLoading
         ),
       ],
     },
@@ -276,7 +289,8 @@ const InfoModalMap = () => {
           handleCancel,
           "",
           "big",
-          "accent"
+          "accent",
+          isGlobalLoading
         ),
       ],
     },
@@ -292,7 +306,8 @@ const InfoModalMap = () => {
           handleCancel,
           "",
           "big",
-          "accent"
+          "accent",
+          isGlobalLoading
         ),
       ],
     },
@@ -386,16 +401,16 @@ const InfoModalMap = () => {
           handleCloseConfirmation,
           "",
           "small",
-          "ghost",
-          addVacanciesLoading
+          "ghost"
+          // addVacanciesLoading
         ),
         createButton(
           t("infoModal.button.save"),
           handleAddVacancy,
           "",
           "big",
-          "accent",
-          addVacanciesLoading
+          "accent"
+          // addVacanciesLoading
         ),
       ],
     },
@@ -415,16 +430,16 @@ const InfoModalMap = () => {
             : handleArchiveVacancy,
           "",
           "small",
-          "ghost",
-          editVacanciesLoading
+          "ghost"
+          // editVacanciesLoading
         ),
         createButton(
           t("infoModal.button.delete"),
           handleDeleteVacancy,
           "",
           "big",
-          "accent",
-          editVacanciesLoading
+          "accent"
+          // editVacanciesLoading
         ),
       ],
     },
@@ -438,16 +453,16 @@ const InfoModalMap = () => {
           handleCloseConfirmation,
           "text-[20px]",
           "small",
-          "ghost",
-          editVacanciesLoading
+          "ghost"
+          // editVacanciesLoading
         ),
         createButton(
           t("infoModal.button.toArchive"),
           handleButtonArchiveVacancy,
           "text-[20px]",
           "big",
-          "accent",
-          editVacanciesLoading
+          "accent"
+          // editVacanciesLoading
         ),
       ],
     },
@@ -461,16 +476,16 @@ const InfoModalMap = () => {
           handleCloseConfirmation,
           "text-[20px]",
           "small",
-          "ghost",
-          editVacanciesLoading
+          "ghost"
+          // editVacanciesLoading
         ),
         createButton(
           t("addVacancy.form.restore"),
           handleButtonArchiveVacancy,
           "text-[20px]",
           "big",
-          "accent",
-          editVacanciesLoading
+          "accent"
+          // editVacanciesLoading
         ),
       ],
     },
@@ -484,16 +499,16 @@ const InfoModalMap = () => {
           handleCloseConfirmation,
           "",
           "small",
-          "ghost",
-          editVacanciesLoading
+          "ghost"
+          // editVacanciesLoading
         ),
         createButton(
           t("infoModal.button.save"),
           handleEditVacancy,
           "",
           "big",
-          "accent",
-          editVacanciesLoading
+          "accent"
+          // editVacanciesLoading
         ),
       ],
     },
@@ -570,16 +585,16 @@ const InfoModalMap = () => {
           handleCloseConfirmation,
           "",
           "small",
-          "ghost",
-          notesLoading
+          "ghost"
+          // notesLoading
         ),
         createButton(
           t("infoModal.button.save"),
           handleAddNotes,
           "",
           "big",
-          "accent",
-          notesLoading
+          "accent"
+          // notesLoading
         ),
       ],
     },
@@ -593,16 +608,16 @@ const InfoModalMap = () => {
           handleCloseConfirmation,
           "",
           "small",
-          "ghost",
-          notesLoading
+          "ghost"
+          // notesLoading
         ),
         createButton(
           t("notesHeader.deleteNote.button"),
           handleDeleteNotes,
           "",
           "big",
-          "accent",
-          notesLoading
+          "accent"
+          // notesLoading
         ),
       ],
     },
@@ -616,16 +631,16 @@ const InfoModalMap = () => {
           handleCloseBtnModal,
           "",
           "small",
-          "ghost",
-          editVacanciesLoading
+          "ghost"
+          // editVacanciesLoading
         ),
         createButton(
           t("infoModal.button.save"),
           handleEditVacancy,
           "",
           "big",
-          "accent",
-          editVacanciesLoading
+          "accent"
+          // editVacanciesLoading
         ),
       ],
     },
@@ -702,16 +717,16 @@ const InfoModalMap = () => {
           handleCloseBtnModal,
           "",
           "small",
-          "ghost",
-          editVacanciesLoading
+          "ghost"
+          // editVacanciesLoading
         ),
         createButton(
           t("infoModal.button.save"),
           handleAddNotes,
           "",
           "big",
-          "accent",
-          editVacanciesLoading
+          "accent"
+          // editVacanciesLoading
         ),
       ],
     },
@@ -725,16 +740,16 @@ const InfoModalMap = () => {
           handleCancel,
           "",
           "small",
-          "ghost",
-          notesLoading
+          "ghost"
+          // notesLoading
         ),
         createButton(
           t("notesHeader.deleteNote.button"),
           handleDeleteNotes,
           "",
           "big",
-          "accent",
-          notesLoading
+          "accent"
+          // notesLoading
         ),
       ],
     },

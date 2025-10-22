@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ModalProps } from "./initialState";
+import { ModalProps } from "./modalSliceType";
 
 const initialState: ModalProps = {
   isModalOpen: false,
@@ -14,6 +14,7 @@ const initialState: ModalProps = {
   eventData: null,
   profileData: null,
   isButtonOpen: false,
+  isLoading: false,
 };
 
 const modalSlice = createSlice({
@@ -57,6 +58,9 @@ const modalSlice = createSlice({
       state.isButtonOpen = action.payload.isButtonOpen;
       state.resetForm = action.payload.resetForm;
     },
+    setModalLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
   },
 });
 
@@ -66,5 +70,6 @@ export const {
   openConfirmation,
   closeConfirmation,
   closeButton,
+  setModalLoading,
 } = modalSlice.actions;
 export default modalSlice.reducer;
