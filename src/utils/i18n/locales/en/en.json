@@ -392,7 +392,8 @@
       "delete": "Delete",
       "edit": "Edit",
       "close": "Close",
-      "agree": "Yes"
+      "agree": "Yes",
+      "return": "Return to editing"
     },
     "logOut": {
       "title": "Are you sure you want to log out?",
@@ -400,6 +401,10 @@
     },
     "saveAddVacancies": {
       "title": "Save changes?",
+      "text_1": "If you do not save the data, it will be lost."
+    },
+    "closeModalSaveAddVacancies": {
+      "title": "Close without saving?",
       "text_1": "If you do not save the data, it will be lost."
     },
     "deleteVacancy": {

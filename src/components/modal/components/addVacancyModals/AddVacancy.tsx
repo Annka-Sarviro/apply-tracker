@@ -4,7 +4,10 @@ import { Textarea } from "../../../Textarea/Textarea";
 import { t } from "i18next";
 import Icon from "../../../Icon/Icon";
 import { useAppDispatch, useAppSelector } from "../../../../store/hook";
-import { openConfirmation } from "../../../../store/slices/modalSlice/modalSlice";
+import {
+  closeButton,
+  openConfirmation,
+} from "../../../../store/slices/modalSlice/modalSlice";
 // component
 import AddVacancyStage from "./AddStage";
 import { CheckboxWithCalendar } from "./CheckboxWithCalendar";
@@ -15,6 +18,8 @@ import { VacancyInputProps } from "./AddVacancy.props";
 //hook
 import useVacancy from "./useVacancy";
 import { useKeyBoardNavigation } from "./useKeyBoardNavigation";
+import { useCallback, useEffect } from "react";
+import { TypesModal } from "../../ModalMain.types";
 
 const AddVacancy = () => {
   const dispatch = useAppDispatch();
@@ -33,7 +38,30 @@ const AddVacancy = () => {
     isButtonDisabled,
     watch,
     clearErrors,
+    isFormChanged,
   } = useVacancy();
+
+  const handleOpenConfirmation = useCallback(
+    (typeConfirmation: TypesModal) => {
+      const data = getValues();
+      dispatch(
+        openConfirmation({
+          typeConfirmation,
+          dataConfirmation: data,
+        })
+      );
+    },
+    [dispatch, getValues]
+  );
+
+  useEffect(() => {
+    dispatch(
+      closeButton({
+        isButtonOpen: isFormChanged,
+        resetForm: () => handleOpenConfirmation("closeModalSaveAddVacancies"),
+      })
+    );
+  }, [dispatch, handleOpenConfirmation, isFormChanged]);
 
   const saveVacancy = () => {
     handleSubmit((data) => {

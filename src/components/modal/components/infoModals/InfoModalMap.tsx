@@ -104,6 +104,10 @@ const InfoModalMap = () => {
     notifyInfo(t("notification.notSaveInfo")); // test
     dispatch(closeConfirmation());
   }, [dispatch, t]);
+  const handleCloseConfirmationWithoutNotify = useCallback((): void => {
+    // notifyInfo(t("notification.notSaveInfo")); // test
+    dispatch(closeConfirmation());
+  }, [dispatch]);
 
   const handleCloseBtnModal = useCallback((): void => {
     notifyInfo(t("notification.notSaveInfo")); // test
@@ -177,7 +181,7 @@ const InfoModalMap = () => {
       dispatch(closeModal());
       refetch();
       notifySuccess(t("infoModal.deleteEvent.notifyDeleteEventSuccess"));
-    } catch (error) {
+    } catch {
       notifyError(t("infoModal.deleteEvent.notifyDeleteEventError"));
     }
   }, [dataModalForConfirm, deleteEventById, dispatch, refetch, t]);
@@ -644,6 +648,31 @@ const InfoModalMap = () => {
         ),
       ],
     },
+
+    closeModalSaveAddVacancies: {
+      title: t("infoModal.closeModalSaveAddVacancies.title"),
+      titleSize: "small",
+      text: [t("infoModal.closeModalSaveAddVacancies.text_1")],
+      button: [
+        createButton(
+          t("infoModal.button.cancel"),
+          handleCloseBtnModal,
+          "",
+          "small",
+          "ghost"
+          // editVacanciesLoading
+        ),
+        createButton(
+          t("infoModal.button.return"),
+          handleCloseConfirmationWithoutNotify,
+          "",
+          "big",
+          "accent"
+          // editVacanciesLoading
+        ),
+      ],
+    },
+
     closeModalSaveEditEvent: {
       title: t("infoModal.saveEditEvent.title"),
       titleSize: "small",

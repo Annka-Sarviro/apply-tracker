@@ -12,6 +12,7 @@ export type TypesModal =
   | "resetPasswordErrorLink"
   | "logOut"
   | "saveAddVacancies"
+  | "closeModalSaveAddVacancies"
   | "deleteVacancy"
   | "archiveVacancy"
   | "restoreVacancy"

@@ -22,7 +22,7 @@ import {
   RejectReason,
   RequiredFieldsProps,
 } from "../../../../types/vacancies.types";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const useVacancy = () => {
@@ -35,7 +35,23 @@ const useVacancy = () => {
   const status = useAppSelector((state) => state.statusVacancy.newStatuses);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const defaultValues: z.infer<typeof AddVacancySchema> = useMemo(
+    () => ({
+      company: "",
+      vacancy: "",
+      link: "",
+      communication: "",
+      location: "",
+      note: "",
+      work_type: "office" as const, // літерал union
+      isArchived: false,
+      resume: false, // обов'язково
+      reject: false, // обов'язково
+      resumeDropdown: "",
+      rejectDropdown: "",
+    }),
+    []
+  );
   const {
     register,
     resetField,
@@ -47,22 +63,19 @@ const useVacancy = () => {
     clearErrors,
     formState: { errors },
   } = useForm<z.infer<typeof AddVacancySchema>>({
-    defaultValues: {
-      company: "",
-      vacancy: "",
-      link: "",
-      communication: "",
-      location: "",
-      note: "",
-      work_type: "office",
-      isArchived: false,
-
-      resumeDropdown: "",
-      rejectDropdown: "",
-    },
+    defaultValues,
     resolver: zodResolver(AddVacancySchema),
     mode: "onBlur",
   });
+
+  const watchedValues = watch();
+
+  const isFormChanged = useMemo(() => {
+    return Object.keys(defaultValues).some((key) => {
+      const k = key as keyof typeof defaultValues;
+      return watchedValues[k] !== defaultValues[k];
+    });
+  }, [watchedValues, defaultValues]);
 
   const isButtonDisabled = useCallback(() => {
     const requiredFields: RequiredFieldsProps[] = [
@@ -158,6 +171,7 @@ const useVacancy = () => {
     isButtonDisabled,
     watch,
     clearErrors,
+    isFormChanged,
   };
 };
 
