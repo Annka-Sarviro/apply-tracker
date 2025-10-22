@@ -18,5 +18,5 @@ export interface CheckboxProps {
   getValues?: UseFormGetValues<any>;
   setValue?: UseFormSetValue<any>;
   ref: React.RefObject<HTMLInputElement>;
-  clearErrors: any;
+  clearErrors?: any;
 }
