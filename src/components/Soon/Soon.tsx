@@ -22,7 +22,7 @@ export const Soon = () => {
 
   const actualEvents = events?.filter((event) => {
     const dateToday = new Date();
-    dateToday.setHours(0, 0, 0, 0); // Очищаємо час, щоб порівнювати тільки дати
+    dateToday.setHours(0, 0, 0, 0);
 
     const eventDate = new Date(event.date);
     eventDate.setHours(0, 0, 0, 0);
@@ -36,10 +36,6 @@ export const Soon = () => {
         const scrollHeight = scrollContainerRef.current.scrollHeight;
         const clientHeight = scrollContainerRef.current.clientHeight;
         const isScrollable = scrollHeight > clientHeight;
-
-        // console.log("scrollHeight:", scrollHeight);
-        // console.log("clientHeight:", clientHeight);
-        // console.log("hasScroll (before set):", isScrollable);
 
         setHasScroll(isScrollable);
       }
@@ -56,7 +52,6 @@ export const Soon = () => {
   };
 
   const handleOpenEditModal = (event: EventData) => {
-    // console.log("Передаємо в openModal:", event);
     dispatch(
       openModal({ isModalOpen: true, typeModal: "editEvent", eventData: event })
     );

@@ -79,8 +79,7 @@ function ModalMutationProfileData({ cardsType }: PropsModalAddProperties) {
     : isFormEmpty;
 
   const isButtonDisabled = isFormChanged || error || !isFormComplete;
-  console.log(isFormChanged, error, !isFormComplete);
-  console.log(isButtonDisabled);
+
   const dispatch = useAppDispatch();
 
   const handleConfirmation = useCallback(
@@ -93,7 +92,6 @@ function ModalMutationProfileData({ cardsType }: PropsModalAddProperties) {
       }
 
       handleSubmit((data) => {
-        console.log("data", data);
         dispatch(
           openConfirmation({
             typeConfirmation,

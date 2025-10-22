@@ -61,7 +61,6 @@ const useAddEventModal = () => {
 
   const handleConfirmation = useCallback(
     (typeConfirmation: TypesModal, data?: FormValues) => {
-      // console.log("useAddEventModal: handleConfirmation викликано з типом:", typeConfirmation, "та даними:",data),
       dispatch(
         openConfirmation({
           typeConfirmation,
@@ -81,7 +80,6 @@ const useAddEventModal = () => {
   );
 
   const confirmSave = handleSubmit(async (data) => {
-    // console.log("useAddEventModal: confirmSave викликано з даними:", data);
     handleConfirmation("saveAddEvent", data);
   });
 
@@ -92,9 +90,7 @@ const useAddEventModal = () => {
         resetForm: () => {
           trigger().then((isValidOnClose) => {
             const currentFormData = watch();
-            // console.log("useAddEventModal: isValidOnClose -",isValidOnClose,
-            // "inputChanged -",inputChanged,
-            // "currentFormData перед handleConfirmation -", currentFormData);
+
             const formDataWithDefaultMinutes = {
               ...currentFormData,
               minutes:
@@ -102,7 +98,6 @@ const useAddEventModal = () => {
                   ? currentFormData.minutes
                   : +"00",
             };
-            // console.log("formDataWithDefaultMinutes", formDataWithDefaultMinutes);
             if (isValidOnClose && inputChanged) {
               handleConfirmation(
                 "closeModalSaveAddEvent",
@@ -191,6 +186,7 @@ const useAddEventModal = () => {
 
   const handleDateChange = (date: string) => {
     setValue("date", date);
+    trigger("date");
     handleInputChange();
   };
 

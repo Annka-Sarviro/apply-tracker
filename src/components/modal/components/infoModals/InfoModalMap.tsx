@@ -94,6 +94,8 @@ const InfoModalMap = () => {
     isLoadingLogOut ||
     isLoadingCreateEvent;
 
+  console.log("isGlobalLoading", isGlobalLoading);
+
   // Збереження вакансії
   const handleAddVacancy = useCallback((): void => {
     console.log("handleAddVacancy", dataModalForConfirm);
@@ -145,9 +147,7 @@ const InfoModalMap = () => {
     });
   }, [dataModalForConfirm, editVacanciesSubmit]);
 
-  // Додавання (створення) події
   const handleAddEvent = useCallback(async () => {
-    // console.log("InfoModalMap: handleAddEvent викликано з даними:", dataModalForConfirm);
     if (!dataModalForConfirm) return;
     try {
       await addCreateEvent({
@@ -172,7 +172,6 @@ const InfoModalMap = () => {
     }
   }, [dataModalForConfirm, addCreateEvent, dispatch, refetch, t]);
 
-  // Видалення події
   const handleDeleteEvent = useCallback(async () => {
     if (!dataModalForConfirm) return;
     try {
@@ -186,7 +185,6 @@ const InfoModalMap = () => {
     }
   }, [dataModalForConfirm, deleteEventById, dispatch, refetch, t]);
 
-  // Збереження редагування події
   const handleEditEvent = useCallback(async () => {
     // console.log("handleEditEvent викликано!");
     if (!dataModalForConfirm) {
@@ -327,7 +325,8 @@ const InfoModalMap = () => {
           handleLogIn,
           "",
           "small",
-          "accent"
+          "accent",
+          isGlobalLoading
         ),
         createButton(t("infoModal.button.restore"), handleForgotPassword),
       ],
@@ -526,14 +525,16 @@ const InfoModalMap = () => {
           handleCloseConfirmation,
           "",
           "small",
-          "ghost"
+          "ghost",
+          isGlobalLoading
         ),
         createButton(
           t("infoModal.button.save"),
           handleAddEvent,
           "",
           "big",
-          "accent"
+          "accent",
+          isGlobalLoading
         ),
       ],
     },
@@ -547,14 +548,16 @@ const InfoModalMap = () => {
           handleCloseConfirmation,
           "",
           "small",
-          "ghost"
+          "ghost",
+          isGlobalLoading
         ),
         createButton(
           t("infoModal.button.save"),
           handleEditEvent,
           "",
           "big",
-          "accent"
+          "accent",
+          isGlobalLoading
         ),
       ],
     },
@@ -568,14 +571,16 @@ const InfoModalMap = () => {
           handleCloseConfirmation,
           "",
           "small",
-          "ghost"
+          "ghost",
+          isGlobalLoading
         ),
         createButton(
           t("infoModal.button.delete"),
           handleDeleteEvent,
           "",
           "big",
-          "accent"
+          "accent",
+          isGlobalLoading
         ),
       ],
     },

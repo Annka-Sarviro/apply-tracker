@@ -71,7 +71,7 @@ function MobHeader() {
       {isSearchOpen && (
         <div
           ref={searchRef}
-          className="absolute right-5 top-4 z-20 md:right-[88px] md:top-6 smOnly:left-5"
+          className="absolute right-5 top-4 z-20 bg-backgroundMain md:right-[88px] md:top-[1.8rem] smOnly:left-5"
         >
           <SearchForm />
         </div>
