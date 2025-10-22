@@ -1,6 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithReauth } from "../fetchBaseQuery";
 import { CoverLetter } from "../../types/coverLetters.types";
+import { API_ROUTES } from "../api/api-routes";
 
 export const coverLetterQuerySlice = createApi({
   reducerPath: "coverLetterQuerySlice",
@@ -15,7 +16,7 @@ export const coverLetterQuerySlice = createApi({
       Pick<CoverLetter, "name" | "text">
     >({
       query: (coverLetter) => ({
-        url: "/cover-letter",
+        url: API_ROUTES.COVER_LETTER,
         method: "POST",
         body: coverLetter,
       }),
@@ -36,7 +37,7 @@ export const coverLetterQuerySlice = createApi({
       Pick<CoverLetter, "id"> & Partial<Pick<CoverLetter, "name" | "text">>
     >({
       query: ({ id, ...updatedCovetLetter }) => ({
-        url: `/cover-letter/${id}`,
+        url: `${API_ROUTES.COVER_LETTER}/${id}`,
         method: "PATCH",
         body: updatedCovetLetter,
       }),
@@ -45,7 +46,7 @@ export const coverLetterQuerySlice = createApi({
 
     deleteCoverLetterById: build.mutation<void, Pick<CoverLetter, "id">>({
       query: ({ id }) => ({
-        url: `/cover-letter/${id}`,
+        url: `${API_ROUTES.COVER_LETTER}/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["coverLetter"],

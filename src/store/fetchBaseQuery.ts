@@ -7,7 +7,7 @@ import {
 import { RootState } from "./store";
 import { clearTokens, saveTokens } from "./slices/authSlice/authSlice";
 import { AuthTokensProps } from "./slices/authSlice/authTypes";
-import { BACKEND_ENDPOINTS } from "./api/api-routes";
+import { API_ROUTES, BACKEND_ENDPOINTS } from "./api/api-routes";
 
 export const baseQuery = fetchBaseQuery({
   baseUrl: BACKEND_ENDPOINTS.JOB_TRACKER_BACKEND,
@@ -37,7 +37,7 @@ export const baseQueryWithReauth: BaseQueryFn<
     if (refreshToken) {
       const refreshAuthToken = await baseQuery(
         {
-          url: "/auth/refresh",
+          url: API_ROUTES.AUTH.REFRESH,
           method: "POST",
           body: { refresh_token: refreshToken },
         },

@@ -1,6 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithReauth } from "../fetchBaseQuery";
 import { Project } from "../../types/projects.types";
+import { API_ROUTES } from "../api/api-routes";
 
 export const projectQuerySlice = createApi({
   reducerPath: "projectQuerySlice",
@@ -14,7 +15,11 @@ export const projectQuerySlice = createApi({
       Project,
       Pick<Project, "name" | "link" | "technologies" | "description">
     >({
-      query: (project) => ({ url: "/projects", method: "POST", body: project }),
+      query: (project) => ({
+        url: API_ROUTES.PROJECTS,
+        method: "POST",
+        body: project,
+      }),
       invalidatesTags: ["projects"],
     }),
 
@@ -33,7 +38,7 @@ export const projectQuerySlice = createApi({
         Partial<Pick<Project, "name" | "link" | "technologies" | "description">>
     >({
       query: ({ id, ...project }) => ({
-        url: `/projects/${id}`,
+        url: `${API_ROUTES.PROJECTS}/${id}`,
         method: "PATCH",
         body: project,
       }),
@@ -42,7 +47,7 @@ export const projectQuerySlice = createApi({
 
     deleteProjectById: build.mutation<void, Pick<Project, "id">>({
       query: ({ id }) => ({
-        url: `/projects/${id}`,
+        url: `${API_ROUTES.PROJECTS}/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["projects"],

@@ -17,6 +17,6 @@ export interface CheckboxProps {
   onFocus?: () => void;
   getValues?: UseFormGetValues<any>;
   setValue?: UseFormSetValue<any>;
-  ref: any;
-  clearErrors?: any;
+  ref: React.RefObject<HTMLInputElement>;
+  clearErrors: any;
 }

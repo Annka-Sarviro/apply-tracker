@@ -1,6 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithReauth } from "../fetchBaseQuery";
 import { Event } from "../../types/event.types";
+import { API_ROUTES } from "../api/api-routes";
 
 export const eventQuerySlice = createApi({
   reducerPath: "eventsQuerySlice",
@@ -15,7 +16,7 @@ export const eventQuerySlice = createApi({
       Pick<Event, "date" | "name" | "text" | "time">
     >({
       query: (newEvent) => ({
-        url: "/events",
+        url: API_ROUTES.EVENTS,
         method: "POST",
         body: newEvent,
       }),
@@ -37,7 +38,7 @@ export const eventQuerySlice = createApi({
         Partial<Pick<Event, "date" | "name" | "text" | "time">>
     >({
       query: ({ id, ...updatedEvent }) => ({
-        url: `/events/${id}`,
+        url: `${API_ROUTES.EVENTS}/${id}`,
         method: "PATCH",
         body: updatedEvent,
       }),
@@ -46,7 +47,7 @@ export const eventQuerySlice = createApi({
 
     deleteEventById: build.mutation<void, string>({
       query: (id) => ({
-        url: `/events/${id}`,
+        url: `${API_ROUTES.EVENTS}/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["events"],

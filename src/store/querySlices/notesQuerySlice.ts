@@ -1,6 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithReauth } from "../fetchBaseQuery";
 import { Note } from "../../types/notes.types";
+import { API_ROUTES } from "../api/api-routes";
 
 export const notesQuerySlice = createApi({
   baseQuery: baseQueryWithReauth,
@@ -15,7 +16,7 @@ export const notesQuerySlice = createApi({
       Pick<Note, "name"> & Partial<Pick<Note, "text">>
     >({
       query: (newNote) => ({
-        url: "/notes",
+        url: API_ROUTES.NOTES,
         method: "POST",
         body: newNote,
       }),
@@ -36,7 +37,7 @@ export const notesQuerySlice = createApi({
       Pick<Note, "id" | "name"> & Partial<Pick<Note, "text">>
     >({
       query: ({ id, ...updatedNote }) => ({
-        url: `/notes/${id}`,
+        url: `${API_ROUTES.NOTES}/${id}`,
         method: "PATCH",
         body: updatedNote,
       }),
@@ -45,7 +46,7 @@ export const notesQuerySlice = createApi({
 
     deleteNoteById: build.mutation<void, Pick<Note, "id">>({
       query: ({ id }) => ({
-        url: `/notes/${id}`,
+        url: `${API_ROUTES.NOTES}/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["notes"],

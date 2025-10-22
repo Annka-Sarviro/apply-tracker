@@ -1,6 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithReauth } from "../fetchBaseQuery";
 import { Prediction, PredictionsSeed } from "../../types/predictions.types";
+import { API_ROUTES } from "../api/api-routes";
 
 export const predictionsQuerySlice = createApi({
   reducerPath: "predictionsQuerySlice",
@@ -15,7 +16,7 @@ export const predictionsQuerySlice = createApi({
       Pick<Prediction, "textEn" | "textUk">
     >({
       query: (newPrediction) => ({
-        url: "/predictions",
+        url: API_ROUTES.PREDICTIONS,
         method: "POST",
         body: newPrediction,
       }),
@@ -40,7 +41,7 @@ export const predictionsQuerySlice = createApi({
       Pick<Prediction, "id"> & Partial<Pick<Prediction, "textEn" | "textUk">>
     >({
       query: ({ id, ...updatedPrediction }) => ({
-        url: `/predictions/${id}`,
+        url: `${API_ROUTES.PREDICTIONS}/${id}`,
         method: "PATCH",
         body: updatedPrediction,
       }),

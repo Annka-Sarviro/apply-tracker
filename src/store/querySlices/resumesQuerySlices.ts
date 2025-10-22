@@ -1,6 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithReauth } from "../fetchBaseQuery";
 import { Resume } from "../../types/resumes.types";
+import { API_ROUTES } from "../api/api-routes";
 
 export const resumesQuerySlices = createApi({
   reducerPath: "resumesQuerySlices",
@@ -16,7 +17,11 @@ export const resumesQuerySlices = createApi({
     }),
 
     createResume: build.mutation<Resume, Pick<Resume, "link" | "name">>({
-      query: (resume) => ({ url: "/resumes", method: "POST", body: resume }),
+      query: (resume) => ({
+        url: API_ROUTES.RESUMES,
+        method: "POST",
+        body: resume,
+      }),
       invalidatesTags: ["resumes"],
     }),
 
@@ -29,7 +34,7 @@ export const resumesQuerySlices = createApi({
       Pick<Resume, "id"> & Partial<Pick<Resume, "link" | "name">>
     >({
       query: ({ id, ...resume }) => ({
-        url: `/resumes/${id}`,
+        url: `${API_ROUTES.RESUMES}/${id}`,
         method: "PATCH",
         body: resume,
       }),
@@ -38,7 +43,7 @@ export const resumesQuerySlices = createApi({
 
     deleteResumeById: build.mutation<void, Pick<Resume, "id">>({
       query: ({ id }) => ({
-        url: `/resumes/${id}`,
+        url: `${API_ROUTES.RESUMES}/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["resumes"],

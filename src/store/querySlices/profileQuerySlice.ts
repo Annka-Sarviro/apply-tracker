@@ -1,6 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithReauth } from "../fetchBaseQuery";
 import { Profile } from "../../types/profile.types";
+import { API_ROUTES } from "../api/api-routes";
 
 export const profileQuerySlice = createApi({
   reducerPath: "profileQuerySlice",
@@ -21,7 +22,7 @@ export const profileQuerySlice = createApi({
       Partial<Pick<Profile, "email" | "phone" | "username">>
     >({
       query: (body) => ({
-        url: "/user/update",
+        url: API_ROUTES.USER.PROFILE,
         method: "PATCH",
         body,
       }),
@@ -33,7 +34,7 @@ export const profileQuerySlice = createApi({
       Pick<Profile["socials"][0], "link" | "name">
     >({
       query: (body) => ({
-        url: "/user/socials",
+        url: API_ROUTES.USER.SOCIALS,
         method: "POST",
         body,
       }),
@@ -45,7 +46,7 @@ export const profileQuerySlice = createApi({
       Partial<Profile["socials"][0]> & { idSocialLink: string }
     >({
       query: ({ idSocialLink, ...body }) => ({
-        url: `/user/socials/${idSocialLink}`,
+        url: `${API_ROUTES.USER.SOCIALS}/${idSocialLink}`,
         method: "PATCH",
         body,
       }),
@@ -54,7 +55,7 @@ export const profileQuerySlice = createApi({
 
     deleteSocialLink: build.mutation<void, { idSocialLink: string }>({
       query: ({ idSocialLink }) => ({
-        url: `/user/socials/${idSocialLink}`,
+        url: `${API_ROUTES.USER.SOCIALS}/${idSocialLink}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Profile"],

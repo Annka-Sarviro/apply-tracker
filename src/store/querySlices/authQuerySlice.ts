@@ -7,7 +7,7 @@ import {
   saveTokens,
 } from "../slices/authSlice/authSlice";
 import { closeModal, openModal } from "../slices/modalSlice/modalSlice";
-import { BACKEND_ENDPOINTS } from "../api/api-routes";
+import { API_ROUTES, BACKEND_ENDPOINTS } from "../api/api-routes";
 import { profileQuerySlice } from "./profileQuerySlice";
 
 type AuthResponse = { access_token: string; refresh_token: string };
@@ -28,7 +28,7 @@ export const authPublicQuerySlice = createApi({
   endpoints: (build) => ({
     logInUserWithCredentials: build.mutation<AuthResponse, AuthRequest>({
       query: (credentialUser) => ({
-        url: "/auth/login",
+        url: API_ROUTES.AUTH.LOGIN,
         method: "POST",
         body: credentialUser,
       }),
@@ -59,7 +59,7 @@ export const authPublicQuerySlice = createApi({
 
     registerUserWithCredentials: build.mutation<AuthResponse, AuthRequest>({
       query: (credentialUser) => ({
-        url: "/auth/register",
+        url: API_ROUTES.AUTH.REGISTER,
         method: "POST",
         body: credentialUser,
       }),
@@ -91,7 +91,7 @@ export const authPublicQuerySlice = createApi({
       Pick<AuthRequest, "email">
     >({
       query: (emailUser) => ({
-        url: "/auth/forgot-password",
+        url: API_ROUTES.AUTH.FORGOT_PASSWORD,
         method: "POST",
         body: emailUser,
       }),
@@ -102,7 +102,7 @@ export const authPublicQuerySlice = createApi({
       Pick<AuthRequest, "password"> & { token: string }
     >({
       query: (requestBody) => ({
-        url: "/auth/reset-password",
+        url: API_ROUTES.AUTH.RESET_PASSWORD,
         method: "POST",
         body: requestBody,
       }),
@@ -113,7 +113,7 @@ export const authPublicQuerySlice = createApi({
       Pick<AuthResponse, "refresh_token">
     >({
       query: (requestBody) => ({
-        url: "/auth/refresh",
+        url: API_ROUTES.AUTH.REFRESH,
         method: "POST",
         body: requestBody,
       }),
@@ -129,7 +129,7 @@ export const authPrivateQuerySlice = createApi({
   endpoints: (build) => ({
     logOutUser: build.mutation<ResponseMessage, void>({
       query: () => ({
-        url: "/auth/logout",
+        url: API_ROUTES.AUTH.LOGOUT,
         method: "POST",
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
@@ -149,7 +149,7 @@ export const authPrivateQuerySlice = createApi({
 
     changePasswordUser: build.mutation<void, RequestChangePassword>({
       query: (requestBody) => ({
-        url: "/user/change-password",
+        url: API_ROUTES.USER.CHANGE_PASSWORD,
         method: "POST",
         body: requestBody,
       }),
