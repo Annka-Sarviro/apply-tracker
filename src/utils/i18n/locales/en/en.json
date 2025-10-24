@@ -63,7 +63,11 @@
     "vacancyDelete": "The vacancy has been successfully deleted. Thank you.",
     "vacancyDeleteError": "An error occurred. The vacancy could not be deleted.",
     "noteDelete": "The note has been successfully deleted. Thank you.",
-    "noteDeleteError": "An error occurred. The note was not deleted."
+    "noteDeleteError": "An error occurred. The note was not deleted.",
+    "supportDelete": "The request has been successfully deleted. Thank you.",
+    "supportDeleteError": "An error occurred. The request was not deleted.",
+    "supportSent": "The data has been successfully sent. Thank you.",
+    "supportSentError": "An error occurred while sent the data. Please try again."
   },
   "navigation": {
     "vacancies": "Vacancies",
@@ -404,6 +408,14 @@
       "text_1": "If you do not save the data, it will be lost."
     },
     "closeModalSaveAddVacancies": {
+      "title": "Close without saving?",
+      "text_1": "If you do not save the data, it will be lost."
+    },
+    "saveContactUs": {
+      "title": "Save changes?",
+      "text_1": "If you do not save the data, it will be lost."
+    },
+    "closeModalSaveContactUs": {
       "title": "Close without saving?",
       "text_1": "If you do not save the data, it will be lost."
     },

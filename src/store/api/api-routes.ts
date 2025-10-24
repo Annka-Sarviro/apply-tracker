@@ -19,6 +19,7 @@ type ApiRouts = {
   PROJECTS: string;
   RESUMES: string;
   VACANCIES: string;
+  SUPPORTS: string;
 };
 
 export const API_ROUTES: ApiRouts = {
@@ -42,4 +43,5 @@ export const API_ROUTES: ApiRouts = {
   PROJECTS: "/projects",
   RESUMES: "/resumes",
   VACANCIES: "/vacancies",
+  SUPPORTS: "/supports",
 };

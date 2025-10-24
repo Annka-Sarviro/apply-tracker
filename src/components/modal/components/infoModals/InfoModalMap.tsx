@@ -32,6 +32,7 @@ import {
   useGetAllEventsQuery,
 } from "../../../../store/querySlices/eventsQuerySlice";
 import { TypesModal } from "../../ModalMain.types";
+import useContactUs from "../contactUs/useContactUs";
 
 const InfoModalMap = () => {
   const dispatch = useAppDispatch();
@@ -45,6 +46,9 @@ const InfoModalMap = () => {
 
   const { onSubmit: addVacanciesSubmit, isLoading: addVacanciesLoading } =
     useVacancy();
+
+  const { onSubmit: addSupportSubmit, isLoading: addSupportLoading } =
+    useContactUs("addSupport");
 
   const {
     onSubmit: editVacanciesSubmit,
@@ -92,15 +96,19 @@ const InfoModalMap = () => {
     isLoadingUpdateEvent ||
     notesLoading ||
     isLoadingLogOut ||
+    addSupportLoading ||
     isLoadingCreateEvent;
 
   console.log("isGlobalLoading", isGlobalLoading);
 
   // Збереження вакансії
   const handleAddVacancy = useCallback((): void => {
-    console.log("handleAddVacancy", dataModalForConfirm);
     addVacanciesSubmit(dataModalForConfirm);
   }, [addVacanciesSubmit, dataModalForConfirm]);
+
+  const handleSentSupport = useCallback((): void => {
+    addSupportSubmit(dataModalForConfirm);
+  }, [addSupportSubmit, dataModalForConfirm]);
 
   const handleCloseConfirmation = useCallback((): void => {
     notifyInfo(t("notification.notSaveInfo")); // test
@@ -417,6 +425,30 @@ const InfoModalMap = () => {
         ),
       ],
     },
+    saveContactUs: {
+      title: t("infoModal.saveContactUs.title"),
+      titleSize: "small",
+      text: [t("infoModal.saveContactUs.text_1")],
+      button: [
+        createButton(
+          t("infoModal.button.cancel"),
+          handleCloseConfirmation,
+          "",
+          "small",
+          "ghost"
+          // addVacanciesLoading
+        ),
+        createButton(
+          t("infoModal.button.save"),
+          // handleAddVacancy,
+          handleSentSupport,
+          "",
+          "big",
+          "accent"
+          // addVacanciesLoading
+        ),
+      ],
+    },
     deleteVacancy: {
       title: t("infoModal.deleteVacancy.title"),
       titleSize: "small",
@@ -678,6 +710,29 @@ const InfoModalMap = () => {
       ],
     },
 
+    closeModalSaveContactUs: {
+      title: t("infoModal.closeModalSaveContactUs.title"),
+      titleSize: "small",
+      text: [t("infoModal.closeModalSaveContactUs.text_1")],
+      button: [
+        createButton(
+          t("infoModal.button.cancel"),
+          handleCloseBtnModal,
+          "",
+          "small",
+          "ghost",
+          isGlobalLoading
+        ),
+        createButton(
+          t("infoModal.button.return"),
+          handleCloseConfirmationWithoutNotify,
+          "",
+          "big",
+          "accent",
+          isGlobalLoading
+        ),
+      ],
+    },
     closeModalSaveEditEvent: {
       title: t("infoModal.saveEditEvent.title"),
       titleSize: "small",

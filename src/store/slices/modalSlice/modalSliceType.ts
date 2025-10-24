@@ -2,6 +2,7 @@ import { TypesModal } from "@/components/modal/ModalMain.types";
 import { Vacancy } from "@/types/vacancies.types";
 import { Note } from "@/types/notes.types";
 import { Event } from "@/types/event.types";
+import { Support } from "@/types/supports.types copy";
 
 export interface ModalProps {
   isModalOpen?: boolean;
@@ -19,4 +20,5 @@ export interface ModalProps {
   resetForm?: () => void;
   isButtonOpen?: boolean;
   isLoading?: boolean;
+  supportData?: Support | null;
 }

@@ -233,6 +233,11 @@ function useMutationProfileData({
     isLoadingSocialLink ||
     Object.keys(errors).length > 0;
 
+  const isLoading =
+    isLoadingSocialLink ||
+    isLoadingCoverLetter ||
+    isLoadingProject ||
+    isLoadingResume;
   const messageCreate = useMemo<
     Record<PropsModalAddProperties["cardsType"], string>
   >(
@@ -296,7 +301,7 @@ function useMutationProfileData({
     t,
   ]);
 
-  return { onSubmit, isSubmitDisabled };
+  return { onSubmit, isSubmitDisabled, isLoading };
 }
 
 export default useMutationProfileData;

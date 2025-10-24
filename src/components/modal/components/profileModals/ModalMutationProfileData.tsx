@@ -83,10 +83,7 @@ function ModalMutationProfileData({ cardsType }: PropsModalAddProperties) {
   const dispatch = useAppDispatch();
 
   const handleConfirmation = useCallback(
-    (
-      typeConfirmation: TypesModal,
-      add: boolean = false // якщо add — дані форми, якщо ні — id
-    ) => {
+    (typeConfirmation: TypesModal, add: boolean = false) => {
       if (error) {
         dispatch(openConfirmation({ typeConfirmation: "closeDiscardModal" }));
       }

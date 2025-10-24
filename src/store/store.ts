@@ -24,6 +24,7 @@ import {
   authPublicQuerySlice,
 } from "./querySlices/authQuerySlice.ts";
 import searchReducer from "./slices/searchSlice/searchSlice.ts";
+import { supportsQuerySlice } from "./querySlices/supportsQuerySlice.ts";
 
 const authPersistConfig = {
   key: "auth",
@@ -55,6 +56,7 @@ export const store = configureStore({
     [projectQuerySlice.reducerPath]: projectQuerySlice.reducer,
     [coverLetterQuerySlice.reducerPath]: coverLetterQuerySlice.reducer,
     [notesQuerySlice.reducerPath]: notesQuerySlice.reducer,
+    [supportsQuerySlice.reducerPath]: supportsQuerySlice.reducer,
     [eventQuerySlice.reducerPath]: eventQuerySlice.reducer,
     [predictionsQuerySlice.reducerPath]: predictionsQuerySlice.reducer,
     [authPrivateQuerySlice.reducerPath]: authPrivateQuerySlice.reducer,
@@ -79,6 +81,7 @@ export const store = configureStore({
       projectQuerySlice.middleware,
       coverLetterQuerySlice.middleware,
       notesQuerySlice.middleware,
+      supportsQuerySlice.middleware,
       eventQuerySlice.middleware,
       predictionsQuerySlice.middleware,
       authPrivateQuerySlice.middleware,

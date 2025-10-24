@@ -1,5 +1,5 @@
 import { ForgotPassword } from "./components/formModals/ForgotPassword";
-import ContactUs from "./components/formModals/ContactUs";
+import ContactUs from "./components/contactUs/ContactUs";
 import InfoModal from "./components/infoModals/InfoModal";
 import AddVacancy from "./components/addVacancyModals/AddVacancy";
 import EditVacancy from "./components/editVacancy/EditVacancy";
@@ -106,6 +106,11 @@ export const contentMap: ContentMapProps = {
   },
   saveAddVacancies: {
     content: <InfoModal type="saveAddVacancies" textColor={colorButton.text} />,
+    bgColor: colorButton.bg,
+    borderColor: colorButton.border,
+  },
+  saveContactUs: {
+    content: <InfoModal type="saveContactUs" textColor={colorButton.text} />,
     bgColor: colorButton.bg,
     borderColor: colorButton.border,
   },
@@ -295,6 +300,13 @@ export const contentMap: ContentMapProps = {
         type="closeModalSaveEditVacancies"
         textColor={colorButton.text}
       />
+    ),
+    bgColor: colorButton.bg,
+    borderColor: colorButton.border,
+  },
+  closeModalSaveContactUs: {
+    content: (
+      <InfoModal type="closeModalSaveContactUs" textColor={colorButton.text} />
     ),
     bgColor: colorButton.bg,
     borderColor: colorButton.border,

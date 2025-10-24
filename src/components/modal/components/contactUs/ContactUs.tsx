@@ -1,50 +1,69 @@
 import { Input } from "../../../inputs/Input/Input";
 import { Button } from "../../../buttons/Button/Button";
 import { Textarea } from "../../../Textarea/Textarea";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { z } from "zod";
-import { ContactUsSchema } from "../../../../schemas/ContactUsSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import { useAppDispatch } from "../../../../store/hook";
-import { closeModal } from "../../../../store/slices/modalSlice/modalSlice";
-import { useGetAllUserDataQuery } from "@/store/querySlices/profileQuerySlice";
-import { useEffect } from "react";
+import {
+  closeButton,
+  closeModal,
+  openConfirmation,
+} from "../../../../store/slices/modalSlice/modalSlice";
+// import { useGetAllUserDataQuery } from "@/store/querySlices/profileQuerySlice";
+import { useCallback, useEffect } from "react";
+import useContactUs from "./useContactUs";
+import { TypesModal } from "../../ModalMain.types";
 
 const ContactUs = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { data: dataUser } = useGetAllUserDataQuery();
-
+  // const { data: dataUser } = useGetAllUserDataQuery();
   const {
     register,
-    handleSubmit,
-    reset,
     resetField,
-    watch,
+    handleSubmit,
+    errors,
+    getValues,
     setValue,
-    formState: { errors },
-  } = useForm<z.infer<typeof ContactUsSchema>>({
-    defaultValues: {
-      name: "",
-      email: "",
-      requestText: "",
-    },
-    resolver: zodResolver(ContactUsSchema),
-    mode: "all",
-  });
-  useEffect(() => {
-    reset({
-      name: dataUser?.username || "",
-      email: dataUser?.email || "",
-      requestText: "",
-    });
-  }, [dataUser, reset]);
+    // isButtonDisabled,
+    watch,
+    // clearErrors,
+    isSupportChanged,
+  } = useContactUs("addSupport");
 
-  const onSubmit: SubmitHandler<z.infer<typeof ContactUsSchema>> = (data) => {
-    reset();
-    console.log(data);
+  const handleOpenConfirmation = useCallback(
+    (typeConfirmation: TypesModal) => {
+      const data = getValues();
+      dispatch(
+        openConfirmation({
+          typeConfirmation,
+          dataConfirmation: data,
+        })
+      );
+    },
+    [dispatch, getValues]
+  );
+
+  useEffect(() => {
+    dispatch(
+      closeButton({
+        isButtonOpen: isSupportChanged,
+        resetForm: () => handleOpenConfirmation("closeModalSaveContactUs"),
+      })
+    );
+  }, [dispatch, handleOpenConfirmation, isSupportChanged]);
+
+  const onSubmit = () => {
+    handleSubmit((data) => {
+      dispatch(
+        openConfirmation({
+          typeConfirmation: "saveContactUs",
+          dataConfirmation: data,
+        })
+      );
+    })();
   };
+
   // -------------------------------------------------------------
   const handleCancel = (): void => {
     dispatch(closeModal());
@@ -52,6 +71,17 @@ const ContactUs = () => {
   const error = !!Object.keys(errors).length;
   const isCleanInputsForm =
     error || !watch("name") || !watch("email") || !watch("requestText");
+
+  // const focusFields: string[] = [
+  //   ...vacancyFields.map((f) => f.id),
+  //   ...workTypeOptions.map((f) => f.id),
+  //   ...statusVacancy.map((f) => f.id),
+  //   "addVacancyStage",
+  //   "note",
+  // ];
+
+  // const { setFocusedId, handleFormKeyNavigation, assignInputRef } =
+  //   useKeyBoardNavigation({ focusFields });
 
   return (
     <div className="my-2 w-[449px] text-left xl:my-12">
