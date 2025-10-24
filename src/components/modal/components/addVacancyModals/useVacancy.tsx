@@ -126,24 +126,21 @@ const useVacancy = () => {
 
       // 3 - архівуємо
       if (isArchived) {
-        const responseArchive = await archiveVacancyById({
+        await archiveVacancyById({
           id: idVacancy,
         }).unwrap();
-        console.log("responseArhive", responseArchive);
       }
 
       // 4 - зберігаємо статуси
       for (const elem of status) {
         if (elem.date !== "1970-01-01T00:00:00.000Z") {
-          console.log("status", elem);
-          const statusResponse = await createStatusVacancyById({
+          await createStatusVacancyById({
             vacancyId: idVacancy,
             name: elem.name as StatusName,
             date: elem.date || "",
             resumeId: elem.resumeId,
             rejectReason: elem.rejectReason as RejectReason,
           }).unwrap();
-          console.log("statusResponse", statusResponse);
         }
       }
       refetch();

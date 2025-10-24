@@ -42,7 +42,6 @@ function Statistics() {
     isError: isPredictionError,
   } = useGetPredictionDailyQuery();
 
-  console.log("PredictionError", isPredictionError);
   const now = new Date();
 
   const predictionObj = {

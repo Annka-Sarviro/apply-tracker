@@ -229,9 +229,8 @@ const InfoModalMap = () => {
 
   // Видалення нотатки
   const handleDeleteNotes = useCallback((): void => {
-    console.log("handleDeleteNotes", dataModalForConfirm);
     deleteNote();
-  }, [deleteNote, dataModalForConfirm]);
+  }, [deleteNote]);
 
   // Функція створення кнопок
   const createButton = (

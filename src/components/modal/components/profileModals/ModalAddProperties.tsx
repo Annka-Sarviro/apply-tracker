@@ -33,7 +33,7 @@ function ModalAddProperties({ cardsType }: PropsModalAddProperties) {
 
   const isUpdating = Boolean(updateItem?.typeModal);
   const typeConfirmationAdd: string = "add" + cardsType.slice(6);
-  const { onSubmit, isSubmitDisabled } = useMutationProfileData({
+  const { onSubmit, isSubmitDisabled, isLoading } = useMutationProfileData({
     isUpdating,
     cardsType: typeConfirmationAdd as
       | "addResumes"
@@ -70,7 +70,12 @@ function ModalAddProperties({ cardsType }: PropsModalAddProperties) {
         {t("infoModal.saveAddVacancies.text_1")}
       </div>
       <div className="flex w-full flex-col justify-center gap-4 md:flex-row">
-        <Button type="button" onClick={handleClose}>
+        <Button
+          type="button"
+          onClick={handleClose}
+          disabled={isLoading}
+          variant="ghost"
+        >
           {t("infoModal.button.cancel")}
         </Button>
 
@@ -78,7 +83,7 @@ function ModalAddProperties({ cardsType }: PropsModalAddProperties) {
           type="button"
           variant="accent"
           onClick={handleSubmit}
-          disabled={isSubmitDisabled}
+          disabled={isLoading || isSubmitDisabled}
           className="group gap-3"
         >
           {t("infoModal.button.save")}

@@ -102,20 +102,18 @@ function useNotes(type: "addNote" | "updateNote") {
       const { noteName, noteText, noteType } = data;
       // 1 - запит на збереження нової нотатки
       if (noteType === "addNote") {
-        const response = await createNote({
+        await createNote({
           name: noteName,
           text: noteText,
         }).unwrap();
-        console.log("response", response);
       }
       // 2 - запит на редагування нотатки
       if (noteType === "updateNote") {
-        const response = await updateNoteById({
+        await updateNoteById({
           id: noteData?.id || "",
           name: noteName,
           text: noteText,
         }).unwrap();
-        console.log("response", response);
       }
       refetchNote();
       notifySuccess(t("notification.vacancyAdded"));

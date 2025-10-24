@@ -81,7 +81,6 @@ const Modal: FC = () => {
           )}
           modalData={modalData}
           btnFunc={() => {
-            console.log("isButtonOpen", isButtonOpen);
             return isButtonOpen ? resetForm?.() : dispatch(closeModal());
           }}
         />

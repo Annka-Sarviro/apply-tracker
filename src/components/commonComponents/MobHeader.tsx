@@ -52,7 +52,6 @@ function MobHeader() {
     location.pathname.replace(/^\/+/, "") === "archive";
 
   const handleOpenSidebar = () => {
-    console.log("click");
     dispatch(openSidebar());
   };
 
