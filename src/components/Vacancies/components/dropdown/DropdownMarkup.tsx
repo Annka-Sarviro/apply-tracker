@@ -172,7 +172,7 @@ export const DropdownMarkup = forwardRef<HTMLDivElement, DropdownMarkupProps>(
           }
           onMouseEnter={() => setFocusedOption("sortButton")}
           className={cn(
-            "group flex w-full items-center justify-between rounded-t-xl pb-[13px] pl-8 pr-[22px] pt-3 text-textBlack hover:fill-iconHover hover:text-blackColor",
+            "group flex w-full items-center justify-between truncate rounded-t-xl pb-[13px] pl-8 pr-[22px] pt-3 text-textBlack hover:fill-iconHover hover:text-blackColor",
             isDropdownOpen &&
               "hover:bg-button hover:text-textBlack dark:hover:fill-textBlack",
             !isDropdownOpen && !isInModal && "rounded-xl",
@@ -184,7 +184,10 @@ export const DropdownMarkup = forwardRef<HTMLDivElement, DropdownMarkupProps>(
             mainOptions.length === 0 && "rounded-b-xl"
           )}
         >
-          {buttonLabel}
+          <span className="max-w-[calc(100%-40px)] truncate">
+            {buttonLabel}
+          </span>
+
           <Icon
             id={"arrow-down"}
             className={cn(

@@ -149,7 +149,8 @@
     "searchResult234": "search results",
     "searchResults": "search results",
     "emptySection": "There are no vacancies in this section...",
-    "cardFirst": "Save your first job"
+    "cardFirst": "Save your first job",
+    "searchError": "Search query cannot be empty"
   },
   "sortDropdown": {
     "sortBy": "Sort by",

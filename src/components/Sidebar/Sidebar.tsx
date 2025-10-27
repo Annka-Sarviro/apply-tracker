@@ -35,6 +35,16 @@ function Sidebar() {
     prevIsMobile.current = isMobile;
   }, [isMobile, dispatch, isOpenSidebar]);
 
+  useEffect(() => {
+    if (isOpenSidebar) {
+      document.body.style.overflow = "hidden";
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [dispatch, isOpenSidebar]);
+
   const handleLogOut = (): void => {
     dispatch(
       openModal({

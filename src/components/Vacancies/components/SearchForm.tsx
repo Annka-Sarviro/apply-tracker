@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -16,9 +16,10 @@ import { cn } from "../../../utils/utils";
 
 import Icon from "../../Icon/Icon";
 import { SearchResults } from "./SearchResults";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 const SearchSchema = z.object({
-  query: z.string().min(1, "Search query cannot be empty"),
+  query: z.string().min(1, `vacanciesHeader.searchError`).max(100),
 });
 
 type SearchFormData = z.infer<typeof SearchSchema>;
@@ -30,7 +31,7 @@ export const SearchForm: React.FC = () => {
 
   const [isSearching, setIsSearching] = useState(false);
 
-  let action: (arg0: string) => any;
+  let action: (arg0: string) => PayloadAction<string>;
   let selector = selectSearchQuery;
 
   const location = useLocation();
@@ -64,6 +65,7 @@ export const SearchForm: React.FC = () => {
     resetField,
     handleSubmit,
     setFocus,
+    setValue,
     formState: { errors },
   } = useForm<SearchFormData>({
     defaultValues: {
@@ -76,6 +78,29 @@ export const SearchForm: React.FC = () => {
   const handleSearch = (query: string) => {
     dispatch(action(query));
   };
+  const prevPathname = useRef(location.pathname);
+
+  useEffect(() => {
+    if (prevPathname.current !== location.pathname) {
+      if (variant === "vacancies" || variant === "archive") {
+        dispatch(setSearchQuery(""));
+      } else if (variant === "notes") {
+        dispatch(setNotesSearchQuery(""));
+      }
+
+      resetField("query");
+
+      if (!isDesktop) {
+        dispatch(closeSearch());
+      }
+
+      prevPathname.current = location.pathname;
+    }
+  }, [location.pathname, variant, dispatch, resetField, isDesktop]);
+
+  useEffect(() => {
+    setValue("query", queryFromRedux);
+  }, [queryFromRedux, setValue]);
 
   const onSubmit: SubmitHandler<SearchFormData> = async (data) => {
     try {
@@ -142,7 +167,7 @@ export const SearchForm: React.FC = () => {
           {error && (
             <span
               id={`inputError-query`}
-              className="absolute left-0 top-[38px] inline-block font-nunito text-base font-medium text-[redColor] md:top-10 xl:top-[46px]"
+              className="absolute left-0 top-[40px] inline-block font-nunito text-base font-medium text-[redColor] md:top-10 xl:top-[50px]"
             >
               {t(String(error?.message))}
             </span>

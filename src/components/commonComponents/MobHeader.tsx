@@ -44,7 +44,7 @@ function MobHeader() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [emptySearch, handleClickOutside, isSearchOpen]);
+  }, [isSearchOpen, handleClickOutside]);
 
   const isSearchShown =
     location.pathname.replace(/^\/+/, "") === "vacancies" ||
