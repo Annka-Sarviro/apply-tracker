@@ -3,7 +3,12 @@ export const BACKEND_ENDPOINTS = {
 };
 
 type ApiRouts = {
-  USER: { PROFILE: string; CHANGE_PASSWORD: string; SOCIALS: string };
+  USER: {
+    PROFILE: string;
+    CHANGE_PASSWORD: string;
+    SOCIALS: string;
+    UPDATE: string;
+  };
   AUTH: {
     REGISTER: string;
     LOGIN: string;
@@ -27,6 +32,7 @@ export const API_ROUTES: ApiRouts = {
     PROFILE: "/user/profile",
     CHANGE_PASSWORD: "/user/change-password",
     SOCIALS: "/user/socials",
+    UPDATE: "user/update",
   },
   AUTH: {
     REGISTER: "/auth/register",

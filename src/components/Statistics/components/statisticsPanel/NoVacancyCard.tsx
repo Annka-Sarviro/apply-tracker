@@ -52,7 +52,7 @@ const NoVacancyCard = () => {
       <Icon
         id={icon}
         className={cn(
-          "fill-iconFill dark:fill-iconFill mt-2 size-[209px] md:mt-2 xl:mt-9 2xl:mt-0 3xl:mt-0 3xl:size-[256px]",
+          "mt-2 size-[209px] fill-iconFill hover:fill-iconFill dark:fill-iconFill dark:hover:fill-iconFill md:mt-2 xl:mt-9 2xl:mt-0 3xl:mt-0 3xl:size-[256px]",
           isNote && "mt-9 md:mt-7 xl:mt-7 2xl:mt-7 3xl:mt-7"
         )}
       />

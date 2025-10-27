@@ -137,7 +137,7 @@
     "max50Characters": "Максимум 50 символів",
     "invalidUrl": "Введіть коректне посилання",
     "invalidPdf": "Введіть коректне посилання .pdf",
-    "phoneNumberInvalid": "Лише цифри (3-12), може включати '+'"
+    "phoneNumberInvalid": "Лише цифри (10-12), може включати '+'"
   },
   "vacanciesHeader": {
     "search": "Пошук",

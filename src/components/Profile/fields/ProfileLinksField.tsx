@@ -13,7 +13,8 @@ import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-const userData: ProfileKeys[] = ["username", "email", "phone"];
+const userData: ProfileLinkProps[] = ["username", "email", "phone"];
+type ProfileLinkProps = "username" | "email" | "phone";
 
 function ProfileLinksField() {
   const {
@@ -38,10 +39,10 @@ function ProfileLinksField() {
 
   useEffect(() => {
     if (!profile) return;
-    userData.forEach((item) => {
-      const value = profile[item as keyof Profile] ?? "";
-      setValue(item as any, value);
-      initialValues.current[item] = value as string;
+    userData.forEach((key) => {
+      const value = profile[key] ?? "";
+      setValue(key, value);
+      initialValues.current[key] = value;
     });
   }, [profile, setValue]);
 
@@ -55,13 +56,13 @@ function ProfileLinksField() {
 
       if (!valueNumber && event.length <= 2) {
         clearErrors(name);
-        setValue(name as any, initialValues.current[name]);
+        setValue(name, initialValues.current[name]);
         return;
       }
-      const isValid = await trigger(name as any);
+      const isValid = await trigger(name);
       if (!isValid) {
         clearErrors(name);
-        setValue(name as any, initialValues.current[name]);
+        setValue(name, initialValues.current[name]);
         return;
       }
     }
@@ -77,10 +78,10 @@ function ProfileLinksField() {
 
       if (name === "username")
         notifySuccess(t("notification.updatedUserNameSuccess"));
-    } catch (error) {
+    } catch {
       if (name === "phone") notifyError(t("notification.updatedPhone"));
       if (name === "username") notifyError(t("notification.updatedUserName"));
-      setValue(name as any, initialValues.current[name]);
+      setValue(name as ProfileLinkProps, initialValues.current[name]);
     } finally {
       setIsInputLoading("");
     }
@@ -123,7 +124,7 @@ function ProfileLinksField() {
               isButtonCopy={true}
               handleClickButtonCopyInput={() =>
                 copyInputValue({
-                  valueToCopy: watch(item as any) as string,
+                  valueToCopy: watch(item as ProfileLinkProps) as string,
                   text:
                     item === "username"
                       ? t("notification.userNameCopied")
@@ -134,7 +135,7 @@ function ProfileLinksField() {
               }
             />
             {index === userData.length - 1 && (
-              <div className="bg-borderLight mt-4 h-px w-full" />
+              <div className="mt-4 h-px w-full bg-borderLight" />
             )}
           </li>
         );

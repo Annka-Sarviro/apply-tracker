@@ -22,7 +22,7 @@ export const profileQuerySlice = createApi({
       Partial<Pick<Profile, "email" | "phone" | "username">>
     >({
       query: (body) => ({
-        url: API_ROUTES.USER.PROFILE,
+        url: API_ROUTES.USER.UPDATE,
         method: "PATCH",
         body,
       }),

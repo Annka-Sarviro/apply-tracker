@@ -148,7 +148,7 @@ const VacancyMain: FC = () => {
           <Icon
             id="girl-and-dashboard"
             className={cn(
-              "mt-2 size-[209px] fill-iconFill dark:fill-iconFill md:mt-2 xl:mt-9 2xl:mt-0 3xl:mt-0 3xl:size-[256px]"
+              "mt-2 size-[209px] fill-iconFill hover:fill-iconFill dark:fill-iconFill dark:hover:fill-iconFill md:mt-2 xl:mt-9 2xl:mt-0 3xl:mt-0 3xl:size-[256px]"
             )}
           />
           <p className="mt-4 font-nunito text-xl text-textBlack">

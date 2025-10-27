@@ -5,12 +5,10 @@ export const userDataSchema = z.object({
   email: z.string(),
   phone: z
     .string()
+    .optional()
     .refine(
-      (value: string) =>
-        value === "" ||
-        (/^\+?\d+$/.test(value) &&
-          value.replace("+", "").length >= 3 &&
-          value.replace("+", "").length <= 12),
+      (value) =>
+        value === undefined || value === "" || /^\+?\d{10,14}$/.test(value),
       { message: "validation.phoneNumberInvalid" }
     ),
 });
