@@ -99,8 +99,6 @@ const InfoModalMap = () => {
     addSupportLoading ||
     isLoadingCreateEvent;
 
-  console.log("isGlobalLoading", isGlobalLoading);
-
   // Збереження вакансії
   const handleAddVacancy = useCallback((): void => {
     addVacanciesSubmit(dataModalForConfirm);
@@ -438,7 +436,7 @@ const InfoModalMap = () => {
           // addVacanciesLoading
         ),
         createButton(
-          t("infoModal.button.save"),
+          t("infoModal.button.send"),
           // handleAddVacancy,
           handleSentSupport,
           "",

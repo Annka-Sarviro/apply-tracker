@@ -397,7 +397,8 @@
       "edit": "Edit",
       "close": "Close",
       "agree": "Yes",
-      "return": "Return to editing"
+      "return": "Return to editing",
+      "send": "Send"
     },
     "logOut": {
       "title": "Are you sure you want to log out?",
@@ -412,8 +413,8 @@
       "text_1": "If you do not save the data, it will be lost."
     },
     "saveContactUs": {
-      "title": "Save changes?",
-      "text_1": "If you do not save the data, it will be lost."
+      "title": "Sent message?",
+      "text_1": "If you do not accept sending, data will be lost."
     },
     "closeModalSaveContactUs": {
       "title": "Close without saving?",

@@ -82,7 +82,7 @@ const EditVacancy = () => {
       openConfirmation({
         typeConfirmation: isValid
           ? "closeModalSaveEditVacancies" // помилок немає
-          : "closeModalSaveAddVacancies", // є помилки
+          : "closeModalSaveEditVacancies", // є помилки
         dataConfirmation: data,
       })
     );
@@ -99,7 +99,7 @@ const EditVacancy = () => {
         resetForm: () => {
           trigger().then((isValidOnClose) => {
             if (isValidOnClose && isFormChanged) {
-              handleConfirmation("closeModalSaveEditEvent");
+              handleConfirmation("closeModalSaveEditVacancies");
             } else if (isFormChanged) {
               dispatch(
                 openConfirmation({
@@ -120,7 +120,7 @@ const EditVacancy = () => {
     handleSubmit((data) => {
       dispatch(
         openConfirmation({
-          typeConfirmation: "saveAddVacancies",
+          typeConfirmation: "saveEditVacancies",
           dataConfirmation: data,
         })
       );

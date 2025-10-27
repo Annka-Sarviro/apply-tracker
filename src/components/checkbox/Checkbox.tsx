@@ -14,6 +14,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       register,
       checked,
       disabled = false,
+
       // required = false,
       onFocus,
       ...props

@@ -52,7 +52,7 @@ const ContactUs = () => {
         resetForm: () => {
           trigger().then((isValidOnClose) => {
             if (isValidOnClose && isSupportChanged) {
-              handleOpenConfirmation("closeModalSaveEditEvent");
+              handleOpenConfirmation("closeModalSaveContactUs");
             } else if (isSupportChanged) {
               dispatch(
                 openConfirmation({

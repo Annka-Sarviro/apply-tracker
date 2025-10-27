@@ -158,7 +158,7 @@ export const CheckboxWithCalendar = forwardRef<HTMLInputElement, CheckboxProps>(
                 onClick={handleCheckbox}
                 ref={ref}
                 onFocus={onFocus}
-                clearErrors={clearErrors}
+                // clearErrors={clearErrors}
               />
               <span
                 className="cursor-pointer text-[14px] underline 2xl:text-[16px]"

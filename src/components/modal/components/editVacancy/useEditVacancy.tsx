@@ -173,10 +173,6 @@ const useEditVacancy = () => {
         isArchived,
       } = data;
       setIsLoading(true);
-      // alex
-      // console.log("Редагування вакансії", data);
-      // console.log("old Data", vacancyData?.isArchived);
-      // console.log("new Data", data.isArchived);
 
       // 1 - запит на збереження вакансії - пропускаємо
 
@@ -184,7 +180,7 @@ const useEditVacancy = () => {
       const idVacancy = vacancyData?.id || "";
 
       // 3 - запит на збереження вакансії після редагування
-      const response = await updateVacancyById({
+      await updateVacancyById({
         id: idVacancy,
         company,
         vacancy,
@@ -194,26 +190,20 @@ const useEditVacancy = () => {
         note,
         work_type,
       }).unwrap();
-      console.log("Збереження редагованої вакансії", response);
 
       // 3 - архівуємо
       if (vacancyData?.isArchived !== isArchived) {
-        const responseArchive = await archiveVacancyById({
+        await archiveVacancyById({
           id: idVacancy,
         }).unwrap();
         navigate(isArchived ? "/archive" : "/vacancies");
-        console.log("Архів", responseArchive);
       }
 
       // 4 - зберігаємо статуси
-      // alex
-      // console.log("prev Status", previousStatuses);
-      // console.log("new Status", newStatuses);
 
       for (let i: number = 0; i <= newStatuses.length; i++) {
         const prevDate = previousStatuses[i]?.date || "";
         const newDate = newStatuses[i]?.date || "";
-        // перевірка СТАТУСУ по даті
 
         if (prevDate !== newDate) {
           // створити статус
