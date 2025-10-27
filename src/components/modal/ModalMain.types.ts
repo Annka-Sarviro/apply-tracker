@@ -3,6 +3,7 @@ export type TypesModal =
   | "editVacancy"
   | "forgotPassword"
   | "contactUs"
+  | "contactUsSended"
   | "logInSuccess"
   | "logInError"
   | "signUpSuccess"

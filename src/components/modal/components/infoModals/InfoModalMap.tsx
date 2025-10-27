@@ -365,6 +365,19 @@ const InfoModalMap = () => {
         ),
       ],
     },
+    contactUsSended: {
+      title: "",
+      text: [t("infoModal.contactUsSended.text_1")],
+      button: [
+        createButton(
+          t("infoModal.button.continue"),
+          handleLogIn,
+          "",
+          "big",
+          "accent"
+        ),
+      ],
+    },
     resetPasswordErrorLink: {
       title: "",
       text: [

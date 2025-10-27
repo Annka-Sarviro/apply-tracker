@@ -445,6 +445,9 @@
       "text_1": "Password changed successfully.",
       "text_2": "Log in with your new password."
     },
+    "contactUsSended": {
+      "text_1": "Message sended successfully."
+    },
     "resetPasswordErrorLink": {
       "text_1": "The password reset link is invalid.",
       "text_2": "Try again."

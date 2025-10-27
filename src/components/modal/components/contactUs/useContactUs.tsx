@@ -10,6 +10,7 @@ import {
 import {
   closeConfirmation,
   closeModal,
+  openModal,
 } from "../../../../store/slices/modalSlice/modalSlice";
 import { useAppDispatch, useAppSelector } from "../../../../store/hook";
 
@@ -110,13 +111,22 @@ function useContactUs(type: "addSupport" | "updateSupport") {
       }
 
       refetchSupport();
+      dispatch(closeConfirmation());
+      dispatch(
+        openModal({
+          typeModal: "contactUsSended",
+        })
+      );
       notifySuccess(t("notification.supportSent"));
-      dispatch(closeModal());
+      // dispatch(closeModal());
+      setTimeout(() => {
+        dispatch(closeModal());
+      }, 3000);
     } catch (error) {
+      dispatch(closeConfirmation());
       notifyError(t("notification.supportSentError"));
       console.error(error);
     }
-    dispatch(closeConfirmation());
   };
 
   return {

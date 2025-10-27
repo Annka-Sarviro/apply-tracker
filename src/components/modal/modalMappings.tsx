@@ -92,6 +92,11 @@ export const contentMap: ContentMapProps = {
     bgColor: colorSuccess.bg,
     borderColor: colorSuccess.border,
   },
+  contactUsSended: {
+    content: <InfoModal type="contactUsSended" textColor={colorSuccess.text} />,
+    bgColor: colorSuccess.bg,
+    borderColor: colorSuccess.border,
+  },
   resetPasswordErrorLink: {
     content: (
       <InfoModal type="resetPasswordErrorLink" textColor={colorError.text} />
