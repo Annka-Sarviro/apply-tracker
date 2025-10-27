@@ -75,7 +75,8 @@ export const SoonCalendarModal: React.FC<SoonCalendarModalProps> = ({
         formatMonthYear={(locale, date) =>
           `${date.toLocaleDateString(locale, { month: "long" })} ${date.getFullYear()}`
         }
-        minDate={new Date()} // Заборона вибору минулих дат, будуть взагалі не клікабельні
+        minDate={new Date()}
+        calendarType={i18n.language === "uk" ? "iso8601" : "gregory"}
       />
     </div>
   );

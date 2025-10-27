@@ -59,6 +59,7 @@ export const StatisticsCalendarDay: React.FC<StatisticsCalendarDayProps> = ({
           onDateChange(date as Date);
         }}
         className="statistics-calendar__day"
+        calendarType={i18n.language === "uk" ? "iso8601" : "gregory"}
         nextLabel={
           <Icon
             id={"arrow-right"}

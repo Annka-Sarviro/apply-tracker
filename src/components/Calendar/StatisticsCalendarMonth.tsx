@@ -43,6 +43,7 @@ export const StatisticsCalendarMonth: React.FC<
         }}
         value={selectedMonth}
         className="statistics-calendar__months"
+        calendarType={i18n.language === "uk" ? "iso8601" : "gregory"}
         nextLabel={
           <Icon
             id={"arrow-right"}
