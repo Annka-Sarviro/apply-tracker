@@ -9,6 +9,15 @@ import {
 import { closeModal, openModal } from "../slices/modalSlice/modalSlice";
 import { API_ROUTES, BACKEND_ENDPOINTS } from "../api/api-routes";
 import { profileQuerySlice } from "./profileQuerySlice";
+import { vacanciesQuerySlice } from "./vacanciesQuerySlice";
+import { resumesQuerySlices } from "./resumesQuerySlices";
+import { projectQuerySlice } from "./projectQuerySlice";
+import { coverLetterQuerySlice } from "./coverLettersQuerySlice";
+import { notesQuerySlice } from "./notesQuerySlice";
+import { supportsQuerySlice } from "./supportsQuerySlice";
+import { eventQuerySlice } from "./eventsQuerySlice";
+import { predictionsQuerySlice } from "./predictionsQuerySlice";
+import { resetStore } from "../resetStore";
 
 type AuthResponse = { access_token: string; refresh_token: string };
 type AuthRequest = { email: string; password: string };
@@ -47,7 +56,7 @@ export const authPublicQuerySlice = createApi({
           dispatch(isLoggedIn());
 
           dispatch(profileQuerySlice.util.invalidateTags(["Profile"]));
-        } catch (error) {
+        } catch {
           dispatch(
             openModal({
               typeModal: "logInError",
@@ -76,7 +85,7 @@ export const authPublicQuerySlice = createApi({
           dispatch(isLoggedIn());
 
           dispatch(profileQuerySlice.util.invalidateTags(["Profile"]));
-        } catch (error) {
+        } catch {
           dispatch(
             openModal({
               typeModal: "signUpError",
@@ -136,8 +145,24 @@ export const authPrivateQuerySlice = createApi({
         try {
           await queryFulfilled;
           dispatch(clearTokens());
+          localStorage.removeItem("persist:auth");
+
+          dispatch(resetStore());
+
+          dispatch(authPrivateQuerySlice.util.resetApiState());
+          dispatch(authPublicQuerySlice.util.resetApiState());
+          dispatch(profileQuerySlice.util.resetApiState());
+          dispatch(vacanciesQuerySlice.util.resetApiState());
+          dispatch(resumesQuerySlices.util.resetApiState());
+          dispatch(projectQuerySlice.util.resetApiState());
+          dispatch(coverLetterQuerySlice.util.resetApiState());
+          dispatch(notesQuerySlice.util.resetApiState());
+          dispatch(supportsQuerySlice.util.resetApiState());
+          dispatch(eventQuerySlice.util.resetApiState());
+          dispatch(predictionsQuerySlice.util.resetApiState());
+
           dispatch(closeModal());
-        } catch (error) {
+        } catch {
           dispatch(
             openModal({
               typeModal: "logInError",

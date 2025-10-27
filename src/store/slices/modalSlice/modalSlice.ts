@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ModalProps } from "./modalSliceType";
+import { resetStore } from "@/store/resetStore";
 
 const initialState: ModalProps = {
   isModalOpen: false,
@@ -61,6 +62,9 @@ const modalSlice = createSlice({
     setModalLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetStore, () => initialState);
   },
 });
 

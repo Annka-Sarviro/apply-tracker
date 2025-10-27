@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { AuthStateProps, AuthTokensProps } from "./authTypes";
+import { resetStore } from "@/store/resetStore";
 
 const initialState: AuthStateProps = {
   user: null,
@@ -24,6 +25,9 @@ const authSlice = createSlice({
       state.isLoggedIn = false;
       state.user = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetStore, () => initialState);
   },
 });
 

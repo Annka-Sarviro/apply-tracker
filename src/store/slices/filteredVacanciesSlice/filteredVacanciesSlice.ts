@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Vacancy } from "../../../types/vacancies.types";
+import { resetStore } from "@/store/resetStore";
 
 interface FilteredVacanciesState {
   filteredVacancies: Vacancy[];
@@ -26,6 +27,9 @@ const filteredVacanciesSlice = createSlice({
     setFilteredVacancies(state, action: PayloadAction<Vacancy[]>) {
       state.filteredVacancies = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetStore, () => initialState);
   },
 });
 

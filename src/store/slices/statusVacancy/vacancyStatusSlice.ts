@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { vacancyStatusesProps } from "./vacancyStatusTypes";
 import { statusActionProps } from "./vacancyStatusTypes";
+import { resetStore } from "@/store/resetStore";
 
 const initialState: vacancyStatusesProps = {
   previousStatuses: [],
@@ -26,6 +27,9 @@ const vacancyStatusSlice = createSlice({
         elem.id === action.payload.id ? { ...elem, ...action.payload } : elem
       );
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetStore, () => initialState);
   },
 });
 

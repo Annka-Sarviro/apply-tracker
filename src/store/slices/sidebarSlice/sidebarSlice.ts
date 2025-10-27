@@ -1,3 +1,4 @@
+import { resetStore } from "@/store/resetStore";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface ISidebarState {
@@ -14,6 +15,9 @@ const sidebarSlice = createSlice({
   reducers: {
     openSidebar: (state) => void (state.isSidebarOpen = true),
     closeSidebar: (state) => void (state.isSidebarOpen = false),
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetStore, () => sidebarInitialState);
   },
 });
 

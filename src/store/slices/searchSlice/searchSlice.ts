@@ -1,3 +1,4 @@
+import { resetStore } from "@/store/resetStore";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface ISearchState {
@@ -29,6 +30,9 @@ const searchSlice = createSlice({
     hideDropdown: (state) => {
       state.isDropdownShown = false;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetStore, () => initialState);
   },
 });
 

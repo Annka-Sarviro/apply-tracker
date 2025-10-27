@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Note } from "@/types/notes.types";
+import { resetStore } from "@/store/resetStore";
 
 interface FilteredNotesState {
   filteredNotes: Note[];
@@ -26,6 +27,9 @@ const filteredNotesSlice = createSlice({
     setFilteredNotes(state, action: PayloadAction<Note[]>) {
       state.filteredNotes = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetStore, () => initialState);
   },
 });
 
