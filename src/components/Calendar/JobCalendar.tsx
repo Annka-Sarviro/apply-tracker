@@ -10,6 +10,7 @@ export const JobCalendar = ({ changeDate, dateState }: JobCalendarProps) => {
   return (
     <Calendar
       locale={i18n.language}
+      calendarType={i18n.language === "uk" ? "iso8601" : "gregory"}
       className={classNames(
         "custom-size statistics-calendar__day job-cal z-10 w-full rounded-[12px] border-[1px] border-iconHover bg-backgroundMain py-3 text-textBlack"
       )}

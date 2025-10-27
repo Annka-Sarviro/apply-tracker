@@ -2,6 +2,7 @@ import { useState } from "react";
 import Calendar from "react-calendar";
 import Icon from "../Icon/Icon";
 import clsx from "clsx";
+import i18n from "@/utils/i18n/i18n";
 
 type StatisticsCalendarYearProps = {
   onYearChange: (year: number) => void;
@@ -23,6 +24,7 @@ export const StatisticsCalendarYear: React.FC<StatisticsCalendarYearProps> = ({
     >
       <Calendar
         view="decade" // Відображає період з 12 років, показую тільки роки
+        calendarType={i18n.language === "uk" ? "iso8601" : "gregory"}
         onClickYear={(date) => {
           const year = (date as Date).getFullYear(); //поверне рік числом
           const selectedYearDate = new Date(year, 0, 1); // Додаємо 1 січня обраного року для стилізації активного
