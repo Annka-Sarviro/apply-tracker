@@ -42,6 +42,7 @@ const useAddEventModal = () => {
     reset,
     watch,
     trigger,
+    control,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(getEventSchema()),
@@ -216,6 +217,7 @@ const useAddEventModal = () => {
     handleDateChange,
     handleInputChange,
     isLoading,
+    control,
   };
 };
 

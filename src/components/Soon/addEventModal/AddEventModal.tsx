@@ -87,7 +87,8 @@ const AddEventModal = () => {
             {t("soonSection.soonName")}
           </label>
           <Input
-            name="soonEventName"
+            {...register("soonEventName")}
+            // name="soonEventName"
             placeholder={t("soonSection.soonModalNamePlaceholder")}
             register={register}
             errors={errors}
@@ -96,7 +97,10 @@ const AddEventModal = () => {
             isRequired={true}
             isCheckButtons={true}
             classNameInputCustom="rounded-lg"
-            onChange={handleInputChange}
+            onChange={(e) => {
+              register("soonEventName").onChange(e);
+              handleInputChange();
+            }}
             autoComplete="off"
           />
 
@@ -122,6 +126,7 @@ const AddEventModal = () => {
             autoComplete="off"
           /> */}
           <Textarea
+            {...register("soonEventNotes")}
             name="soonEventNotes"
             placeholder={t("soonSection.soonModalNotesPlaceholder")}
             register={register}
@@ -130,8 +135,12 @@ const AddEventModal = () => {
             isRequired={false}
             rows={4}
             classNameInputCustom="resize-none textarea-event-lg textarea-event"
-            onChange={handleInputChange}
+            // onChange={handleInputChange}
             watch={watch}
+            onChange={(e) => {
+              register("soonEventNotes").onChange(e);
+              handleInputChange();
+            }}
           />
 
           <div className="flex w-full flex-col items-center md:items-start">
