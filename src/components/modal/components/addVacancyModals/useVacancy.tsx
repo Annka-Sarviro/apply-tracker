@@ -61,6 +61,7 @@ const useVacancy = () => {
     setValue,
     watch,
     clearErrors,
+    trigger,
     formState: { errors },
   } = useForm<z.infer<typeof AddVacancySchema>>({
     defaultValues,
@@ -169,6 +170,7 @@ const useVacancy = () => {
     watch,
     clearErrors,
     isFormChanged,
+    trigger,
   };
 };
 

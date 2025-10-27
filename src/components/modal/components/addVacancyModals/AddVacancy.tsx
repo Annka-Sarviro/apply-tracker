@@ -6,6 +6,7 @@ import Icon from "../../../Icon/Icon";
 import { useAppDispatch, useAppSelector } from "../../../../store/hook";
 import {
   closeButton,
+  closeModal,
   openConfirmation,
 } from "../../../../store/slices/modalSlice/modalSlice";
 // component
@@ -39,6 +40,7 @@ const AddVacancy = () => {
     watch,
     clearErrors,
     isFormChanged,
+    trigger,
   } = useVacancy();
 
   const handleOpenConfirmation = useCallback(
@@ -56,12 +58,30 @@ const AddVacancy = () => {
 
   useEffect(() => {
     dispatch(
+      // closeButton({
+      //   isButtonOpen: isFormChanged,
+      //   resetForm: () => handleOpenConfirmation("closeModalSaveAddVacancies"),
+      // })
       closeButton({
         isButtonOpen: isFormChanged,
-        resetForm: () => handleOpenConfirmation("closeModalSaveAddVacancies"),
+        resetForm: () => {
+          trigger().then((isValidOnClose) => {
+            if (isValidOnClose && isFormChanged) {
+              handleOpenConfirmation("closeModalSaveEditEvent");
+            } else if (isFormChanged) {
+              dispatch(
+                openConfirmation({
+                  typeConfirmation: "closeDiscardModal",
+                })
+              );
+            } else {
+              dispatch(closeModal());
+            }
+          });
+        },
       })
     );
-  }, [dispatch, handleOpenConfirmation, isFormChanged]);
+  }, [dispatch, handleOpenConfirmation, trigger, isFormChanged]);
 
   const saveVacancy = () => {
     handleSubmit((data) => {

@@ -76,7 +76,7 @@ const useEditEventModal = () => {
 
   const handleConfirmation = useCallback(
     (typeConfirmation: TypesModal) => {
-      const currentFormData = watch(); // Отримуємо поточні значення форми
+      const currentFormData = watch();
       dispatch(
         openConfirmation({
           typeConfirmation,
