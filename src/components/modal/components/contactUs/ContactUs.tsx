@@ -29,6 +29,7 @@ const ContactUs = () => {
     watch,
     // clearErrors,
     isSupportChanged,
+    trigger,
   } = useContactUs("addSupport");
 
   const handleOpenConfirmation = useCallback(
@@ -48,10 +49,24 @@ const ContactUs = () => {
     dispatch(
       closeButton({
         isButtonOpen: isSupportChanged,
-        resetForm: () => handleOpenConfirmation("closeModalSaveContactUs"),
+        resetForm: () => {
+          trigger().then((isValidOnClose) => {
+            if (isValidOnClose && isSupportChanged) {
+              handleOpenConfirmation("closeModalSaveEditEvent");
+            } else if (isSupportChanged) {
+              dispatch(
+                openConfirmation({
+                  typeConfirmation: "closeDiscardModal",
+                })
+              );
+            } else {
+              dispatch(closeModal());
+            }
+          });
+        },
       })
     );
-  }, [dispatch, handleOpenConfirmation, isSupportChanged]);
+  }, [dispatch, handleOpenConfirmation, trigger, isSupportChanged]);
 
   const onSubmit = () => {
     handleSubmit((data) => {

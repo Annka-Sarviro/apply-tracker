@@ -41,6 +41,7 @@ function useContactUs(type: "addSupport" | "updateSupport") {
     reset,
     watch,
     getValues,
+    trigger,
     setValue,
     formState: { errors },
   } = useForm<z.infer<typeof ContactUsSchema>>({
@@ -72,17 +73,24 @@ function useContactUs(type: "addSupport" | "updateSupport") {
   const watchedValues = watch();
   const isSupportChanged = useMemo(() => {
     if (type === "addSupport") {
-      return (
+      const nameChanged =
         watchedValues?.name?.length > 0 &&
-        watchedValues?.requestText?.length > 0
-      );
+        watchedValues?.name !== dataUser?.username;
+
+      const emailChanged = watchedValues?.email !== dataUser?.email;
+
+      const textFilled = watchedValues?.requestText?.length > 0;
+
+      return nameChanged || emailChanged || textFilled;
     }
+
     if (!supportData) return false;
+
     return (
       watchedValues?.name !== supportData.name ||
       watchedValues?.requestText !== supportData.text
     );
-  }, [watchedValues, supportData, type]);
+  }, [watchedValues, supportData, type, dataUser]);
 
   const onSubmit: SubmitHandler<z.infer<typeof ContactUsSchema>> = async (
     data
@@ -122,6 +130,7 @@ function useContactUs(type: "addSupport" | "updateSupport") {
     onSubmit,
     watch,
     isSupportChanged,
+    trigger,
     // використовуємо RTK Query стан мутації для глобального лоадінгу
     isLoading: createSupportState.isLoading || updateSupportState.isLoading,
   };
