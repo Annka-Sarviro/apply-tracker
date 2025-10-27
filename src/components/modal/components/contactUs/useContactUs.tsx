@@ -52,7 +52,7 @@ function useContactUs(type: "addSupport" | "updateSupport") {
       email: "",
     },
     resolver: zodResolver(ContactUsSchema),
-    mode: "onBlur",
+    mode: "all",
   });
 
   useEffect(() => {

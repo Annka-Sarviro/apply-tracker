@@ -77,7 +77,7 @@ const useEditVacancy = () => {
       rejectDropdown: "",
     },
     resolver: zodResolver(AddVacancySchema),
-    mode: "onBlur",
+    mode: "all",
   });
 
   useEffect(() => {

@@ -66,7 +66,7 @@ const useVacancy = () => {
   } = useForm<z.infer<typeof AddVacancySchema>>({
     defaultValues,
     resolver: zodResolver(AddVacancySchema),
-    mode: "onBlur",
+    mode: "all",
   });
 
   const watchedValues = watch();
