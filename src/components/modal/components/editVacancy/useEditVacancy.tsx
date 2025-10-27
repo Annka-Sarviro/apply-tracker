@@ -19,8 +19,12 @@ import {
   closeModal,
 } from "@/store/slices/modalSlice/modalSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hook";
-import { StatusName, RejectReason } from "@/types/vacancies.types";
-import { useState, useEffect, useMemo } from "react";
+import {
+  StatusName,
+  RejectReason,
+  RequiredFieldsProps,
+} from "@/types/vacancies.types";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useDeleteVacancyByIdMutation } from "@/store/querySlices/vacanciesQuerySlice";
 import { useNavigate } from "react-router-dom";
@@ -54,6 +58,7 @@ const useEditVacancy = () => {
     setValue,
     watch,
     trigger,
+    clearErrors,
     formState: { errors },
   } = useForm<z.infer<typeof AddVacancySchema>>({
     defaultValues: {
@@ -135,6 +140,23 @@ const useEditVacancy = () => {
 
   //-----------------------------------------------------
   const navigate = useNavigate();
+
+  const isButtonDisabled = useCallback(() => {
+    const requiredFields: RequiredFieldsProps[] = [
+      "company",
+      "vacancy",
+      "link",
+      "location",
+    ];
+    const hasEmptyRequiredFields = requiredFields.some(
+      (field: RequiredFieldsProps) => {
+        const value = watch(field);
+        return !value;
+      }
+    );
+    const hasValidationErrors = !!Object.keys(errors).length;
+    return hasEmptyRequiredFields || hasValidationErrors;
+  }, [watch, errors]);
 
   const onSubmit: SubmitHandler<z.infer<typeof AddVacancySchema>> = async (
     data
@@ -269,6 +291,8 @@ const useEditVacancy = () => {
     isFormChanged,
     watch,
     trigger,
+    isButtonDisabled,
+    clearErrors,
   };
 };
 

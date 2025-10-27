@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../../../store/hook";
 import {
   openConfirmation,
   closeButton,
+  closeModal,
 } from "../../../../store/slices/modalSlice/modalSlice";
 // component
 import { CheckboxWithCalendar } from "../addVacancyModals/CheckboxWithCalendar";
@@ -35,25 +36,40 @@ const EditVacancy = () => {
     errors,
     getValues,
     setValue,
+    isButtonDisabled,
     vacancyData,
     isFormChanged,
+    clearErrors,
     watch,
     trigger,
   } = useEditVacancy();
 
   const isArchived = vacancyData?.isArchived || "";
+  // const handleConfirmation = useCallback(
+  //   (typeConfirmation: TypesModal) => {
+  //     handleSubmit((data: any) => {
+  //       dispatch(
+  //         openConfirmation({
+  //           typeConfirmation,
+  //           dataConfirmation: data,
+  //         })
+  //       );
+  //     })();
+  //   },
+  //   [dispatch, handleSubmit]
+  // );
+
   const handleConfirmation = useCallback(
     (typeConfirmation: TypesModal) => {
-      handleSubmit((data: any) => {
-        dispatch(
-          openConfirmation({
-            typeConfirmation,
-            dataConfirmation: data,
-          })
-        );
-      })();
+      const data = getValues();
+      dispatch(
+        openConfirmation({
+          typeConfirmation,
+          dataConfirmation: data,
+        })
+      );
     },
-    [dispatch, handleSubmit]
+    [dispatch, getValues]
   );
 
   const handleCloseModalClick = useCallback(async () => {
@@ -72,8 +88,45 @@ const EditVacancy = () => {
     );
   }, [dispatch, getValues, trigger]);
 
+  useEffect(() => {
+    dispatch(
+      // closeButton({
+      //   isButtonOpen: isFormChanged,
+      //   resetForm: () => handleOpenConfirmation("closeModalSaveAddVacancies"),
+      // })
+      closeButton({
+        isButtonOpen: isFormChanged,
+        resetForm: () => {
+          trigger().then((isValidOnClose) => {
+            if (isValidOnClose && isFormChanged) {
+              handleConfirmation("closeModalSaveEditEvent");
+            } else if (isFormChanged) {
+              dispatch(
+                openConfirmation({
+                  typeConfirmation: "closeDiscardModal",
+                })
+              );
+            } else {
+              dispatch(closeModal());
+            }
+          });
+        },
+      })
+    );
+  }, [dispatch, handleConfirmation, trigger, isFormChanged]);
+
   const deleteVacancy = () => handleConfirmation("deleteVacancy");
-  const saveVacancy = () => handleConfirmation("saveEditVacancies");
+  const saveVacancy = () => {
+    handleSubmit((data) => {
+      dispatch(
+        openConfirmation({
+          typeConfirmation: "saveAddVacancies",
+          dataConfirmation: data,
+        })
+      );
+    })();
+  };
+
   const handleSubmitArchive = () =>
     handleConfirmation(isArchived ? "restoreVacancy" : "archiveVacancy");
 
@@ -158,6 +211,7 @@ const EditVacancy = () => {
                     setValue={setValue}
                     ref={(el) => assignInputRef(checkboxCalendar.id, el)}
                     onFocus={() => setFocusedId(checkboxCalendar.id)}
+                    clearErrors={clearErrors}
                   />
                 ))}
               </div>
@@ -195,6 +249,7 @@ const EditVacancy = () => {
                 variant="ghost"
                 size="small"
                 onClick={handleSubmitArchive}
+                disabled={isButtonDisabled()}
               >
                 {t(`addVacancy.form.${isArchived ? "restore" : "archive"}`)}
                 <Icon
@@ -208,6 +263,7 @@ const EditVacancy = () => {
                 variant="ghost"
                 size="small"
                 onClick={deleteVacancy}
+                disabled={isButtonDisabled()}
               >
                 {t("addVacancy.form.delete")}
                 <Icon id={"delete"} className="ml-3 h-6 w-6" />
@@ -215,10 +271,11 @@ const EditVacancy = () => {
             </div>
             <Button
               type="button"
-              disabled={!isFormChanged}
+              // disabled={!isFormChanged}
               className="w-full md:mx-auto xl:mx-0 xl:w-auto"
               variant="accent"
               size="big"
+              disabled={isButtonDisabled()}
               onClick={saveVacancy}
             >
               {t("addVacancy.form.save")}
