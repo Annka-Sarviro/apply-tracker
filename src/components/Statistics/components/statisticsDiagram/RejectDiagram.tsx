@@ -1,5 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from "react";
-// import { useAppSelector } from "../../../../store/slices/themeSlice/themeSelector.ts";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { RejectReason, Vacancy } from "../../../../types/vacancies.types";
 import { cn } from "../../../../utils/utils";
@@ -8,12 +7,10 @@ import DiagramTitle from "./DiagramTitle";
 import CustomLegend from "../../../charts/CustomLegend";
 import CustomTooltip from "../../../charts/CustomTooltip";
 
-// import { selectTheme } from "../../store/slices/themeSlice/themeSelector.ts";
-
 const RejectDiagram = ({ vacancies }: { vacancies: Vacancy[] }) => {
-  // const isDarkMode = useAppSelector(selectTheme);
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const liRef = useRef<HTMLLIElement | null>(null);
 
   const rejects = useMemo(() => {
     return vacancies.flatMap((vacancy) =>
@@ -135,32 +132,58 @@ const RejectDiagram = ({ vacancies }: { vacancies: Vacancy[] }) => {
     title: "",
     percent: "",
   });
-
-  if (rejects.length === 0) {
-    return null;
-  }
-
-  const handleMouseEnter = (
-    event: React.MouseEvent<HTMLLIElement, MouseEvent>,
-    item: { title: string; width: string }
-  ) => {
-    if (!containerRef.current) return;
+  const updateTooltipPosition = useCallback(() => {
+    if (!containerRef.current || !liRef.current || !tooltip.visible) return;
 
     const containerRect = containerRef.current.getBoundingClientRect();
-    const elementRect = event.currentTarget.getBoundingClientRect();
+    const elementRect = liRef.current.getBoundingClientRect();
+
+    let x = elementRect.left + elementRect.width / 2 - containerRect.left;
+    let y = elementRect.top - containerRect.top - 8;
+
+    x = Math.max(8, Math.min(x, containerRect.width - 8));
+    y = Math.max(8, Math.min(y, containerRect.height - 8));
+
+    setTooltip((prev) => ({ ...prev, x, y }));
+  }, [tooltip.visible]);
+
+  const handleMouseEnter = (
+    e: React.MouseEvent<HTMLLIElement>,
+    item: { title: string; width: string }
+  ) => {
+    liRef.current = e.currentTarget;
+    const containerRect = containerRef.current!.getBoundingClientRect();
+    const elementRect = e.currentTarget.getBoundingClientRect();
+
+    let x = elementRect.left + elementRect.width / 2 - containerRect.left;
+    let y = elementRect.top - containerRect.top - 8;
+    x = Math.max(8, Math.min(x, containerRect.width - 8));
+    y = Math.max(8, Math.min(y, containerRect.height - 8));
 
     setTooltip({
       visible: true,
-      x: elementRect.left + elementRect.width / 2 - containerRect.left,
-      y: elementRect.top - containerRect.top,
+      x,
+      y,
       title: t(`statisticsRejectDiagram.${item.title}`),
       percent: item.width,
     });
   };
 
+  useEffect(() => {
+    window.addEventListener("resize", updateTooltipPosition);
+    window.addEventListener("orientationchange", updateTooltipPosition);
+
+    return () => {
+      window.removeEventListener("resize", updateTooltipPosition);
+      window.removeEventListener("orientationchange", updateTooltipPosition);
+    };
+  }, [updateTooltipPosition]);
   const handleMouseLeave = () => {
     setTooltip((prev) => ({ ...prev, visible: false }));
   };
+  if (rejects.length === 0) {
+    return null;
+  }
 
   return (
     <div
@@ -198,12 +221,14 @@ const RejectDiagram = ({ vacancies }: { vacancies: Vacancy[] }) => {
         })}
       </ul>
       {tooltip.x !== null && tooltip.y !== null && (
-        <CustomTooltip
-          title={tooltip.title}
-          percent={tooltip.percent}
-          position={{ x: tooltip.x, y: tooltip.y }}
-          visible={tooltip.visible}
-        />
+        <div className="pointer-events-none absolute inset-0 overflow-visible">
+          <CustomTooltip
+            title={tooltip.title}
+            percent={tooltip.percent}
+            position={{ x: tooltip.x, y: tooltip.y }}
+            visible={tooltip.visible}
+          />
+        </div>
       )}
       <CustomLegend
         data={chartData}
