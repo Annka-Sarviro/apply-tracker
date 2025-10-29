@@ -39,13 +39,20 @@ function ProfileLinksField() {
 
   useEffect(() => {
     if (!profile) return;
+
+    const sanitizeValue = (value?: string) => {
+      if (!value) return "";
+      return value.replace(/\bundefined\b|null/gi, "").trim();
+    };
+
     userData.forEach((key) => {
-      const value = profile[key] ?? "";
+      const rawValue = profile[key] ?? "";
+      const value = sanitizeValue(rawValue);
+
       setValue(key, value);
       initialValues.current[key] = value;
     });
   }, [profile, setValue]);
-
   const handleUpdateUserData = async (name: ProfileKeys, event: string) => {
     if (initialValues.current[name] === event) {
       return;

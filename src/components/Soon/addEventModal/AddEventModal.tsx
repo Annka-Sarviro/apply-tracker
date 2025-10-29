@@ -66,7 +66,7 @@ const AddEventModal = () => {
   return (
     <form
       noValidate
-      onSubmit={handleSubmit} // Використовуємо handleSubmit, який повертає useForm
+      onSubmit={handleSubmit}
       className="mt-4 flex w-full flex-col gap-3 align-middle md:gap-4 xl:mt-10 3xl:mt-14 3xl:gap-6"
     >
       <div className="flex w-full flex-col gap-4 md:flex-row xl:gap-6">

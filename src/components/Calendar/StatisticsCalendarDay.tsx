@@ -55,7 +55,6 @@ export const StatisticsCalendarDay: React.FC<StatisticsCalendarDayProps> = ({
         view="month"
         locale={i18n.language}
         onChange={(date) => {
-          // console.log("Клік на дату (день):", date);
           onDateChange(date as Date);
         }}
         className="statistics-calendar__day"

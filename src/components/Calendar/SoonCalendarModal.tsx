@@ -29,13 +29,11 @@ export const SoonCalendarModal: React.FC<SoonCalendarModalProps> = ({
   const handleDateChange = (selectedDate: Date) => {
     setSelectedDate(selectedDate);
 
-    // const formattedDate = selectedDate.toISOString().split("T")[0]; // Перетворюємо в "YYYY-MM-DD"
     const year = selectedDate.getFullYear();
-    const month = String(selectedDate.getMonth() + 1).padStart(2, "0"); // Додаємо +1, бо місяці у JS від 0 до 11
+    const month = String(selectedDate.getMonth() + 1).padStart(2, "0");
     const day = String(selectedDate.getDate()).padStart(2, "0");
 
-    const formattedDate = `${year}-${month}-${day}`; // Отримуємо YYYY-MM-DD у локальному часі
-    // console.log("Обрана дата:", formattedDate);
+    const formattedDate = `${year}-${month}-${day}`;
 
     if (onSelectDate) {
       onSelectDate(formattedDate);
@@ -54,7 +52,6 @@ export const SoonCalendarModal: React.FC<SoonCalendarModalProps> = ({
         view="month"
         locale={i18n.language}
         onChange={(date) => {
-          console.log("Клік на дату (день):", date);
           handleDateChange(date as Date);
           onChange?.();
         }}

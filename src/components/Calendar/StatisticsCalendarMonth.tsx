@@ -28,16 +28,15 @@ export const StatisticsCalendarMonth: React.FC<
       )}
     >
       <Calendar
-        view="year" // Відображає 1 рік, в ньому місяців
+        view="year"
         locale={i18n.language}
         onClickMonth={(date) => {
           const firstDayOfMonth = new Date(
             date.getFullYear(),
             date.getMonth(),
             1
-          ); // Переконуємося, що дата - це 1-е число місяця
-          //   console.log("Клік на місяць:", date);
-          //   console.log("Клік на місяць (початок місяця):", firstDayOfMonth);
+          );
+
           setSelectedMonth(firstDayOfMonth);
           onMonthChange(firstDayOfMonth);
         }}
@@ -58,7 +57,6 @@ export const StatisticsCalendarMonth: React.FC<
         }
         tileContent={({ date, view }) => {
           if (view === "year") {
-            // Додаємо кастомні назви місяців (скорочені по дизайну)
             return <span>{months[date.getMonth()]}</span>;
           }
           return null;

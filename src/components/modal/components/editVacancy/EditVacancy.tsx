@@ -82,7 +82,7 @@ const EditVacancy = () => {
       openConfirmation({
         typeConfirmation: isValid
           ? "closeModalSaveEditVacancies" // помилок немає
-          : "closeModalSaveEditVacancies", // є помилки
+          : "closeDiscardModal", // є помилки
         dataConfirmation: data,
       })
     );

@@ -29,7 +29,6 @@ export const getEventSchema = () => {
       .refine((val) => val !== undefined && val !== null && val !== "", {
         message: "soonSection.hoursRequired",
       })
-      // .transform((val) => Number(val)) // Перетворюємо в число
       .transform((val) => {
         if (val === "" || val === undefined || val === null) return undefined;
         return Number(val);

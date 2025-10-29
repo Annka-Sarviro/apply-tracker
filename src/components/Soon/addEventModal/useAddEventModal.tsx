@@ -29,6 +29,7 @@ interface OptionType {
 const useAddEventModal = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, { isLoading }] = useCreateEventMutation();
   const [menuOpenHours, setMenuOpenHours] = useState(false);
   const [menuOpenMinutes, setMenuOpenMinutes] = useState(false);

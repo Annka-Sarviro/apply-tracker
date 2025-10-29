@@ -15,15 +15,12 @@ const calendarSlice = createSlice({
   reducers: {
     setSelectedDate: (state, action: PayloadAction<Date>) => {
       state.selectedDate = action.payload;
-      // console.log("слайс обрали день", state.selectedDate)
     },
     setSelectedMonth: (state, action: PayloadAction<Date>) => {
       state.selectedMonth = action.payload;
-      // console.log("слайс обрали місяць", state.selectedMonth)
     },
     setSelectedYear: (state, action: PayloadAction<number>) => {
       state.selectedYear = action.payload;
-      // console.log("слайс обрали рік", state.selectedYear)
     },
     setActiveTab: (state, action: PayloadAction<CalendarTab>) => {
       state.activeTab = action.payload;

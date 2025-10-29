@@ -34,11 +34,3 @@ export const JobCalendar = ({ changeDate, dateState }: JobCalendarProps) => {
     />
   );
 };
-
-// приклад CheckboxCalendarItem.tsx
-// поточна дата
-// const [dateState, setDateState] = useState<ValueCalendar>(new Date());
-// функція збереження дати
-// const changeDate = (e: ValueCalendar) => {
-//   setDateState(e);
-// };
