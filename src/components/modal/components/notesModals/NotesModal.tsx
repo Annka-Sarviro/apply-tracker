@@ -11,6 +11,7 @@ import { useAppDispatch } from "@/store/hook";
 import {
   openConfirmation,
   closeButton,
+  closeModal,
 } from "@/store/slices/modalSlice/modalSlice";
 
 import { TypesModal } from "../../ModalMain.types";
@@ -29,6 +30,8 @@ const NotesModal = ({ type }: NoteType) => {
     isNoteChanged,
     watch,
     isLoading,
+    justCreated,
+    setJustCreated,
   } = useNotes(type);
 
   const hasNoteName = Boolean(watch("noteName"));
@@ -41,6 +44,7 @@ const NotesModal = ({ type }: NoteType) => {
     (typeConfirmation: TypesModal) => {
       if (hasErrors || !hasNoteName || !hasNoteText) {
         dispatch(openConfirmation({ typeConfirmation: "closeDiscardModal" }));
+        setJustCreated(false);
       } else {
         handleSubmit((data) => {
           dispatch(
@@ -50,9 +54,17 @@ const NotesModal = ({ type }: NoteType) => {
             })
           );
         })();
+        setJustCreated(true);
       }
     },
-    [dispatch, hasErrors, hasNoteName, hasNoteText, handleSubmit]
+    [
+      dispatch,
+      hasErrors,
+      hasNoteName,
+      hasNoteText,
+      handleSubmit,
+      setJustCreated,
+    ]
   );
 
   const saveNote = () => handleConfirmation("saveNote");
@@ -62,10 +74,20 @@ const NotesModal = ({ type }: NoteType) => {
     const isButtonOpen =
       type === "updateNote" ? isNoteChanged : hasNoteName || hasNoteText;
 
+    const resetFormHandler = () => {
+      if (type === "addNote" && !justCreated && isNoteChanged) {
+        handleConfirmation("closeModalSaveNote");
+      } else if (type === "updateNote" && isNoteChanged) {
+        handleConfirmation("closeModalSaveNote");
+      } else {
+        dispatch(closeModal());
+      }
+    };
+
     dispatch(
       closeButton({
         isButtonOpen,
-        resetForm: () => handleConfirmation("closeModalSaveNote"),
+        resetForm: resetFormHandler,
       })
     );
   }, [
@@ -77,6 +99,7 @@ const NotesModal = ({ type }: NoteType) => {
     dispatch,
     isDisabledButton,
     handleConfirmation,
+    justCreated,
   ]);
 
   return (

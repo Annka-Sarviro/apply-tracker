@@ -29,6 +29,7 @@ function useNotes(type: "addNote" | "updateNote") {
   const dispatch = useAppDispatch();
   const [createNote] = useCreateNoteMutation();
   const [updateNoteById] = useUpdateNoteByIdMutation();
+  const [justCreated, setJustCreated] = useState(false);
 
   const { refetch: refetchNote } = useGetAllUserDataQuery();
 
@@ -59,7 +60,7 @@ function useNotes(type: "addNote" | "updateNote") {
         noteType: type,
       });
     }
-  }, []);
+  }, [noteData?.name, noteData?.text, reset, type]);
 
   // Видалити нотатку
   const [deleteNoteById] = useDeleteNoteByIdMutation();
@@ -71,6 +72,7 @@ function useNotes(type: "addNote" | "updateNote") {
       refetchNote();
       notifySuccess(t("notification.noteDelete"));
       dispatch(closeModal());
+      setJustCreated(false);
     } catch (err) {
       console.log(err);
       notifyError(t("notification.noteDeleteError"));
@@ -99,6 +101,7 @@ function useNotes(type: "addNote" | "updateNote") {
 
   const onSubmit: SubmitHandler<z.infer<typeof NoteSchema>> = async (data) => {
     try {
+      setIsLoading(true);
       const { noteName, noteText, noteType } = data;
       // 1 - запит на збереження нової нотатки
       if (noteType === "addNote") {
@@ -106,6 +109,8 @@ function useNotes(type: "addNote" | "updateNote") {
           name: noteName,
           text: noteText,
         }).unwrap();
+        console.log("catch");
+        setJustCreated(true);
       }
       // 2 - запит на редагування нотатки
       if (noteType === "updateNote") {
@@ -117,7 +122,6 @@ function useNotes(type: "addNote" | "updateNote") {
       }
       refetchNote();
       notifySuccess(t("notification.vacancyAdded"));
-      setIsLoading(true);
       dispatch(closeModal());
     } catch (error) {
       notifyError(t("notification.vacancyError"));
@@ -137,6 +141,8 @@ function useNotes(type: "addNote" | "updateNote") {
     deleteNote,
     isNoteChanged,
     watch,
+    justCreated,
+    setJustCreated,
   };
 }
 
