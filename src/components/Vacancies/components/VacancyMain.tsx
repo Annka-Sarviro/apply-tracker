@@ -113,8 +113,8 @@ const VacancyMain: FC = () => {
 
       {/* Заглушка "картка Створіть вашу першу вакансію", якщо взагалі вакансій немає, секція "Збережені" */}
       {!isLoading &&
-        // vacancies.length === 0 &&
         renderedVacancies.length === 0 &&
+        !searchQuery &&
         !isArchive &&
         (!isMobile ? (
           <VacancySection

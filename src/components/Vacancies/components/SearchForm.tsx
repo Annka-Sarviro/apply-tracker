@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -18,8 +18,17 @@ import Icon from "../../Icon/Icon";
 import { SearchResults } from "./SearchResults";
 import { PayloadAction } from "@reduxjs/toolkit";
 
+// const SearchSchema = z.object({
+//   query: z.string().min(1, `vacanciesHeader.searchError`).max(100),
+// });
+
 const SearchSchema = z.object({
-  query: z.string().min(1, `vacanciesHeader.searchError`).max(100),
+  query: z
+    .string()
+    .max(50, "vacanciesHeader.searchMaxError")
+    .refine((val) => val.trim().length >= 1 || val === "", {
+      message: "vacanciesHeader.searchError",
+    }),
 });
 
 type SearchFormData = z.infer<typeof SearchSchema>;
@@ -60,12 +69,25 @@ export const SearchForm: React.FC = () => {
 
   const queryFromRedux = useSelector(selector);
 
+  const getAction = (variant: string) => {
+    switch (variant) {
+      case "vacancies":
+      case "archive":
+        return setSearchQuery;
+      case "notes":
+        return setNotesSearchQuery;
+      default:
+        return () => ({ type: "noop", payload: "" }) as PayloadAction<string>;
+    }
+  };
+
   const {
     register,
     resetField,
     handleSubmit,
     setFocus,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<SearchFormData>({
     defaultValues: {
@@ -78,23 +100,31 @@ export const SearchForm: React.FC = () => {
   const handleSearch = (query: string) => {
     dispatch(action(query));
   };
-  const prevPathname = useRef(location.pathname);
+
+  const queryValue = watch("query");
 
   useEffect(() => {
-    if (prevPathname.current !== location.pathname) {
-      if (variant === "vacancies" || variant === "archive") {
-        dispatch(setSearchQuery(""));
-      } else if (variant === "notes") {
-        dispatch(setNotesSearchQuery(""));
-      }
+    if (queryValue === "") {
+      // Якщо поле порожнє, скидаємо пошук
+      const action = getAction(variant);
+      dispatch(action("")); // очищаємо Redux
+      resetField("query"); // очищаємо поле форми
+    }
+  }, [queryValue, dispatch, variant, resetField]);
 
-      resetField("query");
+  useEffect(() => {
+    const currentVariant = location.pathname.replace(/^\/+/, "");
 
-      if (!isDesktop) {
-        dispatch(closeSearch());
-      }
+    if (currentVariant === "vacancies" || currentVariant === "archive") {
+      dispatch(setSearchQuery(""));
+    } else if (variant === "notes") {
+      dispatch(setNotesSearchQuery(""));
+    }
 
-      prevPathname.current = location.pathname;
+    resetField("query");
+
+    if (!isDesktop) {
+      dispatch(closeSearch());
     }
   }, [location.pathname, variant, dispatch, resetField, isDesktop]);
 
@@ -149,7 +179,7 @@ export const SearchForm: React.FC = () => {
               {...register("query")}
               aria-describedby={`inputError-query`}
             />
-            {error && (
+            {queryValue && (
               <button
                 onClick={() => handleClear()}
                 type="button"
@@ -159,7 +189,10 @@ export const SearchForm: React.FC = () => {
               >
                 <Icon
                   id="cancel-in-round"
-                  className="h-6 w-6 cursor-pointer fill-redColor"
+                  className={cn(
+                    "h-6 w-6 cursor-pointer",
+                    error ? "fill-redColor" : "fill-iconHover"
+                  )}
                 />
               </button>
             )}

@@ -150,7 +150,8 @@
     "searchResults": "search results",
     "emptySection": "There are no vacancies in this section...",
     "cardFirst": "Save your first job",
-    "searchError": "Search query cannot be empty"
+    "searchError": "Search query cannot be empty",
+    "searchMaxError": "Search query cannot be more then 50 characters"
   },
   "sortDropdown": {
     "sortBy": "Sort by",
