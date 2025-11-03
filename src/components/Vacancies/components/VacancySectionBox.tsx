@@ -121,7 +121,7 @@ const VacancySectionBox: FC<VacancySectionBoxProps> = ({
           </div>
           {/* підкладка під скролл для isIOS і isFirefox */}
           {(isIOS || isFirefox) && (
-            <div className="pointer-events-none absolute right-[2px] top-0 h-full w-[6px] rounded-md bg-[#a0a0a0] opacity-30" />
+            <div className="pointer-events-none absolute right-[1px] top-0 h-full w-[6px] rounded-md bg-[#a0a0a0] opacity-30" />
           )}
         </div>
       </div>

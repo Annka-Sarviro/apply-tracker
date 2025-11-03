@@ -139,7 +139,7 @@ body {
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-  background-color: #c2c2c2;
+  background-color: var(--color9);
   border-radius: 4px;
 }
 .dark .scrollbar::-webkit-scrollbar-thumb {
@@ -571,17 +571,16 @@ abbr {
 }
 
 .react-calendar__year-view__months__month > abbr {
-  display: none; /* приховуємо стандартний текст місяців */
+  display: none;
 }
 .react-calendar__year-view__months__month > span {
-  display: inline-block; /* кастомний скорочений текст місяців*/
+  display: inline-block;
 }
 
-/* Приховані клітинки для днів з іншого місяця */
 .calendar-hidden-cell {
-  visibility: hidden; /* Приховує текст і контент клітинки */
-  pointer-events: none; /* Вимикає взаємодію */
-  background-color: transparent; /* Зберігає прозорий фон */
+  visibility: hidden;
+  pointer-events: none;
+  background-color: transparent;
 }
 
 .modalScroll {
