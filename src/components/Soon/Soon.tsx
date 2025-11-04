@@ -62,10 +62,6 @@ export const Soon = () => {
   };
 
   useEffect(() => {
-    // const ua = window.navigator.userAgent;
-    // /.../i — це регулярний вираз: // iPhone|iPad|iPod — означає "будь-яке з трьох" // i — означає "ігноруй регістр"
-    // const isIOSDevice = /iPad|iPhone|iPod/i.test(ua) && !("MSStream" in window);
-
     const ua = window.navigator.userAgent.toLowerCase();
     const isIOSDevice = /iphone|ipad|ipod/.test(ua);
     const isFirefoxBrowser = ua.includes("firefox");
@@ -102,7 +98,10 @@ export const Soon = () => {
           </button>
           {/* Tooltip */}
           {/* -top-9 -translate-x-1/2 left-1/2*/}
-          <div className="absolute right-[100%] top-0 z-10 whitespace-nowrap rounded bg-color6 px-2 py-1 text-[10px] text-textBlack opacity-0 transition-opacity group-hover:opacity-100 smPlus:text-xs">
+          <div
+            key={showArchived ? "hide" : "show"}
+            className="absolute right-[100%] top-0 z-10 whitespace-nowrap rounded bg-color6 px-2 py-1 text-[10px] text-textBlack opacity-0 transition-opacity group-hover:opacity-100 smPlus:text-xs"
+          >
             {showArchived
               ? t("soonSection.hideEventArchive")
               : t("soonSection.showEventArchive")}
