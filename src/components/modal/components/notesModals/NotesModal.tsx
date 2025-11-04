@@ -16,6 +16,7 @@ import {
 
 import { TypesModal } from "../../ModalMain.types";
 import { NoteType } from "@/types/notes.types";
+import { cn } from "@/utils/utils";
 
 const NotesModal = ({ type }: NoteType) => {
   const dispatch = useAppDispatch();
@@ -42,7 +43,8 @@ const NotesModal = ({ type }: NoteType) => {
 
   const handleConfirmation = useCallback(
     (typeConfirmation: TypesModal) => {
-      if (hasErrors || !hasNoteName || !hasNoteText) {
+      const hasPartialData = hasNoteName || hasNoteText;
+      if (hasErrors || !hasPartialData) {
         dispatch(openConfirmation({ typeConfirmation: "closeDiscardModal" }));
         setJustCreated(false);
       } else {
@@ -69,20 +71,35 @@ const NotesModal = ({ type }: NoteType) => {
 
   const saveNote = () => handleConfirmation("saveNote");
   const deleteNote = () => handleConfirmation("deleteNote");
-
   useEffect(() => {
-    const isButtonOpen =
-      type === "updateNote" ? isNoteChanged : hasNoteName || hasNoteText;
+    const hasFilledFields = hasNoteName || hasNoteText;
+    const isPartial = hasFilledFields && !(hasNoteName && hasNoteText);
 
     const resetFormHandler = () => {
-      if (type === "addNote" && !justCreated && isNoteChanged) {
-        handleConfirmation("closeModalSaveNote");
-      } else if (type === "updateNote" && isNoteChanged) {
-        handleConfirmation("closeModalSaveNote");
-      } else {
-        dispatch(closeModal());
+      if (hasErrors && hasFilledFields) {
+        dispatch(openConfirmation({ typeConfirmation: "closeDiscardModal" }));
+        setJustCreated(false);
+        return;
       }
+
+      if (isPartial) {
+        dispatch(openConfirmation({ typeConfirmation: "closeDiscardModal" }));
+        setJustCreated(false);
+        return;
+      }
+
+      if (isNoteChanged) {
+        handleConfirmation("closeModalSaveNote");
+        setJustCreated(true);
+        return;
+      }
+
+      dispatch(closeModal());
+      setJustCreated(false);
     };
+
+    const isButtonOpen =
+      type === "updateNote" ? isNoteChanged : hasFilledFields;
 
     dispatch(
       closeButton({
@@ -97,7 +114,6 @@ const NotesModal = ({ type }: NoteType) => {
     hasErrors,
     type,
     dispatch,
-    isDisabledButton,
     handleConfirmation,
     justCreated,
   ]);
@@ -150,10 +166,13 @@ const NotesModal = ({ type }: NoteType) => {
                   variant="ghost"
                   size="small"
                   onClick={deleteNote}
-                  disabled={isDisabledButton}
+                  disabled={isLoading}
                 >
                   {t("addVacancy.form.delete")}
-                  <Icon id={"delete"} className="ml-3 h-6 w-6" />
+                  <Icon
+                    id={"delete"}
+                    className={cn("ml-3 h-6 w-6", isLoading && "fill-color6")}
+                  />
                 </Button>
                 <Button
                   type="button"

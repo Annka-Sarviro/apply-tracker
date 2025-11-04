@@ -81,8 +81,6 @@ function useNotes(type: "addNote" | "updateNote") {
     dispatch(closeConfirmation());
   };
 
-  // якщо зміна у нотатках відбулася, активна кнопка збереження
-  // та кнопка закриття модального вікна пропонує зберегти, якщо ні ...
   const watchedValues = watch();
   const isNoteChanged = useMemo(() => {
     if (type === "addNote") {
@@ -109,7 +107,6 @@ function useNotes(type: "addNote" | "updateNote") {
           name: noteName,
           text: noteText,
         }).unwrap();
-        console.log("catch");
         setJustCreated(true);
       }
       // 2 - запит на редагування нотатки
