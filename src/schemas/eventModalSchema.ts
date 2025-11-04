@@ -4,7 +4,7 @@ export const getEventSchema = () => {
   return z.object({
     soonEventName: z
       .string()
-      .min(1, "soonSection.soonModalNameLength")
+      .min(3, "soonSection.soonModalNameLength")
       .max(50, "soonSection.soonModalNameLength"),
     soonEventNotes: z
       .string()

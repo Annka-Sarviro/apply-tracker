@@ -496,7 +496,7 @@
     "save": "Зберегти",
     "delete": "Видалити",
     "soonModalNamePlaceholder": "Введіть назву події",
-    "soonModalNameLength": "Назва події має бути від 1 до 50 символів",
+    "soonModalNameLength": "Назва події має бути від 3 до 50 символів",
     "soonModalNotesPlaceholder": "Місце для нотаток",
     "soonModalNotes": "Нотатки мають бути не більше 1000 символів",
     "soonModalTimeHours": "Години",

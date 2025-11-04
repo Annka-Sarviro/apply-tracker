@@ -47,6 +47,7 @@ const useAddEventModal = () => {
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(getEventSchema()),
+    mode: "all",
     defaultValues: {
       soonEventName: "",
       soonEventNotes: "",

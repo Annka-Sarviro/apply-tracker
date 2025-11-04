@@ -495,7 +495,7 @@
     "save": "Save",
     "delete": "Delete",
     "soonModalNamePlaceholder": "Enter the event name",
-    "soonModalNameLength": "Event name must be between 1 and 50 char.",
+    "soonModalNameLength": "Event name must be between 3 and 50 char.",
     "soonModalNotesPlaceholder": "Place for notes",
     "soonModalNotes": "Notes must be no more than 1000 char.",
     "soonModalTimeHours": "Hours",
